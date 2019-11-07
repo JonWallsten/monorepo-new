@@ -11,7 +11,7 @@
       "standAlone": {}
     },
     {
-      "id": "wui-example-ts",
+      "id": "wui-example-js",
       "name": "Example JS (wui)",
       "category": 7,
       "description": {

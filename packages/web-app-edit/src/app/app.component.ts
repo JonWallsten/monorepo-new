@@ -1,7 +1,7 @@
 /**
  * Angular 2 decorators and services
  */
-import { Component, ViewEncapsulation, NgZone, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Component, ViewEncapsulation, NgZone, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IdleProcessor, DialogService } from '@oas/web-lib-angular';
@@ -23,7 +23,6 @@ export class AppComponent implements AfterViewInit {
     public readonly isMSIE: boolean;
 
     constructor (
-        private cd: ChangeDetectorRef,
         private matIconRegistry: MatIconRegistry,
         private domSanitizer: DomSanitizer,
         private zone: NgZone,
@@ -42,8 +41,6 @@ export class AppComponent implements AfterViewInit {
         this.matIconRegistry.addSvgIcon('warning-rounded', this.domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/warning-rounded.svg'));
         this.matIconRegistry.addSvgIcon('info-rounded', this.domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/info-rounded.svg'));
         this.matIconRegistry.addSvgIcon('bug-rounded', this.domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/bug-rounded.svg'));
-
-        this.cd.detectChanges();
     }
 
     ngAfterViewInit () {

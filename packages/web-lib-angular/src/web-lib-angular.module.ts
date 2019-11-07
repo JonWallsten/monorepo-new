@@ -34,7 +34,8 @@ import { PipesModule } from './pipes/pipes.module';
         DialogComponent,
         TestIdentifierDirective,
         DebugComponent,
-        PipesModule
+        PipesModule,
+        MaterialDesignModule
     ],
     // Components used in dialogs
     entryComponents: [

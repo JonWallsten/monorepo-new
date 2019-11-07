@@ -226,7 +226,7 @@ export class AppHandlerClass {
     }
 
     /**
-     * Return the first root app instance a.k.a. MyWork.
+     * Return the first root app instance
      *
      * @returns {AppInstance} Return the first app instance
      * @memberof Prime
@@ -426,13 +426,6 @@ export class AppHandlerClass {
         // OasPrimeOpenOptions.id -> AppInstanceOptions.entryId, AppInstanceOptions.id refers to the AppInstance id
         delete appInstanceOptions.id;
         appInstanceOptions.entryId = openOptions.id;
-
-        // console.warn('OasPrime.open:parent', childOptions, originChildWindowId, this._appInstances[originChildWindowId]);
-        // MyWork tab is not allowed to be closed/removed. So we add a permanent flag for the menu controller to use to prevent this.
-        if (openOptions.id === 'mywork') {
-            appInstanceOptions.permanent = true;
-            appInstanceOptions.initial = true;
-        }
 
         // Save a reference to an optional parent for hierarchy purposes.
         // Avoid setting the parent when the parent is special (currently App lib or My work)
@@ -683,7 +676,7 @@ export class AppHandlerClass {
 
         let openInstance: AppInstance | undefined;
         forEach(this.appInstances, (instance: AppInstance) => {
-            if (instance.entryId === entryId && entryId === 'applicationlibrary' || instance.entryId === entryId && entryId === 'mywork') {
+            if (instance.entryId === entryId && entryId === 'applicationlibrary') {
 
                 if (!this.router) {
                     throw new Error('[AppHandler].alreadyOpen(): Router is missing');

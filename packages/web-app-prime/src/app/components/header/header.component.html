@@ -4,19 +4,19 @@
     </button>
 
     <div class="prime-nav-bar" [ngClass]="{'expanded': expanded}" role="navigation">
-        <button mat-button (click)="activateCommandPalette()">Open</button>
+        <button mat-button disabled> Open</button>
         <button mat-button disabled>Create</button>
-        <button mat-button (click)="activateCommandPalette()">Edit</button>
-        <button mat-button [matMenuTriggerFor]="menu">Analyse</button>
+        <button mat-button disabled>Edit</button>
+        <button mat-button [matMenuTriggerFor]="menu">Test Apps</button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="openKnockdown()" role="menuitem">Knockdown</button>
-            <button mat-menu-item (click)="openWhereUsed()" role="menuitem">Where used</button>
-            <button mat-menu-item (click)="openWhereUsedInCondition()" role="menuitem">Where used in condition</button>
-            <button mat-menu-item (click)="openWhereUsedIntroDisc()" role="menuitem">Structures affected by a CO</button>
+            <button mat-menu-item (click)="openEdit()" role="menuitem">Edit</button>
+            <button mat-menu-item (click)="openExampleAppTsWui()" role="menuitem">WUI TS App</button>
+            <button mat-menu-item (click)="openExampleAppJsWui()" role="menuitem">WUI JS App</button>
+            <button mat-menu-item (click)="openExampleAppTsDoc()" role="menuitem">Doc TS App</button>
+            <button mat-menu-item (click)="openExampleAppJsDoc()" role="menuitem">Doc JS App</button>
+            <button mat-menu-item (click)="openExampleAppTsStr()" role="menuitem">Structure TS App</button>
+            <button mat-menu-item (click)="openExampleAppJsStr()" role="menuitem">Structure JS App</button>
         </mat-menu>
-        <button mat-button (click)="openApplicationLibrary()" class="oas-test-apps-menu-button">Apps</button>
-        <button mat-button (click)="openHelp()">Help</button>
+        <button mat-button disabled>Help</button>
     </div>
-
-    <command-palette class="command-palette"></command-palette>
 </nav>

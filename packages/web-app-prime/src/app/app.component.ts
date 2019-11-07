@@ -26,7 +26,7 @@ export class AppComponent {
 
         // Inject our Angular zone into the idle processor class to make sure change detection works smoothly
         IdleProcessor.injectZone(this.zone);
-
+        AppInfo.environment = 'localhost';
         AppHandler.setApps({
             wui: { // web-app-wui
                 url: {
@@ -59,10 +59,9 @@ export class AppComponent {
 
                 // Open initial tab
                 const appInstance = AppHandler.open({
-                    id: 'mywork'
+                    id: 'edit'
                 });
 
-                // Wait until MyWork is loaded before shoing toast
                 appInstance!.promise.then(() => {
                     console.log('this.showSessionRestoreToast()'); // tslint:disable-line no-console
                 });
@@ -70,12 +69,6 @@ export class AppComponent {
                 if (!appInstance) {
                     return;
                 }
-
-                // Load preview window
-                AppHandler.open({
-                    id: 'preview',
-                    sidebar: true
-                });
 
                 this.cd.detectChanges();
 

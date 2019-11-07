@@ -8,17 +8,19 @@ import { isString } from '@oas/web-lib-core';
     styleUrls: ['./start.component.scss']
 })
 export class StartComponent {
-    user: string;
+    public test: string;
+    public test2: string;
 
     constructor (private testService: TestService) {
-        this.user = 'Sven';
-
-        if (!isString(this.user)) {
-            throw new Error('Testing import from core');
-        }
         // Test a few services
-        this.testService.doSomething();
-        TestStaticService.doSomething();
+        this.test = this.testService.test();
+        if (!isString(this.test)) {
+            throw new Error('Angular service does not work');
+        }
+        this.test2 = TestStaticService.test();
+        if (!isString(this.test2)) {
+            throw new Error('Static service does not work');
+        }
 
     }
 }

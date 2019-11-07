@@ -34,7 +34,7 @@
     "build": "npm run build:prod",
     "build:sm": "cross-env-shell USE_SOURCEMAPS=true npm run build:prod",
     "dev:nocheck": "npm run build:lib:dev && npm run all dev -- --exclude web-app-doc web-app-structure --exclude-missing",
-    "dev": "npm run check-for-updated-packages && npm run build:lib:dev && npm run all dev -- --exclude web-app-doc web-app-structure --exclude-missing",
+    "dev": "npm run check-for-updated-packages && npm run build:lib:dev && npm run all dev -- --exclude-missing",
     "dev:fast": "npm run all dev -- --exclude web-app-doc web-app-structure --exclude-missing",
     "dev:all": "npm run check-for-updated-packages && npm run build:lib:dev && npm run all dev",
     "dev:init": "npm run dev",

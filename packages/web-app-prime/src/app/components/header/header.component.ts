@@ -17,6 +17,14 @@ export class HeaderComponent {
     }
 
     /**** Where used ****/
+    openEdit () {
+        this.openApp({
+            id: 'edit'
+        });
+        this.closeExpandedMenu();
+    }
+
+    /**** Where used ****/
     openExampleAppTsWui () {
         this.openApp({
             id: 'wui-example-ts'
@@ -27,7 +35,7 @@ export class HeaderComponent {
     /**** Knockdown ****/
     openExampleAppJsWui () {
         this.openApp({
-            id: 'wui-example-ts'
+            id: 'wui-example-js'
         });
         this.closeExpandedMenu();
     }
@@ -42,7 +50,7 @@ export class HeaderComponent {
     /**** Structures affected by a CO ****/
     openExampleAppJsDoc () {
         this.openApp({
-            id: 'doc-example-ts'
+            id: 'doc-example-js'
         });
         this.closeExpandedMenu();
     }
@@ -57,7 +65,7 @@ export class HeaderComponent {
 
     openExampleAppJsStr () {
         this.openApp({
-            id: 'str-example-ts'
+            id: 'str-example-js'
         });
         this.closeExpandedMenu();
     }

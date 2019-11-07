@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class TestService {
-    public doSomething () {
-        console.log('something done'); // tslint:disable-line no-console
+    public test () {
+        return 'Angular service works!';
     }
 }
