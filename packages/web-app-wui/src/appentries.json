@@ -1,0 +1,24 @@
+{
+  "entries": [
+    {
+      "id": "wui-example-ts",
+      "name": "Example TS (wui)",
+      "category": 7,
+      "description": {
+        "en": "Example TS App"
+      },
+      "url": "/#/example",
+      "standAlone": {}
+    },
+    {
+      "id": "wui-example-ts",
+      "name": "Example JS (wui)",
+      "category": 7,
+      "description": {
+        "en": "Example JS App"
+      },
+      "url": "/#/example-js",
+      "standAlone": {}
+    }
+  ]
+}

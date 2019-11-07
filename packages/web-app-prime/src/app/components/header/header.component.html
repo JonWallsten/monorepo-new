@@ -1,0 +1,22 @@
+<nav class="navbar">
+    <button mat-flat-button class="expand-list-button" (click)="toggleMenu()">
+        <fa-icon [icon]="['fas', !expanded ? 'bars': 'times']" size="lg"></fa-icon>
+    </button>
+
+    <div class="prime-nav-bar" [ngClass]="{'expanded': expanded}" role="navigation">
+        <button mat-button (click)="activateCommandPalette()">Open</button>
+        <button mat-button disabled>Create</button>
+        <button mat-button (click)="activateCommandPalette()">Edit</button>
+        <button mat-button [matMenuTriggerFor]="menu">Analyse</button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="openKnockdown()" role="menuitem">Knockdown</button>
+            <button mat-menu-item (click)="openWhereUsed()" role="menuitem">Where used</button>
+            <button mat-menu-item (click)="openWhereUsedInCondition()" role="menuitem">Where used in condition</button>
+            <button mat-menu-item (click)="openWhereUsedIntroDisc()" role="menuitem">Structures affected by a CO</button>
+        </mat-menu>
+        <button mat-button (click)="openApplicationLibrary()" class="oas-test-apps-menu-button">Apps</button>
+        <button mat-button (click)="openHelp()">Help</button>
+    </div>
+
+    <command-palette class="command-palette"></command-palette>
+</nav>

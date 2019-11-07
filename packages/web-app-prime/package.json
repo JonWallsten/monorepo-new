@@ -1,0 +1,57 @@
+{
+  "name": "web-app-prime",
+  "version": "0.0.0-PLACEHOLDER",
+  "private": true,
+  "engines": {
+    "node": "^10.9.0"
+  },
+  "license": "UNLICENSED",
+  "main": "dist/index.js",
+  "scripts": {
+    "ci": "npm run clean && npm run lint && npm run test && npm run build:prod",
+    "build:dev": "webpack --config config/webpack.dev.ts --colors --hide-modules --display-error-details --profile --display-entrypoints",
+    "build:prod": "webpack --config config/webpack.prod.ts --bail",
+    "build": "npm run clean && npm run build:prod",
+    "dev": "webpack-dev-server --config config/webpack.dev.ts --colors --hot",
+    "start": "npm run dev",
+    "webpack:debug": "node --max_old_space_size=4096 --inspect-brk node_modules/webpack/bin/webpack.js",
+    "webpack-dev-server:debug": "node --inspect-brk ../../node_modules/webpack-dev-server/bin/webpack-dev-server",
+    "lint:ts": "tslint -c tslint.json src/**/*.ts",
+    "lint:ts:fix": "tslint --fix -t codeFrame 'src/**/*.ts'",
+    "lint": "npm run lint:ts",
+    "typecheck": "tsc --noEmit --project ./tsconfig.build.json",
+    "serve": "cross-env IS_LOCAL=true ts-node ../../ci/serve",
+    "serve:build": "npm run build:prod && npm run serve",
+    "compile": "npm run clean:ts:cache && tsc",
+    "clean": "npm run clean:dist && npm run clean:cache",
+    "clean:dist": "rimraf dist",
+    "clean:cache": "rimraf .tmp",
+    "clean:ts:cache": "rimraf .tmp/code",
+    "clean:testresults": "rimraf .test_results",
+    "unlink": "rimraf node_modules/@oas/web-lib-angular-js",
+    "test": "exit 0",
+    "test:unit": "node -r ts-node/register ../../node_modules/jest/bin/jest",
+    "test:unit:watch": "node -r ts-node/register ../../node_modules/jest/bin/jest --watch",
+    "test:unit:debug": "node -r ts-node/register --inspect-brk ../../node_modules/jest/bin/jest --runInBand --coverage=false",
+    "test:e2e": "npm run clean:testresults && cross-env frontendServer=http://localhost:4000 IS_DEV=true envId=10 npm run protractor",
+    "test:e2e:debug": "npm run clean:testresults && cross-env frontendServer=http://localhost:4000 IS_DEV=true envId=10 node -r ts-node/register --inspect-brk --max_old_space_size=8192 ../../node_modules/protractor/bin/protractor",
+    "test:e2e:headless": "cross-env HEADLESS=true npm run test:e2e",
+    "test:e2e:install": "node ./ci/test-install.js && npm install",
+    "protractor": "protractor"
+  },
+  "devDependencies": {
+    "node-sass": "4.12.0",
+    "sass-loader": "8.0.0",
+    "to-string-loader": "1.1.5"
+  },
+  "dependencies": {
+    "@fortawesome/angular-fontawesome": "0.5.0",
+    "@fortawesome/fontawesome-svg-core": "1.2.25",
+    "@fortawesome/free-solid-svg-icons": "5.11.2"
+  },
+  "peerDependencies": {
+    "@oas/internal-lib-e2e": "0.0.0-PLACEHOLDER",
+    "@oas/web-lib-core": "0.0.0-PLACEHOLDER",
+    "@oas/web-lib-common": "0.0.0-PLACEHOLDER"
+  }
+}

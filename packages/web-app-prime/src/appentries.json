@@ -1,0 +1,14 @@
+{
+  "entries": [
+    {
+      "id": "edit",
+      "name": "Edit",
+      "category": 7,
+      "description": {
+        "en": "Edit App"
+      },
+      "url": "/#/",
+      "standAlone": {}
+    }
+  ]
+}

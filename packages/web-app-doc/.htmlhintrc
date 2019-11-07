@@ -1,0 +1,9 @@
+{
+    "doctype-first": false,
+    "inline-style-disabled": false,
+    "spec-char-escape": false,
+    "attr-unsafe-chars": true,
+    "tag-pair": true,
+    "attr-no-duplication": true,
+    "inline-script-disabled": true
+}

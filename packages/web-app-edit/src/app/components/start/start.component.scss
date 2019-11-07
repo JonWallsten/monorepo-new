@@ -1,0 +1,17 @@
+:host {
+    text-align: center;
+    display: block;
+}
+
+header {
+    margin: 50px auto;
+}
+
+button {
+    margin: 0 auto;
+    padding: 4px 16px 2px;
+}
+
+/deep/ .open-editor-button span {
+    font-size: 18px;
+}

@@ -1,0 +1,22 @@
+$screen-md: 992px;
+$screen-md-larger: calc(#{$screen-md} + 44px); // @screen-md; // 44px 1036
+$screen-md-larger-with-offset: calc(#{$screen-md} + 45px);
+
+$prime-top-height: 72px;
+$prime-main-height: calc(100vh - #{$prime-top-height});
+$prime-left-width: 192px;
+$prime-right-width: 500px;
+
+$brand-primary: #418bca;
+$washed-out-red: #F6A8A5;
+$washed-out-blue: #91cbdb;
+$washed-out-orange: #F8D3A3;
+$washed-out-yellow: #BBBC75;
+$washed-out-grey: #757575;
+$washed-out-black: #000000;
+$washed-out-purple: #8B78AF;
+$washed-out-forest-green: #c0d6c0;
+
+$border-default-color: #777;
+$oas-background-color: #e5e9ec;
+$menu-tab-color-bar-width: 6px;

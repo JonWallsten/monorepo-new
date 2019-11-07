@@ -1,0 +1,7 @@
+{
+    "doctype-first": false,
+    "inline-style-disabled": false,
+    "spec-char-escape": false,
+    "attr-unsafe-chars": true,
+    "inline-script-disabled": true
+}

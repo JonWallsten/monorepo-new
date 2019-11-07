@@ -1,0 +1,21 @@
+<div class="prime-top oas-print-hidden">
+    <div class="prime-top-title">
+        <div class="oas-ui-new-header-logo">
+            [LOGO]
+        </div>
+    </div>
+    <prime-header class="prime-header"></prime-header>
+    <button id="open-settings-button" mat-flat-button class="settings-button oas-test-settings-button">
+        <fa-icon [icon]="['fas', 'cog']" class="field-error-icon"></fa-icon>
+        Settings
+    </button>
+</div>
+
+<div class="prime-main">
+    <div class="prime-menu oas-print-hidden">
+        <prime-menu></prime-menu>
+    </div>
+    <main class="prime-content">
+        <router-outlet></router-outlet>
+    </main>
+</div>

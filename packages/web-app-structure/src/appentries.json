@@ -1,0 +1,24 @@
+{
+  "entries": [
+    {
+      "id": "str-example-ts",
+      "name": "Example TS (str)",
+      "category": 7,
+      "description": {
+        "en": "Example TS App"
+      },
+      "url": "/#/example",
+      "standAlone": {}
+    },
+    {
+      "id": "str-example-ts",
+      "name": "Example JS (str)",
+      "category": 7,
+      "description": {
+        "en": "Example JS App"
+      },
+      "url": "/#/example-js",
+      "standAlone": {}
+    }
+  ]
+}

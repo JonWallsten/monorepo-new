@@ -1,0 +1,83 @@
+[
+  {
+      "name": "tslint",
+      "type": "bin",
+      "copy": false
+  },
+  {
+      "name": "webpack",
+      "type": "bin",
+      "copy": false
+  },
+  {
+      "name": "webpack-dev-server",
+      "type": "bin",
+      "copy": false
+  },
+  {
+      "name": "eslint",
+      "type": "bin",
+      "copy": false
+  },
+  {
+      "name": "htmlhint",
+      "type": "bin",
+      "copy": false
+  },
+  {
+      "name": "bootlint",
+      "type": "bin",
+      "copy": false
+  },
+  {
+      "name": "rimraf",
+      "type": "bin",
+      "copy": false
+  },
+  {
+      "name": "cross-env",
+      "type": "bin",
+      "copy": false
+  },
+  {
+      "name": "protractor",
+      "type": "bin",
+      "copy": false
+  },
+  {
+      "name": "ts-node",
+      "type": "bin",
+      "copy": false
+  },
+
+  {
+      "name": "tsc",
+      "type": "bin",
+      "copy": false
+  },
+  {
+      "name": "boxen",
+      "type": "bin",
+      "copy": false
+  },
+  {
+      "name": "jest",
+      "type": "bin",
+      "copy": false
+  },
+  {
+      "name": "cross-env-shell",
+      "type": "bin",
+      "copy": false
+  },
+  {
+      "name": "html-webpack-plugin",
+      "type": "module",
+      "copy": true
+  },
+  {
+      "name": "mini-css-extract-plugin",
+      "type": "module",
+      "copy": true
+  }
+]

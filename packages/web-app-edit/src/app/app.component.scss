@@ -1,0 +1,47 @@
+@import '../../../web-lib-angular/src/styles/shared';
+@import "styles/material-overrides";
+
+html {
+    box-sizing: border-box;
+}
+* {
+    box-sizing: inherit;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+p,
+a,
+span,
+label,
+input,
+.mat-input-element,
+.mat-form-field {
+    font-family: $oas-font;
+    line-height: 1.2;
+}
+
+// When tables are in fullscreen we want to hide the body's scroll, so we make the body content tiny
+app.fullscreen-mode-active {
+    overflow: hidden;
+    display: block;
+    height: 1px;
+}
+
+.relative {
+    position: relative;
+}
+
+.component-loaded {
+    animation: flash .5s;
+}
+
+@keyframes flash {
+    50% {
+        background-color: rgba(65, 139, 202, .26);
+    }
+}

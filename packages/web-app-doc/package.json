@@ -1,0 +1,68 @@
+{
+  "name": "web-app-doc",
+  "version": "0.0.0-PLACEHOLDER",
+  "private": true,
+  "engines": {
+    "node": "^8.10.0"
+  },
+  "license": "UNLICENSED",
+  "main": "dist/index.js",
+  "scripts": {
+    "ci": "npm run clean && npm run lint && npm run test && npm run build:prod",
+    "build:dev": "webpack --config config/webpack.dev.ts --display minimal --display-error-details",
+    "build:dev:watch": "npm run build:dev -- --watch",
+    "build:prod": "webpack --config config/webpack.prod.ts --display errors-only --display-error-details",
+    "build": "npm run clean && npm run build:prod",
+    "dev": "webpack-dev-server",
+    "start": "npm run dev",
+    "lint:ts": "tslint -c tslint.json src/**/*.ts",
+    "lint:ts:fix": "tslint --fix -t codeFrame 'src/**/*.ts'",
+    "lint:js": "eslint --max-warnings 0 ./src/**/*.js",
+    "lint:style": "stylelint src/**/*.less --cache --cache-location .tmp/stylelintcache/",
+    "lint:html": "htmlhint --config .htmlhintrc src/**/*.html",
+    "lint:bootstrap": "bootlint -d E001,E003,W001,W002,W003,W005,W009,E032 src/**/*.html",
+    "lint": "npm run lint:ts && npm run lint:js && npm run lint:html && npm run lint:bootstrap",
+    "serve": "cross-env IS_LOCAL=true ts-node ../../ci/serve",
+    "serve:build": "npm run build:prod && npm run serve",
+    "compile": "npm run clean:cache && tsc",
+    "clean": "npm run clean:dist && npm run clean:cache",
+    "clean:dist": "rimraf dist",
+    "clean:cache": "rimraf .tmp",
+    "clean:testresults": "rimraf .test_results",
+    "test:e2e": "npm run clean:testresults && cross-env frontendServer=http://localhost:3030 IS_DEV=true envId=10 protractor",
+    "test:e2e:install": "node ./ci/test-install.js && npm install",
+    "protractor": "protractor"
+  },
+  "devDependencies": {
+    "@types/angular": "1.5.23",
+    "@types/angular-mocks": "1.5.11",
+    "@types/angular-ui-router": "1.1.40",
+    "chai": "4.1.2",
+    "chai-subset": "1.6.0",
+    "ng-annotate-loader": "0.6.1",
+    "ts-ng-annotate-loader": "0.2.1"
+  },
+  "dependencies": {
+    "angular": "1.5.x",
+    "angular-diff-match-patch": "0.6.10",
+    "angular-messages": "1.5.x",
+    "angular-mocks": "1.5.x",
+    "angular-sanitize": "1.5.x",
+    "angular-translate": "2.x.x",
+    "angular-ui-ace": "0.2.x",
+    "angular-ui-bootstrap": "1.3.x",
+    "angular-ui-router": "0.3.x",
+    "bootstrap": "3.3.7",
+    "ng-file-upload": "9.1.2",
+    "ui-select": "0.19.x",
+    "@oas/web-lib-core": "file:../web-lib-core",
+    "@oas/web-lib-common": "file:../web-lib-common",
+    "@oas/web-lib-angular-js": "file:../web-lib-angular-js"
+  },
+  "peerDependencies": {
+    "@oas/internal-lib-e2e": "0.0.0-PLACEHOLDER",
+    "@oas/web-lib-core": "0.0.0-PLACEHOLDER",
+    "@oas/web-lib-common": "0.0.0-PLACEHOLDER",
+    "@oas/web-lib-angular-js": "0.0.0-PLACEHOLDER"
+  }
+}

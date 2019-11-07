@@ -1,0 +1,11 @@
+.tmp
+build
+src
+typings
+test
+Jenkinsfile
+tsconfig.json
+tslint.json
+.eslintrc
+postcss.config.js
+.packages.hash

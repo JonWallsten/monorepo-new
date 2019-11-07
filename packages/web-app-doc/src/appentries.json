@@ -1,0 +1,24 @@
+{
+  "entries": [
+    {
+      "id": "doc-example-ts",
+      "name": "Example TS (doc)",
+      "category": 7,
+      "description": {
+        "en": "Example TS App"
+      },
+      "url": "/#/example",
+      "standAlone": {}
+    },
+    {
+      "id": "doc-example-ts",
+      "name": "Example JS (doc)",
+      "category": 7,
+      "description": {
+        "en": "Example JS App"
+      },
+      "url": "/#/example-js",
+      "standAlone": {}
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "declaration": true,
+        "declarationMap": true,
+        "declarationDir": "./dist/typings"
+    },
+    "files": [
+      "./src/index.ts",
+      "./typings/global.d.ts",
+      "../../typings/global.d.ts",
+      "./node_modules/@types/angular/index.d.ts"
+    ]
+  }

@@ -1,0 +1,18 @@
+.editorconfig
+.tmp
+.test_results
+.eslintrc
+ci
+config
+test
+typings
+Jenkinsfile
+tsconfig.json
+tslint.json
+typings.json
+src
+
+#Remove test files and source maps
+*.js.map
+*.spec.js
+*.spec.d.ts

@@ -1,0 +1,77 @@
+@import '../../../../web-lib-angular/src/styles/colors';
+
+// Form components
+.mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
+    color: $oas-red-error-new;
+}
+.mat-input-element {
+    caret-color: $oas-blue;
+}
+.mat-error {
+    color: $oas-red-error-new;
+}
+.mat-form-field-invalid .mat-input-element,
+.mat-warn .mat-input-element {
+    caret-color: $oas-red-error-new;
+}
+
+.mat-form-field-label-wrapper .mat-form-field-label {
+    font-size: 14px;
+}
+
+.mat-form-field.mat-form-field-invalid .mat-form-field-label {
+    color: $oas-red-error-new;
+}
+
+mat-form-field.mat-form-field {
+    width: 100%;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-subscript-wrapper {
+    margin-top: .2em;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-infix {
+    border-top: 0;
+    padding: 0.2em 0;
+    width: auto;
+}
+
+.mat-form-field-wrapper .mat-input-element {
+    color: $oas-black-text;
+}
+
+.mat-form-field-label-wrapper .mat-form-field-label {
+    color: $oas-grey-small;
+}
+
+
+// Expansion panels
+mat-expansion-panel-header {
+    height:48px;
+}
+
+section .mat-expansion-panel {
+    overflow: visible;
+    transition: none;
+    min-width: 100%;
+    display: inline-block;
+}
+
+section .component--sectionComponent {
+    margin-top: 12px;
+
+    &+.component--sectionComponent {
+        margin-top: 24px;
+    }
+}
+
+// Add scroll to chip lists when they have a lot of chips
+.mat-chip-list-wrapper {
+    max-height: 400px;
+    overflow: auto;
+}
+
+.cdk-overlay-connected-position-bounding-box .cdk-overlay-pane {
+    min-width: 200px;
+}

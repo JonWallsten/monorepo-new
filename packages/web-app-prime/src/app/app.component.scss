@@ -1,0 +1,199 @@
+@import '../../../web-lib-angular/src/styles/shared';
+@import "styles/prime-constants";
+
+html {
+    box-sizing: border-box;
+}
+* {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #e5e9ec;
+}
+
+
+.prime-top {
+    height: $prime-top-height;
+    display: flex;
+    align-items: center;
+
+    .prime-top-title {
+        width: $prime-left-width;
+    }
+
+    .oas-ui-header-logo {
+        float: left;
+        margin-left: 30px;
+        margin-top: $prime-top-height / 5;
+    }
+
+    .oas-ui-new-header-logo {
+        background: none;
+        position: relative;
+        width: 192px;
+        padding-left: 30px;
+        padding-right: 30px;
+        img {
+            width: 100%;
+        }
+    }
+}
+
+prime-header {
+    width: 100%;
+
+}
+
+.prime-tabs {
+    .remove {
+        font-weight: normal;
+        color: #666;
+
+        &:hover {
+            color: #fff
+        }
+    }
+
+    .active {
+        .remove {
+            color: #fff;
+        }
+    }
+}
+
+.prime-main {
+    height: $prime-main-height;
+    overflow: hidden;
+}
+
+.prime-tabs {
+    height: auto;
+
+    &.active {
+        a:hover {
+            color: #fff;
+        }
+    }
+}
+
+.prime-menu {
+    position: absolute;
+    float: left;
+    width: $prime-left-width;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: $prime-main-height;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-button {
+        background: #418bca;
+        height: 0;
+    }
+
+    &::-webkit-scrollbar-track-piece {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #418bca;
+    }
+}
+
+.prime-content {
+    margin-left: $prime-left-width;
+    position: relative; //n
+}
+
+.settings-button.mat-flat-button {
+    margin: 0 10px;
+    border: 1px solid #ccc;
+    flex: 0 0 auto;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 12px;
+    min-width: 30px;
+
+    @media (max-width: $screen-md-larger) {
+        font-size: 0;
+        padding: 0;
+
+    }
+
+    fa-icon {
+        font-size: 16px;
+    }
+}
+
+// Loader styles
+.loading-spinner-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(255, 255, 255, .7);
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    display: flex;
+}
+
+.loading-spinner {
+    display: block;
+    position: relative;
+    width: 100px;
+    height: 100px;
+    animation: linear-rotate 2s linear infinite;
+}
+
+.loading-spinner svg {
+    position: absolute;
+    transform: rotate(-90deg);
+    top: 0;
+    left: 0;
+    transform-origin: center;
+    overflow: visible;
+    width: 100px;
+    height: 100px;
+}
+
+.loading-spinner circle {
+    transition-property: stroke;
+    animation: stroke-rotate-100 4s cubic-bezier(.35,0,.25,1) infinite;
+    fill: transparent;
+    transform-origin: center;
+    transition: stroke-dashoffset 225ms linear;
+    stroke-dasharray: 282.743px;
+    stroke-width: 10%;
+    stroke: #418bca;
+}
+
+@keyframes linear-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes stroke-rotate-100 {
+    0%          { stroke-dashoffset:268.60617px; transform:rotate(0) }
+    12.5%       { stroke-dashoffset:56.54867px; transform:rotate(0) }
+    12.5001%    { stroke-dashoffset:56.54867px; transform:rotateX(180deg) rotate(72.5deg) }
+    25%         { stroke-dashoffset:268.60617px; transform:rotateX(180deg) rotate(72.5deg) }
+    25.0001%    { stroke-dashoffset:268.60617px; transform:rotate(270deg) }
+    37.5%       { stroke-dashoffset:56.54867px; transform:rotate(270deg) }
+    37.5001%    { stroke-dashoffset:56.54867px; transform:rotateX(180deg) rotate(161.5deg) }
+    50%         { stroke-dashoffset:268.60617px; transform:rotateX(180deg) rotate(161.5deg) }
+    50.0001%    { stroke-dashoffset:268.60617px; transform:rotate(180deg) }
+    62.5%       { stroke-dashoffset:56.54867px; transform:rotate(180deg) }
+    62.5001%    { stroke-dashoffset:56.54867px; transform:rotateX(180deg) rotate(251.5deg) }
+    75%         { stroke-dashoffset:268.60617px; transform:rotateX(180deg) rotate(251.5deg) }
+    75.0001%    { stroke-dashoffset:268.60617px; transform:rotate(90deg) }
+    87.5%       { stroke-dashoffset:56.54867px; transform:rotate(90deg) }
+    87.5001%    { stroke-dashoffset:56.54867px; transform:rotateX(180deg) rotate(341.5deg) }
+    100%        { stroke-dashoffset:268.60617px; transform:rotateX(180deg) rotate(341.5deg) }
+}
