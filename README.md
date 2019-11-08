@@ -30,7 +30,7 @@ web-app-wui needs to resolve web-lib-core/web-lib-common/web-lib-angular-js in j
 <br/>
 Our goal is to have all dep in the root package.json, but as long as we have to generations of angular it felt cleaner to devide them.<br/>
 <br/>
-<b>Disclaimer</b>
+<b>Disclaimer</b><br/>
 Just some background. This repo is old and has A LOT of legacy and weird things. Before I joined 1.5 year ago it was barely any TS, it was built in a bad way with gulp and we only used Angular 1.5. And it wasn't a monorepo.<br/>
 Last summer I converted everything to a monorepo and created/crafted all the build tools. I did not have enough deep knowledge about TS/Compilers/etc. to do a optimal implementation, obviously. But I did manage to get everything to work after all.<br/>
 <br/>
