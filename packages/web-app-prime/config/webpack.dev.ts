@@ -1,6 +1,6 @@
 import webpackMerge from 'webpack-merge';
 import WriteFileWebpackPlugin from 'write-file-webpack-plugin';
-import { devServerUrl, host, port } from './globals';
+import { host, port } from './globals';
 import * as helpers from './helpers';
 import commonConfig from './webpack.base';
 import { EvalSourceMapDevToolPlugin } from 'webpack';
@@ -49,29 +49,6 @@ export default () => {
                 'Access-Control-Allow-Origin': 'http://localhost:4000',
                 'Access-Control-Expose-Headers': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
                 'Access-Control-Allow-Credentials': 'true'
-            },
-            // Refirects for init and log in dev mode
-            proxy: {
-                '/init': {
-                    target: devServerUrl,
-                    changeOrigin: true,
-                    secure: false,
-                    router: (req) => {
-                        // Check if environment is passed. If not we add it. Missing environment key/value vauses init request to fail.
-                        const path = /environment/.test(req.originalUrl) ? req.originalUrl : `${req.originalUrl}?environment=1`;
-                        return devServerUrl + path;
-                    }
-                },
-                '/log': {
-                    target: devServerUrl,
-                    secure: false,
-                    onError: (_err, _req, res) => {
-                        res.writeHead(200, {
-                            'Content-Type': 'text/plain'
-                        });
-                        res.end('Logging not enabled on localhost');
-                    }
-                }
             }
         },
 

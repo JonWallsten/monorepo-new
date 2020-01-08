@@ -37,16 +37,6 @@ export default () => {
                     ],
                     include: helpers.includeTS
                 },
-
-                {
-                    test: /\.js$/,
-                    loader: 'ng-annotate-loader',
-                    options: {
-                        add: true,
-                        single_quotes: true
-                    },
-                    include: helpers.include
-                },
                 {
                     test: /\.js$/,
                     use: 'source-map-loader',

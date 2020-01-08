@@ -2,11 +2,11 @@
   "name": "@oas/web-lib-common",
   "version": "0.0.0-PLACEHOLDER",
   "engines": {
-    "node": "^8.10.0"
+    "node": "^12.14.0"
   },
   "license": "UNLICENSED",
   "main": "dist/index.js",
-  "types": "dist/typings/packages/web-lib-common/src/index.d.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
     "ci": "npm run clean && npm run lint && npm run test && npm run build:prod",
     "build:dev": "webpack --config config/webpack.dev.ts --display minimal --display-error-details",
@@ -28,6 +28,9 @@
     "lodash-ts-imports-loader": "1.2.0"
   },
   "peerDependencies": {
-    "@oas/web-lib-core": "0.0.0-PLACEHOLDER"
+    "@oas/web-lib-core": "x.x.x"
+  },
+  "internalDependencies": {
+    "@oas/web-lib-core": "0.0.0"
   }
 }

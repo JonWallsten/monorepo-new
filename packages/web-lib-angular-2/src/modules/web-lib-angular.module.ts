@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DialogComponent } from './components/dialog/dialog.component';
+import { DialogComponent } from '../components/dialog/dialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { MaterialDesignModule } from './material-design/material-design.module';
-import { TestIdentifierDirective } from './directives/test-identifier/test-identifier.directive';
+import { MaterialDesignModule } from './material-design.module';
+import { TestIdentifierDirective } from '../directives/test-identifier/test-identifier.directive';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DialogService } from './services/dialog.service';
+import { DialogService } from '../services/dialog.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { DebugComponent } from './components/debug/debug.component';
-import { PipesModule } from './pipes/pipes.module';
+import { DebugComponent } from '../components/debug/debug.component';
+import { PipesModule } from '../pipes/pipes.module';
 
 
 @NgModule({

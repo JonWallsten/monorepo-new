@@ -38,15 +38,6 @@ export default () => {
                 },
                 {
                     test: /\.js$/,
-                    loader: 'ng-annotate-loader',
-                    options: {
-                        add: true,
-                        single_quotes: true
-                    },
-                    include: helpers.include
-                },
-                {
-                    test: /\.js$/,
                     use: 'source-map-loader',
                     enforce: 'pre',
                     include: process.env.USE_SOURCEMAPS ? helpers.include : []

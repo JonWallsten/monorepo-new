@@ -1,8 +1,4 @@
 // tslint:disable no-console
-/**
- * Check branch name for illegal format and/or characters.
- */
-
 import * as process from 'process';
 import { exec } from 'child_process';
 

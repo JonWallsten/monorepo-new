@@ -25,3 +25,8 @@ export const includeStyles = [
     ...include,
     rootPath('node_modules/monaco-editor')
 ];
+
+export const includeFonts = [
+    ...include,
+    rootPath('node_modules/monaco-editor')
+];

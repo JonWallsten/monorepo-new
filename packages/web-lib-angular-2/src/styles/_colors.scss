@@ -1,0 +1,78 @@
+/*--- Edit colors actually used for the moment ---*/
+$oas-blue: #418bca; //primary
+$oas-blue-hover: #2a6495;
+$oas-blue-info: #0c9bd7;
+$oas-white: #fff;
+$oas-red-error: #9e2b22;
+$oas-red-required: #990000;
+$oas-green-submit: #008000;
+$oas-grey-bg-treeview: #f2f2f2;
+$oas-grey-small: #777777;
+$oas-orange-warning: #ffa500;
+$oas-orange-spinner: #f5bf36;
+$oas-orange-process: #f5bf36;
+$oas-orange-process-bg: #f7db94;
+$oas-yellow-treeview-message: #f0e86d;
+$oas-black-text: #333333;
+$oas-disabled-text: #666;
+$oas-grey-text-placeholder: #cccccc;
+$oas-grey-button-background: #e6e6e6;
+$oas-background-color: #e5e9ec;
+$oas-red-error-new: #b53127;
+$edit-light-gray: #f1f0f0;
+/*--- Edit colors actually used END ---*/
+
+// spinner
+$oas-spinner-color-primary: #f5bf36;
+$oas-spinner-color-secondary: #fff;
+$theme-primary: #fff;
+
+// generic colors
+$brand-primary: #418bca; // #337ab7
+$color-white: #fff;
+$color-grey-20: #e5e9ec;
+$color-grey-30: #ccc;
+$color-grey-40: #8c8193;
+$color-blue-10: #eef7fb;
+$color-blue-20: #c1e8ff;
+$color-blue-60: #428bca;
+$color-red-100: #ff0000;
+$color-green-100: #008000;
+$color-orange-100: #ffa500;
+$color-yellow-100: #ffff00;
+
+$color-error: $color-red-100;
+$color-warning: $color-orange-100;
+$color-warning: $color-orange-100;
+$color-success: $color-green-100;
+$color-background-focus: $color-blue-20;
+$color-outline-focus: $color-blue-60;
+$color-hover: $color-blue-10;
+$color-background-light-grey: $color-grey-20;
+$oas-border: #e3e3e3;
+
+// highlight colors
+$oas-highlight-value: $color-orange-100;
+$oas-highlight-row: $color-yellow-100;
+
+$oas-table-offset-color: #f5f5f5;
+$oas-table-offset-color-secondary: #f0f0f0;
+
+// table styling
+$oas-table-cell-active: $color-background-focus;
+$oas-table-cell-disabled: $color-grey-30;
+$oas-table-cell-focus: $color-background-focus;
+$oas-table-focused-outline: $color-outline-focus;
+$oas-table-cell-outline: $color-outline-focus;
+$oas-table-cell-inactive-focus: #bbc6cd;
+$oas-table-cell-inactive-focus-outline: #9da3a6;
+$oas-table-row-hover: fade($brand-primary, 15%);
+$oas-table-row-focus: fade($brand-primary, 15%);
+$oas-table-color-stripe-even: $oas-table-offset-color;
+$oas-text: fade(#000, 87%);
+$oas-text-secondary: fade(#000, 54%);
+
+$oas-text-disabled: #ccc;
+
+$active-row-color: rgba(0, 0, 0, .08);
+$hover-row-color: rgba(0, 0, 0, .04);

@@ -1,7 +1,9 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-      "outDir": "./dist"
+      "outDir": "./dist",
+      "strictNullChecks": true,
+      "noImplicitReturns": true
   },
   "files": [
     "./src/main.ts",
@@ -10,7 +12,6 @@
     "../../typings/global.d.ts"
   ],
   "angularCompilerOptions": {
-    "enableIvy": true,
-    "generateDeepReexports": true
+    "enableIvy": false
   }
 }

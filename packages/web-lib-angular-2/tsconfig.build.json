@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "target": "ES2015",
+    "strictNullChecks": true,
+    "noImplicitReturns": true,
+    "rootDir": "./src",
+    "declaration": true,
+    "declarationMap": true,
+    "declarationDir": "./dist",
+    "outDir": "./dist",
+    "typeRoots": [
+      "./node_modules/@types",
+      "../../node_modules/@types"
+    ]
+  },
+  "files": [
+    "./src/index.ts",
+    "./typings/global.d.ts",
+    "../../typings/global.d.ts"
+  ]
+}

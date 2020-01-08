@@ -1,5 +1,5 @@
 // Modules
-export * from './web-lib-angular.module';
+export * from './modules/web-lib-angular.module';
 // Pipes
 export * from './pipes/pipes.module';
 

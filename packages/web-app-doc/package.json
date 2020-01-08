@@ -3,7 +3,7 @@
   "version": "0.0.0-PLACEHOLDER",
   "private": true,
   "engines": {
-    "node": "^8.10.0"
+    "node": "^12.14.0"
   },
   "license": "UNLICENSED",
   "main": "dist/index.js",
@@ -18,10 +18,7 @@
     "lint:ts": "tslint -c tslint.json src/**/*.ts",
     "lint:ts:fix": "tslint --fix -t codeFrame 'src/**/*.ts'",
     "lint:js": "eslint --max-warnings 0 ./src/**/*.js",
-    "lint:style": "stylelint src/**/*.less --cache --cache-location .tmp/stylelintcache/",
-    "lint:html": "htmlhint --config .htmlhintrc src/**/*.html",
-    "lint:bootstrap": "bootlint -d E001,E003,W001,W002,W003,W005,W009,E032 src/**/*.html",
-    "lint": "npm run lint:ts && npm run lint:js && npm run lint:html && npm run lint:bootstrap",
+    "lint": "npm run lint:ts && npm run lint:js",
     "serve": "cross-env IS_LOCAL=true ts-node ../../ci/serve",
     "serve:build": "npm run build:prod && npm run serve",
     "compile": "npm run clean:cache && tsc",
@@ -29,9 +26,10 @@
     "clean:dist": "rimraf dist",
     "clean:cache": "rimraf .tmp",
     "clean:testresults": "rimraf .test_results",
-    "test:e2e": "npm run clean:testresults && cross-env frontendServer=http://localhost:3030 IS_DEV=true envId=10 protractor",
+    "test:e2e": "npm run clean:testresults && cross-env frontendServer=http://localhost:3030 IS_DEV=true envId=10 npm run protractor",
     "test:e2e:install": "node ./ci/test-install.js && npm install",
-    "protractor": "protractor"
+    "protractor": "cross-env TS_NODE_PROJECT=tsconfig.build.json node -r ts-node/register -r tsconfig-paths/register ../../node_modules/protractor/bin/protractor protractor.conf.ts",
+    "protractor:nightly": "cross-env TS_NODE_PROJECT=tsconfig.e2e.nightly.json node -r ts-node/register -r tsconfig-paths/register node_modules/protractor/bin/protractor protractor.conf.ts"
   },
   "devDependencies": {
     "@types/angular": "1.5.23",
@@ -54,15 +52,11 @@
     "angular-ui-router": "0.3.x",
     "bootstrap": "3.3.7",
     "ng-file-upload": "9.1.2",
-    "ui-select": "0.19.x",
-    "@oas/web-lib-core": "file:../web-lib-core",
-    "@oas/web-lib-common": "file:../web-lib-common",
-    "@oas/web-lib-angular-js": "file:../web-lib-angular-js"
+    "ui-select": "0.19.x"
   },
-  "peerDependencies": {
-    "@oas/internal-lib-e2e": "0.0.0-PLACEHOLDER",
-    "@oas/web-lib-core": "0.0.0-PLACEHOLDER",
-    "@oas/web-lib-common": "0.0.0-PLACEHOLDER",
-    "@oas/web-lib-angular-js": "0.0.0-PLACEHOLDER"
+  "internalDependencies": {
+    "@oas/web-lib-core": "0.0.0",
+    "@oas/web-lib-common": "0.0.0",
+    "@oas/web-lib-angular-js": "0.0.0"
   }
 }

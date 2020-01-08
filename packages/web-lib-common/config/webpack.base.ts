@@ -192,8 +192,8 @@ export default (options: IWebpackOptions) => {
             // Copy all d.ts files from the src since Typescript compiler doesn't include these in the output
             new RecursiveCopyPlugin([{
                 src: helpers.rootPath('./src'),
-                dest: helpers.rootPath('./dist/typings/packages/web-lib-common/src'),
-                filter: ['**/*.d.ts*']
+                dest: helpers.rootPath('./dist'),
+                filter: ['**/*.d.ts']
             }])
         ],
 

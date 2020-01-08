@@ -52,7 +52,11 @@ export default (options: IWebpackOptions) => {
                 helpers.rootPath('src'),
                 helpers.rootPath('node_modules'),
                 projectRootPath('node_modules')
-            ]
+            ],
+            alias: {
+                '@oas/web-lib-angular': projectRootPath('packages/web-lib-angular'),
+                '@oas/web-lib-angular-2': projectRootPath('packages/web-lib-angular-2')
+            }
         },
         /**
          * Options affecting the normal modules.
@@ -74,7 +78,13 @@ export default (options: IWebpackOptions) => {
                 },
                 {
                     test: /\.scss$/,
-                    use: ['to-string-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
+                    use: [
+                        'to-string-loader',
+                        'css-loader',
+                        'postcss-loader',
+                        'sass-loader'
+                    ],
+                    // This is only for Angular components styles, so we exclude all other included styles
                     exclude: helpers.includeStyles
                 },
                 /**
@@ -98,7 +108,8 @@ export default (options: IWebpackOptions) => {
                     options: {
                         name: '[hash].[ext]',
                         outputPath: 'assets/images/',
-                        publicPath: '' // Removes the default "./"
+                        publicPath: '', // Removes the default "./"
+                        esModule: false
                     }
                 },
                 {
@@ -107,7 +118,8 @@ export default (options: IWebpackOptions) => {
                         loader: 'file-loader',
                         options: {
                             name: '[name].[ext]',
-                            outputPath: 'assets/fonts/'
+                            outputPath: 'assets/fonts/', // Removes the default "./"
+                            esModule: false
                         }
                     }]
                 }

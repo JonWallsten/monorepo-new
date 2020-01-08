@@ -1,14 +1,19 @@
 {
-    "extends": "../../tsconfig.json",
-    "compilerOptions": {
-        "declaration": true,
-        "declarationMap": true,
-        "declarationDir": "./dist/typings"
-    },
-    "files": [
-      "./src/index.ts",
-      "./typings/global.d.ts",
-      "../../typings/global.d.ts",
-      "./node_modules/@types/angular/index.d.ts"
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "declaration": true,
+    "declarationMap": true,
+    "declarationDir": "./dist",
+    "outDir": ".dist",
+    "typeRoots": [
+      "./node_modules/@types",
+      "../../node_modules/@types",
     ]
-  }
+  },
+  "files": [
+    "./src/index.ts",
+    "./typings/global.d.ts",
+    "../../typings/global.d.ts"
+  ]
+}

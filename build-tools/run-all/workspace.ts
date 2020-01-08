@@ -9,6 +9,7 @@ export interface IPkgJson {
     name: string;
     dependencies?: Dict<string>;
     devDependencies?: Dict<string>;
+    internalDependencies?: Dict<string>;
     scripts?: { [name: string]: string; };
 }
 

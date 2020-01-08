@@ -232,7 +232,7 @@ export class RunGraph {
 
     private allDeps (pkg: IPkgJson) {
         const findMyDeps = uniq(
-      Object.keys(pkg.dependencies || {}).concat(Object.keys(pkg.devDependencies || {}))
+      Object.keys(pkg.dependencies || {}).concat(Object.keys(pkg.devDependencies || {})).concat(Object.keys(pkg.internalDependencies || {}))
     ).filter(d => this.jsonMap.has(d) && (this.opts.recursive || this.runList.has(d)));
         return findMyDeps;
     }
@@ -250,9 +250,7 @@ export class RunGraph {
             if (index >= 0) {
                 return newPathLookup.slice(index);
             }
-            const currentDeps = Object.keys(json.dependencies || {}).concat(
-        Object.keys(json.devDependencies || {})
-      );
+            const currentDeps = Object.keys(json.dependencies || {}).concat(Object.keys(json.devDependencies || {})).concat(Object.keys(json.internalDependencies || {}));
             for (const name of currentDeps) {
                 const d = self.jsonMap.get(name);
                 if (!d) { continue; }
