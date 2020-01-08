@@ -23,7 +23,8 @@ export default (options: IWebpackOptions) => {
         output: {
             path: helpers.rootPath('dist'),
             filename: '[name].js',
-            libraryTarget: 'umd'
+            libraryTarget: 'umd',
+            globalObject: 'this'
         },
         /**
          * The entry point for the bundle
@@ -121,8 +122,8 @@ export default (options: IWebpackOptions) => {
             // Copy all d.ts files from the src since Typescript compiler doesn't include these in the output
             new RecursiveCopyPlugin([{
                 src: helpers.rootPath('./src'),
-                dest: helpers.rootPath('./dist/typings/packages/web-lib-core/src'),
-                filter: ['**/*.d.ts*']
+                dest: helpers.rootPath('./dist'),
+                filter: ['**/*.d.ts']
             }])
         ],
 

@@ -3,7 +3,7 @@ const express = require('express');
 const { printServingMessage, logToLogstash } = require('./server.helpers');
 
 
-const startServer = function(host, port, devServerUrl) {
+const startServer = function(host, port) {
     'use strict';
 
     const app = express();
@@ -24,12 +24,6 @@ const startServer = function(host, port, devServerUrl) {
         app.use('/log', bodyParser.json());
         app.post('/log', logToLogstash);
     }
-    /**
-     * Redirect init requests
-     */
-    app.get(/^\/init/, function (req, res) {
-        res.redirect(devServerUrl + req.originalUrl);
-    });
     if (printServingMessage) {
         printServingMessage(servingFolder, host, port);
     }

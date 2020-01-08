@@ -1,12 +1,16 @@
 {
-    "extends": "../../tsconfig.json",
-    "compilerOptions": {
-        "outDir": "./dist"
-    },
-    "files": [
-      "./src/index.ts",
-      "./src/legacy.ts",
-      "./typings/global.d.ts",
-      "../../typings/global.d.ts"
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "typeRoots": [
+      "./node_modules/@types",
+      "../../node_modules/@types"
     ]
-  }
+  },
+  "files": [
+    "./src/index.ts",
+    "./src/legacy.ts",
+    "./typings/global.d.ts",
+    "../../typings/global.d.ts"
+  ]
+}

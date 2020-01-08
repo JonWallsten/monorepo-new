@@ -20,16 +20,6 @@
       "copy": false
   },
   {
-      "name": "htmlhint",
-      "type": "bin",
-      "copy": false
-  },
-  {
-      "name": "bootlint",
-      "type": "bin",
-      "copy": false
-  },
-  {
       "name": "rimraf",
       "type": "bin",
       "copy": false

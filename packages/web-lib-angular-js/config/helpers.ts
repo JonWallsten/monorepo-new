@@ -1,5 +1,5 @@
 import { join, resolve } from 'path';
-import { includeBase, projectRootPath } from '../../../build-tools/helpers';
+import { includeBase } from '../../../build-tools/helpers';
 import { realpathSync } from 'fs';
 
 const ROOT_PATH = resolve(__dirname, '..');
@@ -9,9 +9,7 @@ export const realRootPath = (...paths: string[]) => realpathSync(rootPath(...pat
 export const include = [
     ...includeBase,
     rootPath('src'),
-    rootPath('node_modules/bootstrap'),
-    projectRootPath('packages/web-lib-core/dist/'), // Since these are symlinks we need to resolve the real path
-    projectRootPath('packages/web-lib-common/dist/')
+    rootPath('node_modules/bootstrap')
 ];
 export const includeTS = [
     ...includeBase,

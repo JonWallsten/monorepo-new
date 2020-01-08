@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "strictNullChecks": true,
+    "noImplicitReturns": true,
+    "typeRoots": [
+      "node_modules/@types",
+      "../../node_modules/@types"
+    ]
+  },
+  "files": [
+    "src/index.ts"
+  ],
+  "angularCompilerOptions": {
+    "enableIvy": false
+  }
+}

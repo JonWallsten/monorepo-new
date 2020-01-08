@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<div mat-dialog-content class="messages-wrapper">
+
+    <ng-container *ngFor="let message of data.messages">
+        <span *ngIf="data.useHtml" [innerHTML]="message | safe: 'html'" class="message-paragraph"></span>
+        <span *ngIf="!data.useHtml" class="message-paragraph">{{message}}</span>
+    </ng-container>
+
+    <mat-card *ngIf="inDevelopment && data.developerMessages && data.developerMessages!.length">
+        <mat-card-title>
+            Developer info (hidden for ordinary users)
+        </mat-card-title>
+        <mat-card-content>
+            <span *ngFor="let developerMessage of data.developerMessages"
+                class="message-paragraph">{{developerMessage}}</span>
+        </mat-card-content>
+    </mat-card>
+
+</div>
+<mat-dialog-actions class="actions-wrapper">
+    <mat-spinner *ngIf="busy" diameter="14"></mat-spinner>
+    <button #primaryButton *ngIf="data.primaryButton" testIdentifier="test_dialog_button_primary" mat-flat-button
+        color="primary" (click)="closeDialog(data.primaryButton)" [disabled]="busy">{{data.primaryButton!.text}}</button>
+    <button *ngIf="data.secondaryButton" mat-flat-button (click)="closeDialog(data.secondaryButton)"
+        [disabled]="busy">{{data.secondaryButton!.text}}</button>
+    <button *ngIf="data.tertiaryButton" mat-flat-button (click)="closeDialog(data.tertiaryButton)"
+        [disabled]="busy">{{data.tertiaryButton!.text}}</button>
+</mat-dialog-actions>

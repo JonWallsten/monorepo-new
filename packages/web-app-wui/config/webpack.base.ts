@@ -53,7 +53,12 @@ export default (options: IWebpackOptions) => {
                 helpers.rootPath('src'),
                 helpers.rootPath('node_modules'),
                 projectRootPath('node_modules')
-            ]
+            ],
+            alias: {
+                '@oas/web-lib-core': projectRootPath('packages/web-lib-core/dist'),
+                '@oas/web-lib-common': projectRootPath('packages/web-lib-common/dist'),
+                '@oas/web-lib-angular-js': projectRootPath('packages/web-lib-angular-js/dist')
+            }
         },
         /**
          * Options affecting the normal modules.
@@ -84,7 +89,8 @@ export default (options: IWebpackOptions) => {
                     options: {
                         name: '[hash].[ext]',
                         outputPath: 'images/',
-                        publicPath: '' // Removes the default "./"
+                        publicPath: '', // Removes the default "./"
+                        esModule: false
                     },
                     include: helpers.include
                 },
@@ -98,9 +104,10 @@ export default (options: IWebpackOptions) => {
                     options: {
                         name: '[hash].[ext]',
                         outputPath: 'fonts/',
-                        publicPath: '' // Removes the default "./"
+                        publicPath: '', // Removes the default "./"
+                        esModule: false
                     },
-                    include: helpers.include
+                    include: helpers.includeFonts
                 }
 
             ]

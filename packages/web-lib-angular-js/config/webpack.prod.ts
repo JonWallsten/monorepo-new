@@ -46,19 +46,7 @@ export default () => {
                     use: 'source-map-loader',
                     enforce: 'pre',
                     include: process.env.USE_SOURCEMAPS ? helpers.include : []
-                },
-
-                // Even though we only have TS-files, our vendors might have JS, so this is still needed.
-                {
-                    test: /\.js$/,
-                    loader: 'ng-annotate-loader',
-                    options: {
-                        add: true,
-                        single_quotes: true
-                    },
-                    include: helpers.includeTS
                 }
-
             ]
 
         },
