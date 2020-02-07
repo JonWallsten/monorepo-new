@@ -10,7 +10,7 @@ import { faSearch, faTimes, faBars, faCog } from '@fortawesome/free-solid-svg-ic
 import { appRoutes } from './app.routes';
 import { AppComponent } from './app.component';
 
-import { WebLibAngularModule, DialogService } from '@oas/web-lib-angular';
+import { WebLibAngularModule, DialogService, MaterialDesignModule } from '@oas/web-lib-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { DefaultComponent } from './components/default/default.component';
 import { MenuComponent } from './components/menu/menu.component';
@@ -29,7 +29,8 @@ import { HeaderComponent } from './components/header/header.component';
         BrowserModule,
         FontAwesomeModule,
         HttpClientModule,
-        WebLibAngularModule
+        WebLibAngularModule,
+        MaterialDesignModule
     ],
     declarations: [
         AppComponent,

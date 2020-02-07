@@ -8,8 +8,7 @@ export const realRootPath = (...paths: string[]) => realpathSync(rootPath(...pat
 
 export const include = [
     includeBase,
-    rootPath('src'),
-    projectRootPath('packages/web-lib-angular/src')
+    rootPath('src')
 ];
 
 export const includeTS = [

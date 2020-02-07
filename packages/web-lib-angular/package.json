@@ -5,15 +5,19 @@
   "engines": {
     "node": "^12.14.0"
   },
+  "oas": {
+    "type": "lib"
+  },
+  "publishConfig": {
+    "registry": "http://oasartifactory.scania.com/artifactory/api/npm/npm-local"
+  },
   "license": "UNLICENSED",
-  "main": "src/index.ts",
   "scripts": {
     "ci": "npm run clean && npm run lint && npm run test && npm run build:prod",
-    "build:dev": "exit 0",
-    "build:dev:watch": "exit 0",
-    "build:prod": "exit 0",
-    "build": "exit 0",
-    "dev": "exit 0",
+    "build:dev": "npm run build",
+    "build:prod": "npm run build",
+    "build": "ts-node ng-packagr",
+    "dev": "npm run build -- --watch",
     "lint:ts": "tslint -c tslint.json src/**/*.ts",
     "lint:ts:fix": "tslint --fix -t codeFrame 'src/**/*.ts'",
     "lint": "npm run lint:ts",
@@ -24,7 +28,12 @@
     "clean:cache": "rimraf -- .tmp",
     "webpack:debug": "node -r ts-node/register --inspect --debug-brk --max_old_space_size=4096 node_modules/webpack/bin/webpack.js"
   },
-  "dependencies": {},
+  "devDependencies": {
+    "ng-packagr": "9.0.0"
+  },
+  "peerDependencies": {
+    "@oas/web-lib-core": "x.x.x"
+  },
   "internalDependencies": {
     "@oas/web-lib-core": "0.0.0"
   }

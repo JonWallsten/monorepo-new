@@ -34,12 +34,7 @@ import { PipesModule } from '../pipes/pipes.module';
         DialogComponent,
         TestIdentifierDirective,
         DebugComponent,
-        PipesModule,
-        MaterialDesignModule
-    ],
-    // Components used in dialogs
-    entryComponents: [
-        DialogComponent
+        PipesModule
     ],
     // Services
     providers: [
