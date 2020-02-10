@@ -5,6 +5,7 @@
       "preserveWatchOutput": true,
       "importHelpers": false,
       "noEmitHelpers": false,
+      "skipLibCheck": true,
       "baseUrl": ".",
       "declarationDir": "./dist/typings",
       "outDir": "./dist",

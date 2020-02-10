@@ -54,8 +54,7 @@ export default (options: IWebpackOptions) => {
                 projectRootPath('node_modules')
             ],
             alias: {
-                '@oas/web-lib-angular': projectRootPath('packages/web-lib-angular'),
-                '@oas/web-lib-angular-2': projectRootPath('packages/web-lib-angular-2')
+                '@oas/web-lib-angular': projectRootPath('packages/web-lib-angular/dist')
             }
         },
         /**

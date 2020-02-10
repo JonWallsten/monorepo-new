@@ -12,6 +12,7 @@
     "../../typings/global.d.ts"
   ],
   "angularCompilerOptions": {
-    "enableIvy": false
+    "enableIvy": true,
+    "disableTypeScriptVersionCheck": true
   }
 }

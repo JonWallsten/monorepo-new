@@ -3,15 +3,30 @@
   "compilerOptions": {
     "strictNullChecks": true,
     "noImplicitReturns": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "skipLibCheck": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "es2015",
+    "moduleResolution": "node",
     "typeRoots": [
       "node_modules/@types",
-      "../../node_modules/@types"
+      "../../node_modules/@types",
+      "./typings/",
+      "../../typings/"
     ]
   },
   "files": [
-    "src/index.ts"
+    "src/index.ts",
+    "./typings/global.d.ts",
+    "../../typings/global.d.ts"
   ],
   "angularCompilerOptions": {
-    "enableIvy": false
+    "enableIvy": true,
+    "skipTemplateCodegen": true,
+    "strictMetadataEmit": true,
+    "fullTemplateTypeCheck": true,
+    "enableResourceInlining": true
   }
 }

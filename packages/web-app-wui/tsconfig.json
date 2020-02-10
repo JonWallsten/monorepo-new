@@ -1,0 +1,12 @@
+{
+    "extends": "../../tsconfig.json",
+    "include": [
+        "./test/e2e/**/*.ts"
+    ],
+    "files": [
+      "./src/index.ts",
+      "./src/legacy.ts",
+      "./typings/global.d.ts",
+      "../../typings/global.d.ts"
+    ]
+}

@@ -5,7 +5,6 @@
   "engines": {
     "node": "8.10.0"
   },
-
   "license": "UNLICENSED",
   "main": "dist/index.js",
   "scripts": {

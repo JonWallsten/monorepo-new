@@ -37,12 +37,8 @@
       "@oas/web-lib-core": ["./packages/web-lib-core/dist"],
       "@oas/web-lib-common": ["./packages/web-lib-common/dist"],
       "@oas/web-lib-angular-js": ["./packages/web-lib-angular-js/dist"],
-      "@oas/web-lib-angular": ["./packages/web-lib-angular/src"],
-      "@oas/web-lib-angular-2": ["./packages/web-lib-angular-2/dist"],
-      "@oas/internal-lib-e2e": ["./packages/internal-lib-e2e/dist"],
-      "rxjs/*": ["./node_modules/rxjs/*"],
-      "zone.js/*": ["./node_modules/zone.js/*"],
-      "@angular/*": ["node_modules/@angular/*"]
+      "@oas/web-lib-angular": ["./packages/web-lib-angular/dist"],
+      "@oas/internal-lib-e2e": ["./packages/internal-lib-e2e/dist"]
     }
   },
   "compileOnSave": false,

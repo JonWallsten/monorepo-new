@@ -32,10 +32,10 @@ export class DialogComponent {
 
     }
 
-    closeDialog (buttonOptions: DialogButtonOptions) {
+    closeDialog (buttonOptions?: DialogButtonOptions) {
         if (this.dialogRef) {
             // If the DialogButtonOptions has a promise set, resolve it before closing the dialog
-            if (buttonOptions.promise) {
+            if (buttonOptions?.promise) {
                 this.busy = true;
 
                 buttonOptions.promise()
@@ -54,7 +54,7 @@ export class DialogComponent {
 
             } else {
                 // Close immediately
-                this.dialogRef.close(buttonOptions.callback);
+                this.dialogRef.close(buttonOptions?.callback);
             }
         }
     }
