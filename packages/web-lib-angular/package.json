@@ -29,7 +29,7 @@
     "webpack:debug": "node -r ts-node/register --inspect --debug-brk --max_old_space_size=4096 node_modules/webpack/bin/webpack.js"
   },
   "devDependencies": {
-    "ng-packagr": "9.0.0"
+    "ng-packagr": "9.1.0"
   },
   "peerDependencies": {
     "@oas/web-lib-core": "x.x.x"
