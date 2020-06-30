@@ -171,12 +171,14 @@ export default (options: IWebpackOptions) => {
              * See: https://www.npmjs.com/package/copy-webpack-plugin
              */
 
-            new CopyWebpackPlugin([
-                { from: './src/appentries.json', to: './appentries.json' },
-                { from: './src/favicon.png', to: './favicon.png' },
-                // Worker tries to require a module that ace creates in runtime, hence it can't be resolved when bundling, so we don't bother to minify it.
-                { from: '../../node_modules/ace-builds/src-noconflict/worker-javascript.js', to: 'worker-javascript.js' }
-            ]),
+            new CopyWebpackPlugin({
+                patterns: [
+                    { from: './src/appentries.json', to: './appentries.json' },
+                    { from: './src/favicon.png', to: './favicon.png' },
+                    // Worker tries to require a module that ace creates in runtime, hence it can't be resolved when bundling, so we don't bother to minify it.
+                    { from: '../../node_modules/ace-builds/src-noconflict/worker-javascript.js', to: 'worker-javascript.js' }
+                ]
+            }),
 
             // Could probably be removes once everything is TS
             new optimize.OccurrenceOrderPlugin(true),

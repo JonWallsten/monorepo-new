@@ -185,9 +185,12 @@ export default (options: IWebpackOptions) => {
              *
              * See: https://www.npmjs.com/package/copy-webpack-plugin
              */
-            new CopyWebpackPlugin([
-              { from: './src/css/_bootstrap-variables.less', to: './constants/bootstrap-variables.less' }
-            ]),
+
+            new CopyWebpackPlugin({
+                patterns: [
+                    { from: './src/css/_bootstrap-variables.less', to: './constants/bootstrap-variables.less' }
+                ]
+            }),
 
             // Copy all d.ts files from the src since Typescript compiler doesn't include these in the output
             new RecursiveCopyPlugin([{

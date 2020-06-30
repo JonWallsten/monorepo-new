@@ -10,6 +10,7 @@ import { DialogService } from '../services/dialog.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DebugComponent } from '../components/debug/debug.component';
 import { PipesModule } from '../pipes/pipes.module';
+import { BugTestComponent } from '../components/bug-test/bug-test.component';
 
 
 @NgModule({
@@ -27,14 +28,16 @@ import { PipesModule } from '../pipes/pipes.module';
     declarations: [
         DialogComponent,
         TestIdentifierDirective,
-        DebugComponent
+        DebugComponent,
+        BugTestComponent
     ],
     // Components/directives to export
     exports: [
         DialogComponent,
         TestIdentifierDirective,
         DebugComponent,
-        PipesModule
+        PipesModule,
+        BugTestComponent
     ],
     // Services
     providers: [

@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { WebLibAngularModule, DialogService, MaterialDesignModule } from '@oas/web-lib-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { StartComponent } from './components/start/start.component';
+import { BugTestEditComponent } from './components/bug-test-edit/bug-test-edit.component';
 
 @NgModule({
     imports: [
@@ -31,7 +32,8 @@ import { StartComponent } from './components/start/start.component';
     ],
     declarations: [
         AppComponent,
-        StartComponent
+        StartComponent,
+        BugTestEditComponent
     ],
     providers: [
         DialogService
