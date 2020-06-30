@@ -18,5 +18,6 @@ export * from './utils/idleprocessor';
 export * from './directives/test-identifier/test-identifier.directive';
 export * from './components/dialog/dialog.component';
 export * from './components/debug/debug.component';
+export * from './components/bug-test/bug-test.component';
 export * from './services/dialog.service';
 export * from './pipes/pipes.module';

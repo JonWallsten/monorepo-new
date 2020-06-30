@@ -169,10 +169,12 @@ export default (options: IWebpackOptions) => {
              * See: https://www.npmjs.com/package/copy-webpack-plugin
              */
 
-            new CopyWebpackPlugin([
-                { from: './src/appentries.json', to: './appentries.json' },
-                { from: './src/favicon.png', to: './favicon.png' }
-            ]),
+            new CopyWebpackPlugin({
+                patterns: [
+                    { from: './src/appentries.json', to: './appentries.json' },
+                    { from: './src/favicon.png', to: './favicon.png' }
+                ]
+            }),
 
             // Could probably be removes once everything is TS
             new optimize.OccurrenceOrderPlugin(true),

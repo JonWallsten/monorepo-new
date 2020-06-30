@@ -4,7 +4,6 @@ import * as helpers from './helpers';
 /**
  * Webpack Plugins
  */
-import CopyWebpackPlugin from 'copy-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { RecursiveCopyPlugin } from '../../../config/plugins/recursive-copy';
 import { projectRootPath } from '../../../build-tools/helpers';
@@ -178,16 +177,6 @@ export default (options: IWebpackOptions) => {
             new MiniCssExtractPlugin({
                 filename: '[name].css'
             }),
-
-            /**
-             * Plugin: CopyWebpackPlugin
-             * Description: Copy files and directories in webpack.
-             *
-             * Copies project static assets.
-             *
-             * See: https://www.npmjs.com/package/copy-webpack-plugin
-             */
-            new CopyWebpackPlugin([]),
 
             // Copy all d.ts files from the src since Typescript compiler doesn't include these in the output
             new RecursiveCopyPlugin([{

@@ -216,10 +216,12 @@ export default (options: IWebpackOptions) => {
              * See: https://www.npmjs.com/package/copy-webpack-plugin
              */
 
-            new CopyWebpackPlugin([
-                { from: './src/healthcheck.txt', to: './healthcheck.txt' }, // Used for health checking by a load balancer in prod
-                { from: 'src/assets', to: 'assets' }
-            ]),
+            new CopyWebpackPlugin({
+                patterns: [
+                    { from: './src/healthcheck.txt', to: './healthcheck.txt' }, // Used for health checking by a load balancer in prod
+                    { from: 'src/assets', to: 'assets' }
+                ]
+            }),
 
             // use this before AngularCompilerPlugin in your webpack.prod.js
             new NormalModuleReplacementPlugin(

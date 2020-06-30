@@ -221,10 +221,12 @@ export default (options: IWebpackOptions) => {
              * See: https://www.npmjs.com/package/copy-webpack-plugin
              */
 
-            new CopyWebpackPlugin([
-                { from: './src/appentries.json', to: './appentries.json' },
-                { from: 'src/assets', to: 'assets' }
-            ]),
+            new CopyWebpackPlugin({
+                patterns: [
+                    { from: './src/appentries.json', to: './appentries.json' },
+                    { from: 'src/assets', to: 'assets' }
+                ]
+            }),
 
             // use this before AngularCompilerPlugin in your webpack.prod.js
             new NormalModuleReplacementPlugin(
