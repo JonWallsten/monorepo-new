@@ -5,7 +5,7 @@ import copy from 'ncp';
 import { listPkgs } from './run-all/workspace';
 import * as helpers from './helpers';
 import yargs from 'yargs';
-import replaceInFile from 'replace-in-file';
+import { replaceInFile } from 'replace-in-file';
 
 type SymLink = {
     name: string,
