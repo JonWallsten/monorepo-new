@@ -1,16 +1,24 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "target": "es2015",
     "strictNullChecks": true,
-    "noImplicitReturns": true
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true
   },
   "include": [
-    "./test/e2e/**/*.ts",
-    "./src/**/*.e2e-spec.ts"
+    "./src/**/*.ts",
+    "./test/e2e/**/*.ts"
   ],
   "files": [
-    "./src/main.ts",
+    "./protractor.conf.ts",
     "./typings/global.d.ts",
     "../../typings/global.d.ts"
-  ]
+  ],
+  "angularCompilerOptions": {
+    "strictTemplates": true
+  }
 }

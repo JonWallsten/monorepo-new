@@ -5,7 +5,7 @@ import commonConfig from './webpack.base';
 /**
  * Webpack Plugins
  */
-import TerserPlugin from 'terser-webpack-plugin';
+import * as TerserPlugin from 'terser-webpack-plugin';
 
 export default () => {
     const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
@@ -13,9 +13,7 @@ export default () => {
 
     return webpackMerge(commonConfig({ env: ENV }), {
         mode: ENV,
-
         module: {
-
             rules: [
                 {
                     test: /\.ts$/,
@@ -26,9 +24,9 @@ export default () => {
                     include: helpers.include
                 }
             ]
-
         },
-        devtool: useSourcemaps && 'source-map-inline',
+
+        devtool: useSourcemaps ? 'inline-source-map' : false,
 
         optimization: {
             minimizer: [
@@ -37,8 +35,14 @@ export default () => {
                         ecma: 5,
                         keep_classnames: true,
                         keep_fnames: true,
+                        output: {
+                            comments: false
+                        },
                         sourceMap: useSourcemaps && {
                             url: 'inline'
+                        },
+                        mangle: {
+                            reserved: [ 'process' ] // Preserve process.env in dist (needed for config based on runtime env in node scripts)
                         }
                     }
                 })

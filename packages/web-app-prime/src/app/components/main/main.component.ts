@@ -35,7 +35,7 @@ export class MainComponent implements OnInit {
         this.activeAppInstance = AppHandler.getActiveAppInstance()!;
         this.sidebarAppInstance = AppHandler.getSideBarAppInstance();
         this.cd.detectChanges();
-    }
+    };
 
     /**
      * Keep track of commands in ngFor to avoid unnecessary rendering

@@ -3,10 +3,11 @@ import * as helpers from './helpers';
 /**
  * Webpack Plugins
  */
-import { AngularCompilerPlugin } from '@ngtools/webpack';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
+import { AngularWebpackPlugin } from '@ngtools/webpack';
+// @ts-ignore
+import * as CopyWebpackPlugin from 'copy-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
+import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import { DefinePlugin, NormalModuleReplacementPlugin } from 'webpack';
 import { projectRootPath } from '../../../build-tools/helpers';
 
@@ -21,7 +22,16 @@ export interface IWebpackOptions {
  */
 export default (options: IWebpackOptions) => {
     const isProd = options.env === 'production';
+    const isDev = options.env === 'development';
     const envPrefix = isProd ? '.prod' : '';
+
+    let includedPackages: string[] = [];
+    // If includedPackages has been provided we filter out the libraries and ourself and leave the apps.
+    if (process.env.includedPackages) {
+        includedPackages = (JSON.parse(process.env.includedPackages) as string[])
+            .filter(pkg => pkg.match(/web-app-.*/) && pkg.indexOf('web-app-prime') === -1)
+            .map(pkg => pkg.replace('packages/', ''));
+    }
 
     const config: any = { // Configuration
         entry: {
@@ -55,7 +65,8 @@ export default (options: IWebpackOptions) => {
             ],
             alias: {
                 '@oas/web-lib-angular': projectRootPath('packages/web-lib-angular/dist')
-            }
+            },
+            mainFields: ['es2015', 'browser', 'module', 'main'],
         },
         /**
          * Options affecting the normal modules.
@@ -72,12 +83,12 @@ export default (options: IWebpackOptions) => {
                 },
                 {
                     test: /\.css$/,
-                    use: ['to-string-loader', 'css-loader', 'postcss-loader'],
+                    use: ['to-string-loader', 'css-loader?esModule=false', 'postcss-loader'],
                     exclude: helpers.includeStyles
                 },
                 {
                     test: /\.scss$/,
-                    use: ['to-string-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
+                    use: ['to-string-loader', 'css-loader?esModule=false', 'postcss-loader', 'sass-loader'],
                     exclude: helpers.includeStyles
                 },
                 /**
@@ -88,7 +99,11 @@ export default (options: IWebpackOptions) => {
                  */
                 {
                     test: /\.html$/,
-                    use: 'html-loader',
+                    loader: 'html-loader',
+                    options: {
+                        minimize: false,
+                        esModule: false
+                    },
                     include: helpers.include
                 },
 
@@ -99,7 +114,7 @@ export default (options: IWebpackOptions) => {
                     test: /\.(jpg|png|gif)$/,
                     loader: 'file-loader',
                     options: {
-                        name: '[hash].[ext]',
+                        name: '[name].[hash].[ext]',
                         outputPath: 'assets/images/',
                         publicPath: '', // Removes the default "./"
                         esModule: false
@@ -122,8 +137,6 @@ export default (options: IWebpackOptions) => {
         },
 
         optimization: {
-            //runtimeChunk: true,
-            occurrenceOrder: true,
             splitChunks: {
                 cacheGroups: {
                     angular: {
@@ -133,14 +146,7 @@ export default (options: IWebpackOptions) => {
                         priority: 10,
                         enforce: true
                     },
-                    moment: {
-                        test: /moment/,
-                        chunks: 'initial',
-                        name: 'moment',
-                        priority: 8,
-                        enforce: true
-                    },
-                    lodash: {
+                    fortawesome: {
                         test: /fortawesome/,
                         chunks: 'initial',
                         name: 'fontawesome',
@@ -178,26 +184,14 @@ export default (options: IWebpackOptions) => {
              *
              * Environment helpers
              *
-             * See: https://webpack.github.io/docs/list-of-plugins.html#defineplugin
+             * See: https://webpack.js.org/plugins/define-plugin/#root
              */
             // NOTE: when adding more properties make sure you include them in custom-typings.d.ts
             new DefinePlugin({
                 IS_PROD: isProd,
-                IS_DEV: !isProd
+                IS_DEV: isDev,
+                PRIME_DEV_BUILD_INFO: isDev ? JSON.stringify({includedPackages}) : JSON.stringify({})
             }),
-
-            // new ContextReplacementPlugin(
-            //     /**
-            //      * The (\\|\/) piece accounts for path separators in *nix and Windows
-            //      */
-            //     /\@angular(\\|\/)core(\\|\/)fesm5/,
-            //     helpers.rootPath('src'), // location of your src
-            //     {
-            //       /**
-            //        * your Angular Async Route paths relative to this root directory
-            //        */
-            //     }
-            // ),
 
             new HtmlWebpackPlugin({
                 template: helpers.rootPath('src/index.html'),
@@ -223,35 +217,19 @@ export default (options: IWebpackOptions) => {
                 ]
             }),
 
-            // use this before AngularCompilerPlugin in your webpack.prod.js
+            // use this before AngularWebpackPlugin in your webpack.prod.js
             new NormalModuleReplacementPlugin(
                 /\.\/environments\/environment/,
                 `./environments/environment${envPrefix}`
             ),
 
-            new AngularCompilerPlugin({
-                tsConfigPath: helpers.rootPath('tsconfig.build.json'),
-                mainPath: helpers.rootPath('src/main.ts'),
-                sourceMap: true
+            new AngularWebpackPlugin({
+                tsconfig: helpers.rootPath('tsconfig.build.json')
             }),
 
-            new CleanWebpackPlugin()
-        ],
 
-        /**
-         * Include polyfills or mocks for various node stuff
-         * Description: Node configuration
-         *
-         * See: https://webpack.github.io/docs/configuration.html#node
-         */
-        node: {
-            global: true,
-            crypto: 'empty',
-            process: true,
-            module: false,
-            clearImmediate: false,
-            setImmediate: false
-        }
+            new CleanWebpackPlugin()
+        ]
     };
 
     return config;

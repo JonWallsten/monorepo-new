@@ -1,4 +1,3 @@
-window.postal = require('postal'); // tslint:disable-line:no-require-imports no-var-requires
 import '../../../polyfills/es6-es7';
 import '../../../polyfills/legacy';
 import 'zone.js/dist/zone';

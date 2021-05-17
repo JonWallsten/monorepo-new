@@ -13,4 +13,3 @@ import { SafePipe } from './safe.pipe';
     ]
 })
 export class PipesModule { }
-

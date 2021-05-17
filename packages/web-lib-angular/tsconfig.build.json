@@ -5,18 +5,13 @@
     "noImplicitReturns": true,
     "inlineSourceMap": true,
     "inlineSources": true,
-    "skipLibCheck": true,
     "importHelpers": true,
+    "declarationMap": true,
     "target": "es2015",
     "module": "es2015",
-    "moduleResolution": "node",
-    "typeRoots": [
-      "node_modules/@types",
-      "../../node_modules/@types",
-      "./typings/",
-      "../../typings/"
-    ]
+    "moduleResolution": "node"
   },
+  "exclude": ["dist"],
   "files": [
     "src/index.ts",
     "./typings/global.d.ts",
@@ -27,6 +22,7 @@
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
     "fullTemplateTypeCheck": true,
-    "enableResourceInlining": true
+    "enableResourceInlining": true,
+    "disableTypeScriptVersionCheck": true
   }
 }

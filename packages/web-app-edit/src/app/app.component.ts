@@ -27,12 +27,11 @@ export class AppComponent implements AfterViewInit {
         private domSanitizer: DomSanitizer,
         private zone: NgZone,
         private dialogService: DialogService
-      ) {
+    ) {
         this.appInfo = AppInfo;
 
         // Inject our Angular zone into the idle processor class to make sure change detection works smoothly
         IdleProcessor.injectZone(this.zone);
-
 
         // Check if user is running Internet Explorer.
         this.isMSIE = !!window.navigator.userAgent.match(/(MSIE|Trident)/);

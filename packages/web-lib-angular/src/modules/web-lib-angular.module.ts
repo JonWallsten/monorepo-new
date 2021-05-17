@@ -12,7 +12,6 @@ import { DebugComponent } from '../components/debug/debug.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { BugTestComponent } from '../components/bug-test/bug-test.component';
 
-
 @NgModule({
     // Modules
     imports: [

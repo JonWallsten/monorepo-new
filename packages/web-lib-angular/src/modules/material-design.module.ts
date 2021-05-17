@@ -28,7 +28,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 //import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
-
 @NgModule({
     imports: [
         BrowserAnimationsModule,
@@ -92,4 +91,3 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     ]
 })
 export class MaterialDesignModule { }
-

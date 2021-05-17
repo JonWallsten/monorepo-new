@@ -1,5 +1,5 @@
 import { existsSync, readFileSync, writeFileSync } from 'fs';
-import nodeObjectHash from 'node-object-hash';
+import * as nodeObjectHash from 'node-object-hash';
 
 export const defaultPackageHashFileName = '.packages.hash';
 export const defaultPackageJsonFileName = 'package.json';
@@ -40,7 +40,6 @@ export function createDependenciesHash (packageJsonFile: string) {
 
     // Create a hash for all dependencies and their version
     return nodeObjectHash({ sort: false }).hash(packages);
-
 
 }
 

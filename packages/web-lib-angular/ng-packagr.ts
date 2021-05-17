@@ -1,15 +1,34 @@
+import { WatchControllerPlugin } from '../../build-tools/plugins/watch-controller';
 import * as ngPackage from 'ng-packagr';
-import yargs from 'yargs';
+import * as yargs from 'yargs';
 
 const argv = yargs.argv;
 
-ngPackage
-  .ngPackagr()
-  .forProject('ng-package.json')
-  .withTsConfig('tsconfig.build.json')
-  .withOptions({ watch: (argv.watch as boolean) })
-  .build()
-  .catch(error => {
-      console.error(error);
-      process.exit(1);
-  });
+// If watch is activated we handle stuff a bit differently
+if (argv.watch) {
+    let initialBuild = true;
+    const watchControllerPlugin = new WatchControllerPlugin();
+    ngPackage
+        .ngPackagr()
+        .forProject('ng-package.json')
+        .withTsConfig('tsconfig.build.json')
+        .watch([/\.webpack\.build/])
+        .subscribe(() => {
+            if (initialBuild) {
+                initialBuild = false;
+                return;
+            }
+            // Trigger rebuild for our dependants
+            watchControllerPlugin.buildDoneExternal();
+        });
+} else {
+    ngPackage
+        .ngPackagr()
+        .forProject('ng-package.json')
+        .withTsConfig('tsconfig.build.json')
+        .build()
+        .catch(error => {
+            console.error(error);
+            process.exit(1);
+        });
+}

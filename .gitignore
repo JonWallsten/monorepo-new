@@ -2,6 +2,7 @@ node_modules
 dist
 .tmp
 .sass-cache
+.cache
 .idea
 test/browser
 test/coverage
@@ -12,7 +13,8 @@ debug.log
 test/e2e/.tmp
 .vscode
 .vscode/settings.json
-package-lock.json
+*.code-workspace
 .packages.hash
 coverage
-.npmrc
+.webpack.watch
+.webpack.build

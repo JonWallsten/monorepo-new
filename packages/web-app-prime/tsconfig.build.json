@@ -1,14 +1,18 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+      "target": "es2015",
       "outDir": "./dist",
       "strictNullChecks": true,
       "noImplicitReturns": true,
-      "typeRoots": [
-        "./node_modules/@types",
-        "../../node_modules/@types"
-      ]
+      "noFallthroughCasesInSwitch": true,
+      "noImplicitAny": true,
+      "strictFunctionTypes": true,
+      "strictBindCallApply": true
   },
+  "exclude": [
+    "../../build-tools/"
+  ],
   "files": [
     "./src/main.ts",
     "./src/environments/environment.prod.ts",

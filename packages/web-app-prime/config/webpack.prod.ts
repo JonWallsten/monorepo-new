@@ -2,13 +2,12 @@
 import webpackMerge from 'webpack-merge';
 import * as helpers from './helpers';
 import commonConfig from './webpack.base';
-import { GLOBAL_DEFS_FOR_TERSER } from '@angular/compiler-cli';
 
 /**
  * Webpack Plugins
  */
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import TerserPlugin from 'terser-webpack-plugin';
+import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import * as TerserPlugin from 'terser-webpack-plugin';
 import { DefinePlugin } from 'webpack';
 
 export default () => {
@@ -34,10 +33,11 @@ export default () => {
                         options: {
                             sourceMap: useSourcemaps
                         }
-                    }]
+                    }],
+                    include: helpers.includeTS
                 },
                 {
-                    test: /\.js$/,
+                    test: useSourcemaps ? /\.js$/ : () => false,
                     use: 'source-map-loader',
                     enforce: 'pre',
                     include: useSourcemaps ? helpers.includeSourceMaps : []
@@ -63,7 +63,9 @@ export default () => {
                 }
             ]
         },
-        devtool: useSourcemaps && 'source-map',
+
+        devtool: useSourcemaps ? 'inline-source-map' : false,
+
         optimization: {
             minimizer: [
                 new TerserPlugin({
@@ -71,13 +73,11 @@ export default () => {
                         ecma: 5,
                         keep_classnames: true,
                         keep_fnames: true,
+                        output: {
+                            comments: false
+                        },
                         sourceMap: useSourcemaps && {
                             url: 'inline'
-                        },
-                        // Temporary fix for this bug:
-                        // https://github.com/angular/angular/issues/31595
-                        compress: {
-                            global_defs: GLOBAL_DEFS_FOR_TERSER
                         }
                     }
                 })
@@ -97,7 +97,7 @@ export default () => {
              *
              * Environment helpers
              *
-             * See: https://webpack.github.io/docs/list-of-plugins.html#defineplugin
+             * See: https://webpack.js.org/plugins/define-plugin/#root
              */
             // NOTE: when adding more properties make sure you include them in custom-typings.d.ts
             new DefinePlugin({
@@ -106,8 +106,8 @@ export default () => {
             new MiniCssExtractPlugin({
                 // Options similar to the same options in webpackOptions.output
                 // both options are optional
-                filename: '[name].[hash].css'
+                filename: '[name].[fullhash].css'
             })
-        ].filter(Boolean)
+        ]
     });
 };

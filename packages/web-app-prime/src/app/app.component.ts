@@ -50,7 +50,6 @@ export class AppComponent {
             }
         });
 
-
         AppHandler.loadAppEntries()
             .then(() => {
 
@@ -63,7 +62,7 @@ export class AppComponent {
                 });
 
                 appInstance!.promise.then(() => {
-                    console.log('this.showSessionRestoreToast()'); // tslint:disable-line no-console
+                    console.log('this.showSessionRestoreToast()'); // eslint-disable-line no-console
                 });
 
                 if (!appInstance) {

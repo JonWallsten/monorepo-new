@@ -10,7 +10,7 @@ const folders = [
 
 // Make sure rimraf exists
 try {
-    require(packageName); // tslint:disable-line no-var-requires
+    require(packageName); // eslint-disable-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 } catch (err) {
     if (err.code === 'MODULE_NOT_FOUND') {
         console.error(logPrefix + 'You need rimraf ro run this script. Rimraf can be installed with "npm i rimraf".\n');
@@ -22,12 +22,11 @@ try {
 }
 
 // Proceed with deleting folders
-const rimraf = require(packageName); // tslint:disable-line no-var-requires
+const rimraf = require(packageName); // eslint-disable-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 rimraf(`{${folders.join(',')}}`, (err) => {
     if (err) {
-        process.exit(1);
         console.error(logPrefix + 'While cleaning folders. ', err);
-        return;
+        process.exit(1);
     }
     process.exit(0);
 });

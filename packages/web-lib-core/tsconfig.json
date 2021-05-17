@@ -1,5 +1,17 @@
 {
   "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "strictNullChecks": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": false,
+    "strictFunctionTypes": false,
+    "strictBindCallApply": true
+  },
+  "include": [
+    "./src/**/*.ts",
+    "./tests/**/*.ts",
+  ],
   "files": [
     "./src/index.ts",
     "./typings/global.d.ts",

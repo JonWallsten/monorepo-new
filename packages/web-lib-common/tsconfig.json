@@ -1,0 +1,14 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+      "strictNullChecks": true
+    },
+    "include": [
+      "./src/**/*.ts"
+    ],
+    "files": [
+      "./src/index.ts",
+      "./typings/global.d.ts",
+      "../../typings/global.d.ts"
+    ]
+  }

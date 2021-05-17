@@ -1,18 +1,17 @@
-// tslint:disable no-console
 import { copyFile, readFileSync, existsSync, symlink } from 'fs';
-import rimraf from 'rimraf';
-import copy from 'ncp';
+import * as rimraf from 'rimraf';
+import * as copy from 'ncp';
 import { listPkgs } from './run-all/workspace';
 import * as helpers from './helpers';
-import yargs from 'yargs';
+import * as yargs from 'yargs';
 import { replaceInFile } from 'replace-in-file';
 
 type SymLink = {
-    name: string,
-    origin?: string,
-    target?: string,
-    copy?: boolean,
-    type: 'file' | 'dir' | 'bin' | 'module',
+    name: string;
+    origin?: string;
+    target?: string;
+    copy?: boolean;
+    type: 'file' | 'dir' | 'bin' | 'module';
     pattern?: string;
 };
 
@@ -46,7 +45,7 @@ Object.keys(pkgs).forEach((name: string) => {
         }
 
         if (link.pattern && !target.match(new RegExp(link.pattern))) {
-            console.log('No match for (' + link.pattern + ':' + target);
+            console.info('No match for (' + link.pattern + ':' + target);
             return;
         }
 
@@ -67,7 +66,7 @@ Object.keys(pkgs).forEach((name: string) => {
                             to: isWindows ? '..\\'.repeat(4) + 'node_modules\\' : '..\/'.repeat(4) + 'node_modules/'
                         }, (error) => {
                             if (error) {
-                                return console.error('[postinstall] relative path could not be updated. Error:', error);
+                                console.error('[postinstall] relative path could not be updated. Error:', error);
                                 process.exit(1);
                             }
                         });
@@ -85,7 +84,7 @@ Object.keys(pkgs).forEach((name: string) => {
                             console.error(`[postinstall] Could not symlink ${link.type}. Error: `, err);
                             process.exit(1);
                         }
-                        console.log(`[postinstall] ${origin} -> ${target}`);
+                        console.info(`[postinstall] ${origin} -> ${target}`);
                     });
                 } else if (link.copy || isWindows) {
                     // If a module already exists we skip copy
@@ -94,7 +93,7 @@ Object.keys(pkgs).forEach((name: string) => {
                     }
                     copy(origin, target, (err) => {
                         if (err) {
-                            console.log(`[postinstall] Could not copy ${link.type}. Error: ${err}`);
+                            console.info(`[postinstall] Could not copy ${link.type}. Error: ${err}`);
                             process.exit(1);
                         }
                     });

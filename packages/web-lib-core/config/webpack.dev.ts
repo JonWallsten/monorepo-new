@@ -3,8 +3,8 @@ import * as helpers from './helpers';
 import commonConfig from './webpack.base';
 
 import { EvalSourceMapDevToolPlugin } from 'webpack';
-import { projectRootPath } from '../../../build-tools/helpers';
-import { oasProgressPlugin } from '../../../config/plugins/progress';
+import { oasProgressPlugin } from '../../../build-tools/plugins/progress';
+import { WatchControllerPlugin } from '../../../build-tools/plugins/watch-controller';
 
 /**
  * Webpack configuration
@@ -13,17 +13,13 @@ import { oasProgressPlugin } from '../../../config/plugins/progress';
  */
 export default () => {
     const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
-    const useSourcemaps = !process.env.SKIP_SOURCEMAP;
 
     return webpackMerge(commonConfig({ env: ENV }), {
         mode: ENV,
         devtool: false, // handled by EvalSourceMapDevToolPlugin
         watchOptions: {
             aggregateTimeout: 300,
-            ignored: [
-                helpers.rootPath('node_modules'),
-                projectRootPath('node_modules')
-            ]
+            ignored: /\/node_modules\/|\/\.cache\//
         },
 
         module: {
@@ -39,12 +35,23 @@ export default () => {
             ]
         },
 
-        plugins: [
-            oasProgressPlugin,
+        cache: {
+            type: 'filesystem',
+            cacheDirectory: helpers.rootPath('.cache')
+        },
 
-            useSourcemaps && new EvalSourceMapDevToolPlugin({
+        optimization: {
+            moduleIds: 'natural'
+        },
+
+        plugins: [
+            oasProgressPlugin('web-lib-core'),
+
+            new WatchControllerPlugin(),
+
+            new EvalSourceMapDevToolPlugin({
                 moduleFilenameTemplate: 'web-lib-core://[resource-path]',
-                exclude: /dist[\\\/]|\.html|\.css|\.less|\.woff|\.woff2|\.svg|\.ttf|\.eot|\.jpg|\.png|\.gif|\.json|node_modules/
+                exclude: /\.html|\.css|\.less|\.woff|\.woff2|\.svg|\.ttf|\.eot|\.jpg|\.png|\.gif|\.json|node_modules/
             } as any)
         ].filter(Boolean)
     });

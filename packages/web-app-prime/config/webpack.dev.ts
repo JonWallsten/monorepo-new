@@ -1,11 +1,12 @@
 import webpackMerge from 'webpack-merge';
-import WriteFileWebpackPlugin from 'write-file-webpack-plugin';
 import { host, port } from './globals';
 import * as helpers from './helpers';
 import commonConfig from './webpack.base';
+
+
 import { EvalSourceMapDevToolPlugin } from 'webpack';
-import { projectRootPath } from '../../../build-tools/helpers';
-import { oasProgressPlugin } from '../../../config/plugins/progress';
+import { oasProgressPlugin } from '../../../build-tools/plugins/progress';
+import { WatchControllerPlugin } from '../../../build-tools/plugins/watch-controller';
 
 /**
  * Webpack configuration
@@ -14,7 +15,6 @@ import { oasProgressPlugin } from '../../../config/plugins/progress';
  */
 export default () => {
     const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
-    const useSourcemaps = !process.env.SKIP_SOURCEMAP;
 
     return webpackMerge(commonConfig({ env: ENV }), {
         mode: ENV,
@@ -22,17 +22,6 @@ export default () => {
             publicPath: '/' // note: do not use './', webpack-dev-server requires '/'
         },
         devtool: false, // handled by EvalSourceMapDevToolPlugin
-        watchOptions: {
-            aggregateTimeout: 300,
-
-            ignored: [
-                helpers.rootPath('node_modules'),
-                projectRootPath('node_modules')
-            ]
-        },
-
-        //devtool: 'source-map',
-
         devServer: {
             host,
             port,
@@ -40,9 +29,14 @@ export default () => {
             noInfo: true,
             hot: true, // For some reason this is igonored by webpack-dev-server. So the flag --hot is needed in package.json.
             disableHostCheck: true,
+            writeToDisk: true,
             overlay: {
                 warnings: false,
                 errors: true
+            },
+            watchOptions: {
+                aggregateTimeout: 300,
+                ignored: /\/node_modules\/|web-lib-angular\/src|[\\\/]packages[\\\/]web-(?:lib|app)-.*[\\\/]dist[\\\/]|\$\$_lazy_route_resource|\/\.cache\//
             },
             // Fix for getting appentries from prime
             headers: {
@@ -59,6 +53,12 @@ export default () => {
                     test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
                     use: '@ngtools/webpack',
                     include: helpers.includeTS
+                },
+                {
+                    test: /\.js$/,
+                    use: 'source-map-loader',
+                    enforce: 'pre',
+                    include: helpers.includeSourceMaps
                 },
                 /**
                  * Css loader support for *.css files (styles directory only)
@@ -84,19 +84,29 @@ export default () => {
 
         },
 
+        cache: {
+            type: 'filesystem',
+            cacheDirectory: helpers.rootPath('.cache')
+        },
+
+        optimization: {
+            moduleIds: 'natural'
+        },
+
         plugins: [
-            oasProgressPlugin,
+            oasProgressPlugin('web-app-prime'),
 
-            // new CheckerPlugin(),
+            new WatchControllerPlugin(),
 
-            new WriteFileWebpackPlugin({
-                log: true,
-                test: /(\.woff|\.woff2|\.svg|\.ttf|\.eot|\.jpg|\.png|\.gif|\.json)$/
-            }),
-
-            useSourcemaps && new EvalSourceMapDevToolPlugin({
-                moduleFilenameTemplate: 'web-app-prime://[resource-path]',
-                exclude: /dist[\\\/]|\.html|\.css|\.less|\.woff|\.woff2|\.svg|\.ttf|\.eot|\.jpg|\.png|\.gif|\.json|node_modules/
+            new EvalSourceMapDevToolPlugin({
+                moduleFilenameTemplate: (info: any) => {
+                    // Match sourcemaps from Angular library
+                    if (info.resourcePath.match(/ng:[\\\/]{2}/)) {
+                        return info.resourcePath.replace(/ng:[\\\/]{2}@oas[\\\/]web-lib-angular[\\\/]/, 'web-lib-angular://./src/');
+                    }
+                    return `web-app-prime://${info.resourcePath}`;
+                },
+                exclude: /\.html|\.css|\.less|\.woff|\.woff2|\.svg|\.ttf|\.eot|\.jpg|\.png|\.gif|\.json|node_modules/
             } as any)
         ].filter(Boolean)
     });

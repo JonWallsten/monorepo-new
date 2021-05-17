@@ -9,20 +9,20 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "ci": "npm run clean && npm run lint && npm run test && npm run build:prod",
-    "build:dev": "webpack --config config/webpack.dev.ts --display minimal --display-error-details",
+    "build:dev": "npm run webpack -- --config config/webpack.dev.ts",
     "build:dev:watch": "npm run build:dev -- --watch",
-    "build:prod": "webpack --config config/webpack.prod.ts --display errors-only --display-error-details",
+    "build:prod": "npm run webpack -- --config config/webpack.prod.ts",
     "build": "npm run clean && npm run build:prod",
-    "dev": "npm run build:dev:watch",
-    "lint:ts": "tslint -c tslint.json src/**/*.ts",
-    "lint:ts:fix": "tslint --fix -t codeFrame 'src/**/*.ts'",
-    "lint": "npm run lint:ts",
+    "dev": "npm run clean:cache && npm run build:dev:watch",
+    "lint": "eslint \"src/**/*.ts\" --fix",
+    "lint:staged": "ts-node ../../build-tools/lint-staged-files",
     "test": "exit 0",
     "compile": "npm run clean:cache && tsc",
     "clean": "npm run clean:dist && npm run clean:cache",
     "clean:dist": "rimraf -- dist",
     "clean:cache": "rimraf -- .tmp",
-    "webpack:debug": "node -r ts-node/register --inspect --debug-brk --max_old_space_size=4096 node_modules/webpack/bin/webpack.js"
+    "webpack": "node -r ts-node/register --max_old_space_size=8192 ../../node_modules/webpack/bin/webpack.js",
+    "webpack:debug": "node -r ts-node/register --inspect-brk --max_old_space_size=8192 ../../node_modules/webpack/bin/webpack.js"
   },
   "devDependencies": {
     "lodash-ts-imports-loader": "1.2.0"

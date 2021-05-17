@@ -7,6 +7,9 @@
       "declarationDir": "./dist",
       "outDir": "./dist"
     },
+    "exclude": [
+      "../../build-tools/"
+    ],
     "files": [
       "./src/index.ts",
       "./typings/global.d.ts",

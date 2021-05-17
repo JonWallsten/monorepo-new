@@ -18,12 +18,11 @@ export const includeTS = [
 
 export const includeStyles = [
     rootPath('src', 'styles'),
-    rootPath('node_modules/normalize.css'),
+    projectRootPath('node_modules/normalize.css'),
     projectRootPath('packages/web-lib-angular/src/styles'),
     projectRootPath('node_modules/@fortawesome/fontawesome-free')
 ];
 
 export const includeSourceMaps = [
-    ...include,
-    projectRootPath('packages/web-lib-core/dist')
+    projectRootPath('packages/web-lib-angular/dist')
 ];

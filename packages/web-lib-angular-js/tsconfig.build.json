@@ -5,12 +5,11 @@
     "declaration": true,
     "declarationMap": true,
     "declarationDir": "./dist",
-    "outDir": ".dist",
-    "typeRoots": [
-      "./node_modules/@types",
-      "../../node_modules/@types",
-    ]
+    "outDir": "./dist"
   },
+  "exclude": [
+    "../../build-tools/"
+  ],
   "files": [
     "./src/index.ts",
     "./typings/global.d.ts",

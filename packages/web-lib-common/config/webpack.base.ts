@@ -4,8 +4,7 @@ import * as helpers from './helpers';
 /**
  * Webpack Plugins
  */
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import { RecursiveCopyPlugin } from '../../../config/plugins/recursive-copy';
+import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { projectRootPath } from '../../../build-tools/helpers';
 
 export interface IWebpackOptions {
@@ -19,9 +18,14 @@ export interface IWebpackOptions {
  */
 export default (options: IWebpackOptions) => {
     const isProd: boolean = options.env === 'production';
-    const useSourceMap = !isProd;
 
     const config: Configuration = {
+        /**
+         * CAUTION:
+         * web-app-wui must be built using legacy ES5, e.g. no arrow functions and classes (ES6+),
+         * since we still need to support IE11 for Catia/Enovia (MMT1-29082)
+         */
+        target: ['web', 'es5'],
         output: {
             path: helpers.rootPath('dist'),
             filename: '[name].js',
@@ -62,21 +66,6 @@ export default (options: IWebpackOptions) => {
 
         externals: /^(angular|jquery|\$|@oas\/web-lib-core)$/i,
 
-        optimization: {
-            //runtimeChunk: true,
-            occurrenceOrder: false
-            // splitChunks: {
-            //     cacheGroups: {
-            //         vendor: {
-            //             test: /node_modules/,
-            //             chunks: 'initial',
-            //             name: 'vendor',
-            //             enforce: true
-            //         }
-            //     }
-            // }
-        },
-
         /**
          * Options affecting the normal modules.
          *
@@ -86,25 +75,13 @@ export default (options: IWebpackOptions) => {
 
             rules: [
                 /**
-                 * Optimises lodash import to allow syntax "import { name } from 'lodash'" instead of
-                 * import * as name from 'lodash/name'
-                 *
-                 */
-                // {
-                //     test: /\.ts$/,
-                //     loader: 'lodash-ts-imports-loader',
-                //     exclude: helpers.exclude,
-                //     enforce: 'pre'
-                // },
-
-                /**
                  * To string and css loader support for *.css files (from Angular components)
                  * Returns file content as string
                  *
                  */
                 {
                     test: /\.css$/,
-                    use: [MiniCssExtractPlugin.loader, `css-loader?sourceMap=${useSourceMap}`, `postcss-loader?sourceMap=${useSourceMap}`],
+                    use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
                     include: helpers.includeStyles
                 },
 
@@ -115,7 +92,7 @@ export default (options: IWebpackOptions) => {
                  */
                 {
                     test: /\.less$/,
-                    use: [MiniCssExtractPlugin.loader, `css-loader?sourceMap=${useSourceMap}`, `postcss-loader?sourceMap=${useSourceMap}`, `less-loader?sourceMap=${useSourceMap}`],
+                    use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'less-loader'],
                     include: helpers.includeStyles
                 },
 
@@ -127,7 +104,11 @@ export default (options: IWebpackOptions) => {
                  */
                 {
                     test: /\.html$/,
-                    use: 'html-loader',
+                    loader: 'html-loader',
+                    options: {
+                        minimize: false,
+                        esModule: false
+                    },
                     include: helpers.include
                 },
 
@@ -166,7 +147,7 @@ export default (options: IWebpackOptions) => {
              *
              * Environment helpers
              *
-             * See: https://webpack.github.io/docs/list-of-plugins.html#defineplugin
+             * See: https://webpack.js.org/plugins/define-plugin/#root
              */
             // NOTE: when adding more properties make sure you include them in custom-typings.d.ts
             new DefinePlugin({
@@ -177,29 +158,7 @@ export default (options: IWebpackOptions) => {
             new MiniCssExtractPlugin({
                 filename: '[name].css'
             }),
-
-            // Copy all d.ts files from the src since Typescript compiler doesn't include these in the output
-            new RecursiveCopyPlugin([{
-                src: helpers.rootPath('./src'),
-                dest: helpers.rootPath('./dist'),
-                filter: ['**/*.d.ts']
-            }])
-        ],
-
-        /**
-         * Include polyfills or mocks for various node stuff
-         * Description: Node configuration
-         *
-         * See: https://webpack.github.io/docs/configuration.html#node
-         */
-        node: {
-            global: true,
-            crypto: 'empty',
-            process: true,
-            module: false,
-            clearImmediate: false,
-            setImmediate: false
-        }
+        ]
     };
 
     return config;

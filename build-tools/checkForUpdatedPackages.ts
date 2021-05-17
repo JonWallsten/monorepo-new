@@ -7,11 +7,10 @@ import { hasUpdatedPackages, defaultPackageJsonFileName, defaultPackageHashFileN
 
 const prune = process.env.IS_DEV ? 'npm run prune && ' : '';
 
-
 let installCommand: string = '';
 // Check if root package has updated packages
 if (hasUpdatedPackages(helpers.projectRootPath(defaultPackageJsonFileName), helpers.projectRootPath(defaultPackageHashFileName))) {
-    installCommand = prune + 'npm install && npm run symlink && npm run write-dependencies-hash';
+    installCommand = prune + 'npm install && npm run symlink && npm run write-dependencies-hash && npm run ngcc';
 }
 
 const pkgJsonPackages = JSON.parse(readFileSync(`./${defaultPackageJsonFileName}`, 'utf8')).packages;
@@ -27,16 +26,15 @@ Object.keys(pkgs).forEach((name: string) => {
     }
 });
 
-
 // If an install command has been set we spawn a process
 if (installCommand) {
     const installProcess = spawn(installCommand, [], { shell: true });
     console.debug('Auto-triggered NPM INSTALL: ', installCommand);
     installProcess.stdout.on('data', (data) => {
-        console.log(data.toString('utf8')); //tslint:disable-line no-console
+        console.log(data.toString('utf8')); // eslint-disable-line no-console
     });
     installProcess.stderr.on('data', (data) => {
-        console.log(data.toString('utf8')); //tslint:disable-line no-console
+        console.log(data.toString('utf8')); // eslint-disable-line no-console
     });
 
     installProcess.on('exit', (code) => {

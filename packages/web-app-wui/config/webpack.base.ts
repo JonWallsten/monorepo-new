@@ -3,10 +3,11 @@ import * as helpers from './helpers';
 /**
  * Webpack Plugins
  */
-import CopyWebpackPlugin from 'copy-webpack-plugin';
+// @ts-ignore
+import * as CopyWebpackPlugin from 'copy-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import { Configuration, DefinePlugin, optimize } from 'webpack';
+import * as HtmlWebpackPlugin from 'html-webpack-plugin';
+import { Configuration, DefinePlugin } from 'webpack';
 import { projectRootPath } from '../../../build-tools/helpers';
 
 export interface IWebpackOptions {
@@ -22,6 +23,12 @@ export default (options: IWebpackOptions) => {
     const isProd = options.env === 'production';
 
     const config: Configuration = {
+        /**
+         * CAUTION:
+         * web-app-wui must be built using legacy ES5, e.g. no arrow functions and classes (ES6+),
+         * since we still need to support IE11 for Catia/Enovia (MMT1-29082)
+         */
+        target: ['web', 'es5'],
         entry: {
             main: [
                 './src/index.ts',
@@ -60,6 +67,7 @@ export default (options: IWebpackOptions) => {
                 '@oas/web-lib-angular-js': projectRootPath('packages/web-lib-angular-js/dist')
             }
         },
+
         /**
          * Options affecting the normal modules.
          *
@@ -76,7 +84,20 @@ export default (options: IWebpackOptions) => {
                  */
                 {
                     test: /\.html$/,
-                    use: 'html-loader',
+                    loader: 'html-loader',
+                    options: {
+                        minimize: false,
+                        esModule: false,
+                        sources: {
+                            urlFilter: (_attribute, value, _resourcePath) => {
+                                if (/worker-javascript.js$/.test(value)) {
+                                    return false;
+                                }
+
+                                return true;
+                            }
+                        }
+                    },
                     include: helpers.include
                 },
 
@@ -87,7 +108,7 @@ export default (options: IWebpackOptions) => {
                     test: /\.(jpg|png|gif)$/,
                     loader: 'file-loader',
                     options: {
-                        name: '[hash].[ext]',
+                        name: '[name].[hash].[ext]',
                         outputPath: 'images/',
                         publicPath: '', // Removes the default "./"
                         esModule: false
@@ -102,7 +123,7 @@ export default (options: IWebpackOptions) => {
                     test: /\.(eot|woff2?|svg|ttf)([\?]?.*)$/,
                     loader: 'file-loader',
                     options: {
-                        name: '[hash].[ext]',
+                        name: '[name].[hash].[ext]',
                         outputPath: 'fonts/',
                         publicPath: '', // Removes the default "./"
                         esModule: false
@@ -113,7 +134,6 @@ export default (options: IWebpackOptions) => {
             ]
         },
         optimization: {
-            occurrenceOrder: true,
             splitChunks: {
                 cacheGroups: {
                     vendor: {
@@ -145,7 +165,7 @@ export default (options: IWebpackOptions) => {
              *
              * Environment helpers
              *
-             * See: https://webpack.github.io/docs/list-of-plugins.html#defineplugin
+             * See: https://webpack.js.org/plugins/define-plugin/#root
              */
             // NOTE: when adding more properties make sure you include them in custom-typings.d.ts
             new DefinePlugin({
@@ -173,33 +193,13 @@ export default (options: IWebpackOptions) => {
             new CopyWebpackPlugin({
                 patterns: [
                     { from: './src/appentries.json', to: './appentries.json' },
-                    { from: './src/favicon.png', to: './favicon.png' },
-                    // Worker tries to require a module that ace creates in runtime, hence it can't be resolved when bundling, so we don't bother to minify it.
-                    { from: '../../node_modules/ace-builds/src-noconflict/worker-javascript.js', to: 'worker-javascript.js' }
+                    { from: './src/favicon.png', to: './favicon.png' }
                 ]
             }),
 
-            // Could probably be removes once everything is TS
-            new optimize.OccurrenceOrderPlugin(true),
-
             new CleanWebpackPlugin()
 
-        ],
-
-        /**
-         * Include polyfills or mocks for various node stuff
-         * Description: Node configuration
-         *
-         * See: https://webpack.github.io/docs/configuration.html#node
-         */
-        node: {
-            global: true,
-            crypto: 'empty',
-            process: true,
-            module: false,
-            clearImmediate: false,
-            setImmediate: false
-        }
+        ]
     };
 
     return config;

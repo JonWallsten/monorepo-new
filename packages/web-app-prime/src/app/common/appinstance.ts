@@ -1,20 +1,20 @@
 import { isDefined, uniqueId } from '@oas/web-lib-core';
 
 export type AppInstanceOptions = {
-    id?: string;            // TODO: why should id be provided as an option?
-    title: string;          // The title of the child
+    id?: string; // TODO: why should id be provided as an option?
+    title: string; // The title of the child
     changeLog?: boolean;
-    category?: number;      // Tab category for app categorisation
-    url: string;            // A current url for the content in the child
-    type?: number;          // The type of the child (iframe, popup, etc)
-    mode?: number;          // The mode of the child (normal, focus, etc)
-    entryId?: string;        // Identifier for corresponding appEntry/primeEntry
+    category?: number; // Tab category for app categorisation
+    url: string; // A current url for the content in the child
+    type?: number; // The type of the child (iframe, popup, etc)
+    mode?: number; // The mode of the child (normal, focus, etc)
+    entryId?: string; // Identifier for corresponding appEntry/primeEntry
     parent?: AppInstance;
-    special?: boolean;      // A special standAlone application (My work and App library)
-    sidebar?: boolean;      // If the app should be opened in the sidebar
-    permanent?: boolean;    // A permanent child cannot be closed/removed
-    initial?: boolean;      // Opened when Prime is loaded
-    background?: boolean;   // Load tab in background
+    special?: boolean; // A special standAlone application (My work and App library)
+    sidebar?: boolean; // If the app should be opened in the sidebar
+    permanent?: boolean; // A permanent child cannot be closed/removed
+    initial?: boolean; // Opened when Prime is loaded
+    background?: boolean; // Load tab in background
 };
 
 export class AppInstance {
@@ -141,10 +141,10 @@ export class AppInstance {
     toJSON () {
         // Remove ui and uiId params since these will have to be replaced when revived
         const cleanUrl = this.url
-                        .replace(/([\&|\?])ui=[a-z]+\&?/gi, '$1')
-                        .replace(/([\&|\?])uiId=prime[0-9]+\&?/, '$1')
-                        .replace(/([\&|\?])submit=true\&?/, '$1')
-                        .replace(/\&$/, '');
+            .replace(/([\&|\?])ui=[a-z]+\&?/gi, '$1')
+            .replace(/([\&|\?])uiId=prime[0-9]+\&?/, '$1')
+            .replace(/([\&|\?])submit=true\&?/, '$1')
+            .replace(/\&$/, '');
 
         // const urlHasType = cleanUrl.match(/[\&\?]type=[^\&]+/);
 

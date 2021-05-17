@@ -16,19 +16,19 @@ import { Subject } from 'rxjs';
 import { NgZone } from '@angular/core';
 
 export type OasAppEntry = {
-    id: string;             // Unique identifier
-    comment?: string;       // A way to add a note to the appentries.json file. Not used for other purpose
-    metaUri?: string;       // The connection to /oaswui/contextfunction/instance/XXX and /oaswui/contextfunction/type/XXX
+    id: string; // Unique identifier
+    comment?: string; // A way to add a note to the appentries.json file. Not used for other purpose
+    metaUri?: string; // The connection to /oaswui/contextfunction/instance/XXX and /oaswui/contextfunction/type/XXX
     name: string;
     description?: Record<string, string>; // A description for standAlone apps in the Application Library
-    modal?: boolean;                // TODO: Refactor to remove
-    availability?: Array<string>;   // TODO: Refactor to remove
-    externalUrl?: string;           // TODO: remove, use metadata instead (MMT1-24331)
-    externalUrlProd?: string;       // TODO: remove, use metadata instead (MMT1-24331)
+    modal?: boolean; // TODO: Refactor to remove
+    availability?: Array<string>; // TODO: Refactor to remove
+    externalUrl?: string; // TODO: remove, use metadata instead (MMT1-24331)
+    externalUrlProd?: string; // TODO: remove, use metadata instead (MMT1-24331)
     systemFeatures?: Array<string>; // All systemFeatures that the user must have to access the app
     category: number;
-    url: string;            // URI template
-    standAlone?: object | null;    // Object with default fill parameters for URL-template or null for special standAlone applications (My work and App library)
+    url: string; // URI template
+    standAlone?: object | null; // Object with default fill parameters for URL-template or null for special standAlone applications (My work and App library)
 };
 
 export type AppInstances = {
@@ -65,19 +65,18 @@ export class AppHandlerClass {
 
     private constructor () {
 
-
         const urlParameters = queryParamsAsObject();
 
         // Check for a sessionId in the URL
         this.recoveredSessionId = (location.href.match(/[\&\?]sessionId=([^\&]+)/) || [])[1];
 
         // Loop through every URL parameter
-        forEach(urlParameters, (paramValue, paramKey) => {
+        forEach(urlParameters, (paramValue: string, paramKey: string) => {
             let regExpMatches;
 
             // Check if the parameter starts with test-app-<applicationName>
             // Use the information provided to override the base URL in every environment for that app
-            if ((regExpMatches = /^test-app-([a-z]+)/.exec(paramKey))) { // tslint:disable-line:no-conditional-assignment
+            if ((regExpMatches = /^test-app-([a-z]+)/.exec(paramKey))) { // eslint-disable-line:no-conditional-assignment
                 const appName = regExpMatches[1] as string;
 
                 if (this.apps[appName]) {
@@ -85,7 +84,7 @@ export class AppHandlerClass {
 
                     // Currently, we don't know which environment we're running in at this moment,
                     // loop through every environment and update every URL to the supplied one
-                    forEach(this.apps[appName].url, (_environmentUrl, environmentKey) => {
+                    forEach(this.apps[appName].url, (_environmentUrl: string, environmentKey: string) => {
                         this.apps[appName].url[environmentKey] = paramValue;
                     });
                 } else {
@@ -113,7 +112,7 @@ export class AppHandlerClass {
         return this.subject.asObservable();
     }
 
-    private fetchAppEntries = function (app): Promise<AppEntriesResponse> {
+    private fetchAppEntries = function (app: string): Promise<AppEntriesResponse> {
         return new Promise((resolve, _reject) => {
             const url = this.getAppUrl(app) + '/appentries.json';
 
@@ -152,7 +151,7 @@ export class AppHandlerClass {
             this.fetchAppEntries('edit')
         ]).then((appEntries) => {
 
-            forEach(appEntries, (appEntry) => {
+            forEach(appEntries, (appEntry: any) => {
                 this.registerAppEntry(appEntry);
             });
 
@@ -160,7 +159,7 @@ export class AppHandlerClass {
         });
     }
 
-    setApps (apps) {
+    setApps (apps: any) {
         this.apps = apps;
     }
 
@@ -247,7 +246,7 @@ export class AppHandlerClass {
     getActiveAppInstance (): AppInstance | undefined {
         let activeIntance: AppInstance | undefined;
 
-        forEach(this.appInstances, function (instance) {
+        forEach(this.appInstances, function (instance: any) {
             if (instance.active) {
                 activeIntance = instance;
             }
@@ -269,10 +268,9 @@ export class AppHandlerClass {
             return;
         }
 
-        forEach(this.appInstances, (instance) => {
+        forEach(this.appInstances, (instance: any) => {
             instance.active = instance.id === newActiveInstanceId;
         });
-
 
         if (gotoState) {
             // Change state and the $stateChangeSuccess in the root controller will set the child to active if it exists
@@ -360,7 +358,7 @@ export class AppHandlerClass {
      * @param url
      * @return {string}
      */
-    private getMetaUriFromUrl (url): string {
+    private getMetaUriFromUrl (url: any): string {
         if (url.indexOf('url=') > -1) {
             return url.substring(url.indexOf('url=') + 4, url.indexOf('?'));
         } else if (url.indexOf('#/') > -1 && url.indexOf('?') > -1) {
@@ -403,7 +401,7 @@ export class AppHandlerClass {
         }
 
         const parameterString = url.substring(url.indexOf('?') + 1, url.length);
-        const returnObject = {};
+        const returnObject: any = {};
         if (parameterString) {
             const splittedString = parameterString.split('&');
             if (splittedString) {
@@ -691,8 +689,7 @@ export class AppHandlerClass {
         return openInstance;
     }
 
-
-    registerAppEntry (data) {
+    registerAppEntry (data: any) {
 
         const appName = data.app;
         const entries = data.response && data.response.data && data.response.data.entries;
@@ -716,7 +713,7 @@ export class AppHandlerClass {
                 if ((entry.standAlone === undefined && !entry.modal) && (entry.description)) {
                     console.error('[AppHandler].registerAppEntry(): description not used for applications that can\'t run standAlone', entry);
                     delete entry.description;
-                    delete entry.name;
+                    entry.name = '';
                 }
                 if (!entry.id || !entry.category) {
                     console.error('[AppHandler].registerAppEntry(): A required property is missing (id, category)', entry);

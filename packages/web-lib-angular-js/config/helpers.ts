@@ -1,5 +1,5 @@
 import { join, resolve } from 'path';
-import { includeBase } from '../../../build-tools/helpers';
+import { includeBase, projectRootPath } from '../../../build-tools/helpers';
 import { realpathSync } from 'fs';
 
 const ROOT_PATH = resolve(__dirname, '..');
@@ -18,4 +18,9 @@ export const includeTS = [
 ];
 export const includeStyles = [
     rootPath('src')
+];
+
+export const includeSourceMaps = [
+    projectRootPath('packages/web-lib-core/dist'),
+    projectRootPath('packages/web-lib-common/dist')
 ];

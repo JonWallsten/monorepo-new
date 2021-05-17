@@ -1,10 +1,5 @@
 [
   {
-      "name": "tslint",
-      "type": "bin",
-      "copy": false
-  },
-  {
       "name": "webpack",
       "type": "bin",
       "copy": false
@@ -39,7 +34,6 @@
       "type": "bin",
       "copy": false
   },
-
   {
       "name": "tsc",
       "type": "bin",
@@ -62,12 +56,12 @@
   },
   {
       "name": "html-webpack-plugin",
-      "type": "module",
-      "copy": true
+      "type": "bin",
+      "copy": false
   },
   {
       "name": "mini-css-extract-plugin",
-      "type": "module",
-      "copy": true
+      "type": "bin",
+      "copy": false
   }
 ]

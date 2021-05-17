@@ -14,7 +14,7 @@ export class ExampleDirective implements ng.IDirective {
 
     link (scope) {
         if (!isString(scope.input)) {
-            console.log('Input is not a string.'); // tslint:disable-line no-console
+            console.log('Input is not a string.'); // eslint-disable-line no-console
         }
     }
 

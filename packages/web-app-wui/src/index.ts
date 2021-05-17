@@ -7,14 +7,8 @@ import '../../../polyfills/legacy';
 /**
  * Vendors
  */
-/* tslint:disable:no-require-imports no-var-requires */
-window.postal = require('postal');
-window.$ = window.jQuery = require('jquery');
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 require('angular');
-require('lodash');
-require('moment-timezone');
-require('moment');
-/* tslint:enable:no-require-imports */
 
 import '../../../node_modules/ace-builds/src-noconflict/ace.js';
 import '../../../node_modules/ace-builds/src-noconflict/ext-language_tools.js';
@@ -40,7 +34,6 @@ import '../node_modules/ui-select/dist/select.js';
 
 import '../node_modules/ui-select/dist/select.css';
 
-
 /**
  * Library files
  * Note: Since angular-lib isn't exporting the angular.module but rather include it we need to inject the dist files the old way
@@ -50,7 +43,6 @@ import '../../web-lib-angular-js/dist/legacy.js';
 import '../../web-lib-angular-js/dist/index.css';
 import '../../web-lib-angular-js/dist/legacy.css';
 
-
 import { OasAppInitiator } from './app/app';
 
-new OasAppInitiator(); //tslint:disable-line no-unused-expression
+new OasAppInitiator();

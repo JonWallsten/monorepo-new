@@ -16,7 +16,6 @@ declare module '*.png' {
 
 //tslint:disable-next-line:interface-name
 interface Window {
-    postal: any;
     $: any;
     jQuery: any;
 }

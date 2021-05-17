@@ -24,11 +24,11 @@ export class OasAppInitiator {
             // Enable/disable calls to $log.debug
             $logProvider.debugEnabled(false);
         })
-        .config(($compileProvider) => {
+            .config(($compileProvider) => {
             // false: ~10-20% performance increase on views with a lot of bindings
             // true: required for Chrome plugin ng-inspector
-            $compileProvider.debugInfoEnabled(false);
-        });
+                $compileProvider.debugInfoEnabled(false);
+            });
     }
 
     setStates () {

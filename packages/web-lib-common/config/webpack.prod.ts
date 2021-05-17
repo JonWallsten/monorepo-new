@@ -1,7 +1,7 @@
+import * as TerserPlugin from 'terser-webpack-plugin';
 import webpackMerge from 'webpack-merge';
 import * as helpers from './helpers';
 import commonConfig from './webpack.base';
-import { SourceMapDevToolPlugin } from 'webpack';
 
 /**
  * Webpack Plugins
@@ -30,16 +30,21 @@ export default () => {
 
         },
 
-        /**
-         * Add additional plugins to the compiler.
-         *
-         * See: http://webpack.github.io/docs/configuration.html#plugins
-         */
-        plugins: [
-            useSourcemaps && new SourceMapDevToolPlugin({
-                moduleFilenameTemplate: 'web-lib-common://[resource-path]',
-                exclude: /dist[\\\/]|\.html|\.css|\.less|\.woff|\.woff2|\.svg|\.ttf|\.eot|\.jpg|\.png|\.gif|\.json|node_modules/
-            } as any)
-        ].filter(Boolean)
+        devtool: useSourcemaps ? 'inline-source-map' : false,
+
+        optimization: {
+            minimizer: [
+                new TerserPlugin({
+                    terserOptions: {
+                        ecma: 5,
+                        keep_classnames: true,
+                        keep_fnames: true,
+                        output: {
+                            comments: false
+                        }
+                    }
+                })
+            ]
+        }
     });
 };

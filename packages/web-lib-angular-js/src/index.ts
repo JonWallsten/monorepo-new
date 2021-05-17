@@ -13,7 +13,6 @@ import * as angular from 'angular';
 import { Components } from './components/components';
 import { Directives } from './directives/directives';
 
-
 import './css/_bootstrap-variables.less';
 import './css/_bootstrap.less';
 import './css/fonts.less';
@@ -56,34 +55,6 @@ angular.module('exampleModule', [
          */
         Configure.uiTooltipProvider($uibTooltipProvider);
     })
-    .run(function ($q, $window) {
-        /**
-         * Configurations for postal.js used in OasMessageBus
-         */
-        if (angular.isUndefined($window.postal)) {
-            throw new Error('OasMessageBus: postal.js needs to be loaded');
-        }
-
-        $window.postal.configuration.promise = {};
-
-        $window.postal.configuration.promise.createDeferred = function () {
-            return new $q.defer(); // eslint-disable-line new-cap
-        };
-
-        $window.postal.configuration.promise.getPromise = function (deferred) {
-            return deferred.promise;
-        };
-
-        $window.postal.configuration.promise.fail = 'reject';
-        $window.postal.configuration.promise.fulfill = 'resolve';
-
-        $window.postal.addWireTap(function (_data, envelope) {
-            if (envelope.channel !== 'postal') {
-                // Enable debug log for messages sent with OasMessageBus (example: from/to OasPrime)
-                // oasLog.debug('OasMessageBus wireTap', envelope.channel, envelope.topic, _data);
-            }
-        });
-    })
     .filter('maxCharacters', exampleFilter)
     .filter('safeHtml', ['$sce', ($sce: ng.ISCEService) => {
         return (val: string) => {
@@ -96,7 +67,6 @@ angular.module('exampleModule', [
      */
     // TODO: Most of OasClass* will probably no longer be needed to be accessed through an Angular factory (use imports and remove them here)
     .factory('AppInfo', AppInfoFactory);
-
 
 // Register directives
 Directives.register(angular.module('exampleModule'));

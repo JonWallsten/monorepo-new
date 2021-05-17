@@ -30,3 +30,9 @@ export const includeFonts = [
     ...include,
     rootPath('node_modules/monaco-editor')
 ];
+
+export const includeSourceMaps = [
+    projectRootPath('packages/web-lib-core/dist'),
+    projectRootPath('packages/web-lib-common/dist'),
+    projectRootPath('packages/web-lib-angular-js/dist')
+];

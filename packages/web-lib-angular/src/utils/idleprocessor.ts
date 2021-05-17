@@ -22,7 +22,7 @@ type RequestIdleCallbackDeadline = {
 };
 
 declare global {
-    interface Window { // tslint:disable-line:interface-name
+    interface Window { // eslint-disable-line:interface-name
         requestIdleCallback: ((
             callback: ((deadline: RequestIdleCallbackDeadline) => void),
             opts?: RequestIdleCallbackOptions
@@ -42,9 +42,8 @@ export class IdleProcessorClass {
     private activeHandle?: RequestIdleCallbackHandle = undefined;
     private zone: NgZone;
 
-    static readonly MAX_WAIT_HIGH_PRIORITY = 500;       // Max wait for high priority tasks in ms
-    static readonly MAX_WAIT_LOW_PRIORITY = 10000;      // Max wait time for low priority tasks in ms
-
+    static readonly MAX_WAIT_HIGH_PRIORITY = 500; // Max wait for high priority tasks in ms
+    static readonly MAX_WAIT_LOW_PRIORITY = 10000; // Max wait time for low priority tasks in ms
 
     private constructor () {
         // Setup the requestIdleCallback method to use
@@ -86,7 +85,6 @@ export class IdleProcessorClass {
         this.requestTask(fnc, this.lowPriorityQueue);
         //console.debug(`[IdleProcessor.requestLowPriorityTask] - ${this.lowPriorityQueue.length} low priority tasks in queue`);
     }
-
 
     /**
      * Internal function to queue a task
@@ -152,7 +150,7 @@ export class IdleProcessorClass {
     /**
      * Get a queued task to run
      */
-    private getOneTask (): { fnc: Function, highPriority: boolean } | null {
+    private getOneTask (): { fnc: Function; highPriority: boolean; } | null {
         if (this.highPriorityQueue.length > 0) {
             return { fnc: this.highPriorityQueue.shift()!, highPriority: true };
         } else if (this.lowPriorityQueue.length > 0) {
@@ -243,9 +241,7 @@ export class IdleProcessorClass {
         return IdleProcessorClass._instance;
     }
 
-
 }
 
 // Export instance
 export const IdleProcessor = IdleProcessorClass.getInstance();
-

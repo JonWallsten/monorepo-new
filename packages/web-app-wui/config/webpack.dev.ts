@@ -3,12 +3,11 @@ import { host, port } from './globals';
 import * as helpers from './helpers';
 import commonConfig from './webpack.base';
 
-import { HotModuleReplacementPlugin, NamedModulesPlugin, NoEmitOnErrorsPlugin, EvalSourceMapDevToolPlugin } from 'webpack';
-import WriteFileWebpackPlugin from 'write-file-webpack-plugin';
-import { projectRootPath } from '../../../build-tools/helpers';
-import { oasProgressPlugin } from '../../../config/plugins/progress';
-/* tslint:disable:no-require-imports no-var-requires */
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+import { EvalSourceMapDevToolPlugin } from 'webpack';
+import { oasProgressPlugin } from '../../../build-tools/plugins/progress';
+import { WatchControllerPlugin } from '../../../build-tools/plugins/watch-controller';
+
 /**
  * Webpack configuration
  *
@@ -16,7 +15,6 @@ const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
  */
 export default () => {
     const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
-    const useSourcemaps = !process.env.SKIP_SOURCEMAP;
 
     return webpackMerge(commonConfig({ env: ENV }), {
         mode: ENV,
@@ -24,13 +22,6 @@ export default () => {
             publicPath: '/' // note: do not use './', webpack-dev-server requires '/'
         },
         devtool: false, // handled by EvalSourceMapDevToolPlugin
-        watchOptions: {
-            aggregateTimeout: 300,
-            ignored: [
-                helpers.rootPath('node_modules'),
-                projectRootPath('node_modules')
-            ]
-        },
 
         devServer: {
             host,
@@ -39,9 +30,14 @@ export default () => {
             noInfo: true,
             hot: true,
             disableHostCheck: true,
+            writeToDisk: true,
             overlay: {
                 warnings: true,
                 errors: true
+            },
+            watchOptions: {
+                aggregateTimeout: 300,
+                ignored: /\/node_modules\/|[\\\/]packages[\\\/]web-(?:lib|app)-.*[\\\/]dist[\\\/]|\/\.cache\//
             },
             // Fix for getting appentries from prime
             headers: {
@@ -69,7 +65,7 @@ export default () => {
                  */
                 {
                     test: /\.css$/,
-                    use: ['style-loader', 'css-loader?sourceMap', 'postcss-loader?sourceMap'],
+                    use: ['style-loader', 'css-loader', 'postcss-loader'],
                     include: helpers.includeStyles
                 },
 
@@ -80,34 +76,32 @@ export default () => {
                  */
                 {
                     test: /\.less$/,
-                    use: ['style-loader', 'css-loader?sourceMap', 'postcss-loader?sourceMap', 'less-loader?sourceMap'],
+                    use: ['style-loader', 'css-loader', 'postcss-loader', 'less-loader'],
                     include: helpers.includeStyles
                 }
             ]
 
         },
 
+        cache: {
+            type: 'filesystem',
+            cacheDirectory: helpers.rootPath('.cache')
+        },
+
+        optimization: {
+            moduleIds: 'natural'
+        },
+
         plugins: [
-            oasProgressPlugin,
+            oasProgressPlugin('web-app-wui'),
+
+            new WatchControllerPlugin(),
 
             new MonacoWebpackPlugin(),
-            new WriteFileWebpackPlugin({
-                log: true,
-                test: /(\.woff|\.woff2|\.svg|\.ttf|\.eot|\.jpg|\.png|\.gif|\.json)$/
-            }),
 
-            // enable HMR globally
-            new HotModuleReplacementPlugin(),
-
-            // prints more readable module names in the browser console on HMR updates
-            new NamedModulesPlugin(),
-
-            // do not emit compiled assets that include errors
-            new NoEmitOnErrorsPlugin(),
-
-            useSourcemaps && new EvalSourceMapDevToolPlugin({
+            new EvalSourceMapDevToolPlugin({
                 moduleFilenameTemplate: 'web-app-wui://[resource-path]',
-                exclude: /dist[\\\/]|\.html|\.css|\.less|\.woff|\.woff2|\.svg|\.ttf|\.eot|\.jpg|\.png|\.gif|\.json|node_modules/
+                exclude: /\.html|\.css|\.less|\.woff|\.woff2|\.svg|\.ttf|\.eot|\.jpg|\.png|\.gif|\.json|node_modules/
             } as any)
         ].filter(Boolean)
     });

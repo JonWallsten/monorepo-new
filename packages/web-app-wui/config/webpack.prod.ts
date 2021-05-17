@@ -5,9 +5,9 @@ import commonConfig from './webpack.base';
 /**
  * Webpack Plugins
  */
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import TerserPlugin from 'terser-webpack-plugin';
-import { DefinePlugin, SourceMapDevToolPlugin } from 'webpack';
+import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import * as TerserPlugin from 'terser-webpack-plugin';
+import { DefinePlugin } from 'webpack';
 
 export default () => {
     const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
@@ -36,11 +36,21 @@ export default () => {
                     ],
                     include: helpers.includeTS
                 },
+
                 {
                     test: /\.js$/,
+                    loader: 'ng-annotate-loader',
+                    options: {
+                        add: true,
+                        single_quotes: true
+                    },
+                    include: helpers.include
+                },
+                {
+                    test: useSourcemaps ? /\.js$/ : () => false,
                     use: 'source-map-loader',
                     enforce: 'pre',
-                    include: process.env.USE_SOURCEMAPS ? helpers.include : []
+                    include: useSourcemaps ? helpers.includeSourceMaps : []
                 },
                 /**
                  * To string and css loader support for *.css files (from Angular components)
@@ -80,7 +90,10 @@ export default () => {
                     terserOptions: {
                         ecma: 5,
                         keep_classnames: true,
-                        keep_fnames: true
+                        keep_fnames: true,
+                        output: {
+                            comments: false
+                        }
                     }
                 })
             ]
@@ -93,21 +106,15 @@ export default () => {
              *
              * Environment helpers
              *
-             * See: https://webpack.github.io/docs/list-of-plugins.html#defineplugin
+             * See: https://webpack.js.org/plugins/define-plugin/#root
              */
             // NOTE: when adding more properties make sure you include them in custom-typings.d.ts
             new DefinePlugin({
                 'process.env.NODE_ENV': '"production"'
             }),
             new MiniCssExtractPlugin({
-                filename: '[name].[hash].css',
-                allChunks: true
-            }),
-
-            useSourcemaps && new SourceMapDevToolPlugin({
-                moduleFilenameTemplate: 'web-app-wui://[resource-path]',
-                exclude: /dist[\\\/]|\.html|\.css|\.less|\.woff|\.woff2|\.svg|\.ttf|\.eot|\.jpg|\.png|\.gif|\.json|node_modules/
-            } as any)
-        ].filter(Boolean)
+                filename: '[name].[fullhash].css'
+            })
+        ]
     });
 };

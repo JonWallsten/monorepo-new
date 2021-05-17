@@ -4,7 +4,6 @@ import * as helpers from './helpers';
 /**
  * Webpack Plugins
  */
-import { RecursiveCopyPlugin } from '../../../config/plugins/recursive-copy';
 import { projectRootPath } from '../../../build-tools/helpers';
 
 export interface IWebpackOptions {
@@ -20,6 +19,12 @@ export default (options: IWebpackOptions) => {
     const isProd: boolean = options.env === 'production';
 
     const config: Configuration = {
+        /**
+         * CAUTION:
+         * web-app-wui must be built using legacy ES5, e.g. no arrow functions and classes (ES6+),
+         * since we still need to support IE11 for Catia/Enovia (MMT1-29082)
+         */
+        target: ['web', 'es5'],
         output: {
             path: helpers.rootPath('dist'),
             filename: '[name].js',
@@ -56,47 +61,15 @@ export default (options: IWebpackOptions) => {
                 helpers.rootPath('src'),
                 helpers.rootPath('node_modules'),
                 projectRootPath('node_modules')
-            ]
+            ],
+            fallback: {
+                'https': require.resolve('https-browserify'),
+                'http': false,
+                'process': require.resolve('process/browser')
+            }
         },
-
-        externals: /^(moment-timezone|lodash|axios)$/i,
-
-        // optimization: {
-        //     occurrenceOrder: false,
-        //     splitChunks: {
-        //         cacheGroups: {
-        //             vendor: {
-        //                 test: /node_modules/,
-        //                 chunks: 'initial',
-        //                 name: 'vendor',
-        //                 enforce: true
-        //             }
-        //         }
-        //     }
-        // },
-
-        /**
-         * Options affecting the normal modules.
-         *
-         * See: http://webpack.github.io/docs/configuration.html#module
-         */
-        module: {
-
-            rules: [
-                /**
-                 * Optimises lodash import to allow syntax "import { name } from 'lodash'" instead of
-                 * import * as name from 'lodash/name'
-                 *
-                 */
-                {
-                    test: /\.ts$/,
-                    loader: 'lodash-ts-imports-loader',
-                    include: helpers.include,
-                    enforce: 'pre'
-                }
-            ]
-
-        },
+        // When using external packages
+        externals: /^(axios)$/i,
 
         /**
          * Add additional plugins to the compiler.
@@ -111,36 +84,14 @@ export default (options: IWebpackOptions) => {
              *
              * Environment helpers
              *
-             * See: https://webpack.github.io/docs/list-of-plugins.html#defineplugin
+             * See: https://webpack.js.org/plugins/define-plugin/#root
              */
             // NOTE: when adding more properties make sure you include them in typings/global.d.ts
             new DefinePlugin({
                 IS_PROD: isProd,
                 IS_DEV: !isProd
             }),
-
-            // Copy all d.ts files from the src since Typescript compiler doesn't include these in the output
-            new RecursiveCopyPlugin([{
-                src: helpers.rootPath('./src'),
-                dest: helpers.rootPath('./dist'),
-                filter: ['**/*.d.ts']
-            }])
-        ],
-
-        /**
-         * Include polyfills or mocks for various node stuff
-         * Description: Node configuration
-         *
-         * See: https://webpack.github.io/docs/configuration.html#node
-         */
-        node: {
-            global: true,
-            crypto: 'empty',
-            process: true,
-            module: false,
-            clearImmediate: false,
-            setImmediate: false
-        }
+        ]
     };
 
     return config;

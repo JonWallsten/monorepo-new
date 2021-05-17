@@ -6,10 +6,10 @@ module.exports = {
     transformIgnorePatterns: [
         'node_modules/(?!@ngrx|angular2-ui-switch|ng-dynamic)'
     ],
-    testRegex: '.*\\.spec\\.jest\\.(j|t)s$',
+    testRegex: '.*\\.unit-spec\\.ts$',
     moduleFileExtensions: ['ts', 'js', 'json', 'html'],
     cacheDirectory: '<rootDir>/.tmp/jest-cache',
-    collectCoverage: true,
+    collectCoverage: false,
     coverageReporters: [
         'json',
         'lcov',

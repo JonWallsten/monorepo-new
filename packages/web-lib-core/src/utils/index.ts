@@ -121,7 +121,6 @@ export function isBoolean (value: any): value is boolean {
     return typeof value === 'boolean';
 }
 
-
 /**
  * Check if the value passed is true using a fuzzy test
  * @param value to check
@@ -158,7 +157,6 @@ export function isFuzzyTrue (value: any, strict: boolean = true): boolean {
     }
     throw new Error('isFuzzyTrue - Objects and arrays are not supported');
 }
-
 
 /**
  * Checks if `obj` is a window object.
@@ -321,28 +319,40 @@ export async function asyncForEach<T> (collection: Array<T> | Map<string|number,
 
     // We have to handle map a little bit differently
     if (collection instanceof Map) {
-        if (!collection.size) { return; }
+        if (!collection.size) {
+            return; 
+        }
         const mapKeys = Array.from(collection.keys());
         const mapValues = Array.from(collection.values());
         for (let index = 0; index < collection.size; index++) {
             const result = await callback(mapValues[index], mapKeys[index], collection);
-            if (result === true) { break; }
+            if (result === true) {
+                break; 
+            }
         }
     } else if (Array.isArray(collection)) {
-        if (!collection.length) { return; }
+        if (!collection.length) {
+            return; 
+        }
 
         for (let index = 0; index < collection.length; index++) {
             const result = await callback(collection[index], index, collection);
-            if (result === true) { break; }
+            if (result === true) {
+                break; 
+            }
         }
     } else if (typeof collection === 'object') {
         const keys = Object.keys(collection);
-        if (!keys.length) { return; }
+        if (!keys.length) {
+            return; 
+        }
 
         for (let index = 0; index < keys.length; index++) {
             const key = keys[index];
             const result = await callback(collection[key], key, collection);
-            if (result === true) { break; }
+            if (result === true) {
+                break; 
+            }
         }
     }
 }

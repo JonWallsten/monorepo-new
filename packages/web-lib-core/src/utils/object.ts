@@ -54,7 +54,7 @@ export function merge (dst, ...args) {
  Forked basic functions from AngularJs v1.5.8
  https://github.com/angular/angular.js/blob/aa306c14cb46f0fe51b6a964ef57fca10d53dc29/src/angular.js
  ------------------------ */
- /**
+/**
   * Extend destination with data from objects, shallow (default) or deep
   * @param destination
   * @param objects

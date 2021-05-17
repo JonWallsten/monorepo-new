@@ -13,7 +13,7 @@ export class BugTestComponent {
     }
 
     test () {
-        //tslint:disable-next-line
+        // eslint-disable-next-line no-console
         console.log('Inherited method called');
     }
 }

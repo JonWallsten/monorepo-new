@@ -11,22 +11,20 @@
   "license": "UNLICENSED",
   "scripts": {
     "ci": "npm run clean && npm run lint && npm run test && npm run build:prod",
-    "build:dev": "npm run build",
-    "build:prod": "npm run build",
-    "build": "ts-node ng-packagr",
-    "dev": "npm run build -- --watch",
-    "lint:ts": "tslint -c tslint.json src/**/*.ts",
-    "lint:ts:fix": "tslint --fix -t codeFrame 'src/**/*.ts'",
-    "lint": "npm run lint:ts",
+    "dev": "npm run build:dev -- --watch",
+    "build": "npm run build:prod",
+    "build:dev": "cross-env NODE_ENV=development ts-node ng-packagr",
+    "build:prod": "cross-env NODE_ENV=production ts-node ng-packagr",
+    "build:debug": "node -r ts-node/register --inspect-brk ng-packagr",
+    "lint": "eslint \"src/**/*.ts\" --fix",
+    "lint:staged": "ts-node ../../build-tools/lint-staged-files",
     "test": "exit 0",
     "compile": "npm run clean:cache && tsc",
     "clean": "npm run clean:dist && npm run clean:cache",
     "clean:dist": "rimraf -- dist",
-    "clean:cache": "rimraf -- .tmp",
-    "webpack:debug": "node -r ts-node/register --inspect --debug-brk --max_old_space_size=4096 node_modules/webpack/bin/webpack.js"
-  },
-  "devDependencies": {
-    "ng-packagr": "10.0.0"
+    "clean:cache": "rimraf -- .cache",
+    "webpack:debug": "node -r ts-node/register --inspect-brk --max_old_space_size=8192 node_modules/webpack/bin/webpack.js",
+    "version": "node_modules/.bin/ng-packagr --version"
   },
   "peerDependencies": {
     "@oas/web-lib-core": "x.x.x"

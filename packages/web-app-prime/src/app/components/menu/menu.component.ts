@@ -200,11 +200,11 @@ export class MenuComponent implements OnInit {
         if (!currentInstance) {
             return;
         }
-            // Close chilren recursivly
+        // Close chilren recursivly
         if (currentInstance.children) {
             currentInstance.children.forEach(child => this.closeChildTabs(child, false));
         }
-            // Remove child unless it's the node we start on
+        // Remove child unless it's the node we start on
         if (!isStartNode) {
             this.closeTab(currentInstance);
         }
