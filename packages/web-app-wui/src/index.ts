@@ -1,10 +1,4 @@
 /**
- * Polyfills
- */
-import '../../../polyfills/es6-es7';
-import '../../../polyfills/legacy';
-
-/**
  * Vendors
  */
 // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -33,15 +27,6 @@ import '../node_modules/ng-file-upload/dist/ng-file-upload.js';
 import '../node_modules/ui-select/dist/select.js';
 
 import '../node_modules/ui-select/dist/select.css';
-
-/**
- * Library files
- * Note: Since angular-lib isn't exporting the angular.module but rather include it we need to inject the dist files the old way
- */
-import '../../web-lib-angular-js/dist/index.js';
-import '../../web-lib-angular-js/dist/legacy.js';
-import '../../web-lib-angular-js/dist/index.css';
-import '../../web-lib-angular-js/dist/legacy.css';
 
 import { OasAppInitiator } from './app/app';
 

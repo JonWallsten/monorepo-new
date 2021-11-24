@@ -3,6 +3,5 @@
  */
 
 // import './example-patches';
-import './ng-packagr';
 
 process.exit(0);

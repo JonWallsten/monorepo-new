@@ -212,8 +212,8 @@ export class WatchControllerPlugin {
         }
         // Mark this build as finnished
         appendFileSync(buildFile, this.packageName + '\n');
-        this.debugOutput('Added build information for "' + this.packageName + '" in "'+ buildFile.replace(projectRootPath(), '') + '"');
 
+        this.debugOutput('Added build information for "' + this.packageName + '" in "'+ buildFile.replace(projectRootPath(), '') + '"');
     }
 
     /**

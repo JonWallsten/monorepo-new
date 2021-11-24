@@ -5,10 +5,10 @@ import * as helpers from './helpers';
  */
 // @ts-ignore
 import * as CopyWebpackPlugin from 'copy-webpack-plugin';
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import { Configuration, DefinePlugin } from 'webpack';
 import { projectRootPath } from '../../../build-tools/helpers';
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 export interface IWebpackOptions {
     env?: string;
@@ -23,14 +23,9 @@ export default (options: IWebpackOptions) => {
     const isProd = options.env === 'production';
 
     const config: Configuration = {
-        /**
-         * CAUTION:
-         * web-app-wui must be built using legacy ES5, e.g. no arrow functions and classes (ES6+),
-         * since we still need to support IE11 for Catia/Enovia (MMT1-29082)
-         */
-        target: ['web', 'es5'],
         entry: {
             main: [
+                './src/lib/index.ts',
                 './src/index.ts',
                 './src/legacy.ts'
             ]
@@ -38,7 +33,13 @@ export default (options: IWebpackOptions) => {
         output: {
             path: helpers.rootPath('dist'),
             filename: isProd ? '[name].[chunkhash].js' : '[name].js',
-            publicPath: './'
+            publicPath: './',
+            clean: true
+        },
+        experiments: {
+            // futureDefaults: true, // Generates lots of warnings, only use for debugging
+            backCompat: false,
+            cacheUnaffected: true
         },
         /**
          * Options affecting the resolving of modules.
@@ -63,8 +64,7 @@ export default (options: IWebpackOptions) => {
             ],
             alias: {
                 '@oas/web-lib-core': projectRootPath('packages/web-lib-core/dist'),
-                '@oas/web-lib-common': projectRootPath('packages/web-lib-common/dist'),
-                '@oas/web-lib-angular-js': projectRootPath('packages/web-lib-angular-js/dist')
+                '@oas/web-lib-common': projectRootPath('packages/web-lib-common/dist')
             }
         },
 
@@ -104,14 +104,11 @@ export default (options: IWebpackOptions) => {
                 /**
                  * File loader for supporting images, for example, in CSS files.
                  */
-                {
+                 {
                     test: /\.(jpg|png|gif)$/,
-                    loader: 'file-loader',
-                    options: {
-                        name: '[name].[hash].[ext]',
-                        outputPath: 'images/',
-                        publicPath: '', // Removes the default "./"
-                        esModule: false
+                    type: "asset/resource",
+                    generator: {
+                        filename: 'images/[name].[hash].[ext]'
                     },
                     include: helpers.include
                 },
@@ -121,12 +118,9 @@ export default (options: IWebpackOptions) => {
                  */
                 {
                     test: /\.(eot|woff2?|svg|ttf)([\?]?.*)$/,
-                    loader: 'file-loader',
-                    options: {
-                        name: '[name].[hash].[ext]',
-                        outputPath: 'fonts/',
-                        publicPath: '', // Removes the default "./"
-                        esModule: false
+                    type: "asset/resource",
+                    generator: {
+                        filename: 'fonts/[name].[hash].[ext]'
                     },
                     include: helpers.includeFonts
                 }
@@ -181,6 +175,10 @@ export default (options: IWebpackOptions) => {
                 inject: true
             }),
 
+            new MonacoWebpackPlugin({
+                languages : []
+            }),
+
             /**
              * Plugin: CopyWebpackPlugin
              * Description: Copy files and directories in webpack.
@@ -193,12 +191,12 @@ export default (options: IWebpackOptions) => {
             new CopyWebpackPlugin({
                 patterns: [
                     { from: './src/appentries.json', to: './appentries.json' },
-                    { from: './src/favicon.png', to: './favicon.png' }
+                    { from: './src/favicon.png', to: './favicon.png' },
+                    // Worker tries to require a module that ace creates in runtime, hence it can't be resolved when bundling, so we don't bother to minify it.
+                    { from: '../../node_modules/ace-builds/src-noconflict/worker-javascript.js', to: 'worker-javascript.js' },
+                    { from: '../../node_modules/ace-builds/src-noconflict/worker-xml.js', to: 'worker-xml.js' }
                 ]
-            }),
-
-            new CleanWebpackPlugin()
-
+            })
         ]
     };
 

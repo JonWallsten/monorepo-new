@@ -1,9 +1,8 @@
 {
   "name": "@oas/web-lib-angular",
   "version": "0.0.0-PLACEHOLDER",
-  "private": true,
   "engines": {
-    "node": "^12.14.0"
+    "node": ">=14.15.0"
   },
   "oas": {
     "type": "lib"
@@ -26,10 +25,13 @@
     "webpack:debug": "node -r ts-node/register --inspect-brk --max_old_space_size=8192 node_modules/webpack/bin/webpack.js",
     "version": "node_modules/.bin/ng-packagr --version"
   },
+  "devDependencies": {},
   "peerDependencies": {
-    "@oas/web-lib-core": "x.x.x"
+    "@oas/web-lib-core": "x.x.x",
+    "@oas/web-lib-common": "x.x.x"
   },
   "internalDependencies": {
-    "@oas/web-lib-core": "0.0.0"
+    "@oas/web-lib-core": "0.0.0",
+    "@oas/web-lib-common": "0.0.0"
   }
 }

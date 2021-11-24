@@ -6,7 +6,8 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "strictFunctionTypes": true,
-    "strictBindCallApply": true
+    "strictBindCallApply": true,
+    "noImplicitOverride": true
   },
   "include": [
     "./src/**/*.ts",

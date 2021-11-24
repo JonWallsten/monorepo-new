@@ -9,6 +9,7 @@
     "files": [
       "./src/index.ts",
       "./src/legacy.ts",
+      "./src/lib/index.ts",
       "./typings/global.d.ts",
       "../../typings/global.d.ts"
     ]

@@ -1,18 +1,20 @@
 {
-    "extends": "../../tsconfig.json",
-    "compilerOptions": {
-      "rootDir": "./src",
-      "declaration": true,
-      "declarationMap": true,
-      "declarationDir": "./dist",
-      "outDir": "./dist"
-    },
-    "exclude": [
-      "../../build-tools/"
-    ],
-    "files": [
-      "./src/index.ts",
-      "./typings/global.d.ts",
-      "../../typings/global.d.ts"
-    ]
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "declaration": true,
+    "declarationMap": true,
+    "declarationDir": "./dist",
+    "outDir": "./dist",
+    "module": "ES2020"
+  },
+  "exclude": [
+    "./config/",
+    "../../build-tools/"
+  ],
+  "files": [
+    "./src/index.ts",
+    "./typings/global.d.ts",
+    "../../typings/global.d.ts"
+  ]
 }

@@ -32,7 +32,9 @@ export default () => {
             minimizer: [
                 new TerserPlugin({
                     terserOptions: {
-                        ecma: 5,
+                        ecma: 2020,
+                        mangle: false,
+                        compress: true,
                         keep_classnames: true,
                         keep_fnames: true,
                         output: {
@@ -40,9 +42,6 @@ export default () => {
                         },
                         sourceMap: useSourcemaps && {
                             url: 'inline'
-                        },
-                        mangle: {
-                            reserved: [ 'process' ] // Preserve process.env in dist (needed for config based on runtime env in node scripts)
                         }
                     }
                 })

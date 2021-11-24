@@ -5,7 +5,8 @@
     "declaration": true,
     "declarationMap": true,
     "declarationDir": "./dist",
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "module": "ES2020"
   },
   "exclude": [
     "../../build-tools/"

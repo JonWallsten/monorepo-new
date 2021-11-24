@@ -21,17 +21,6 @@ export default (options: IWebpackOptions) => {
 
     const config: Configuration = {
         /**
-         * CAUTION:
-         * web-app-wui must be built using legacy ES5, e.g. no arrow functions and classes (ES6+),
-         * since we still need to support IE11 for Catia/Enovia (MMT1-29082)
-         */
-        target: ['web', 'es5'],
-        output: {
-            path: helpers.rootPath('dist'),
-            filename: '[name].js',
-            libraryTarget: 'umd'
-        },
-        /**
          * The entry point for the bundle
          * Our Angular.js app
          *
@@ -40,6 +29,27 @@ export default (options: IWebpackOptions) => {
         entry: {
             'index': './src/index.ts'
         },
+        output: {
+            path: helpers.rootPath('dist'),
+            filename: '[name].mjs',
+            library: {
+                type: 'module'
+            },
+            environment: {
+                module: true,
+                dynamicImport: true
+            },
+            globalObject: 'this'
+        },
+        experiments: {
+            // futureDefaults: true, // Generates lots of warnings, only use for debugging
+            backCompat: false,
+            cacheUnaffected: true,
+            outputModule: true
+        },
+        // When using external packages
+        externals: /^(@oas\/web-lib-core)$/i,
+        externalsType: "module",
 
         /**
          * Options affecting the resolving of modules.
@@ -52,7 +62,7 @@ export default (options: IWebpackOptions) => {
              *
              * See: http://webpack.github.io/docs/configuration.html#resolve-extensions
              */
-            extensions: ['.ts', '.js', '.json', '.css', '.less'],
+            extensions: ['.ts', '.js', '.mjs', '.json'],
 
             /**
              * An array of directory names to be resolved to the current directory
@@ -63,8 +73,6 @@ export default (options: IWebpackOptions) => {
                 projectRootPath('node_modules')
             ]
         },
-
-        externals: /^(angular|jquery|\$|@oas\/web-lib-core)$/i,
 
         /**
          * Options affecting the normal modules.
@@ -115,21 +123,11 @@ export default (options: IWebpackOptions) => {
                 /**
                  * File loader for supporting images, for example, in CSS files.
                  */
-                {
+                 {
                     test: /\.(jpg|png|gif)$/,
-                    use: 'file-loader',
-                    include: helpers.include
-                },
-
-                /**
-                 * File loader for supporting fonts, for example, in CSS files.
-                 */
-                {
-                    test: /\.(eot|woff2?|svg|ttf)([\?]?.*)$/,
-                    use: 'file-loader',
+                    type: "asset/resource",
                     include: helpers.include
                 }
-
             ]
 
         },

@@ -3,7 +3,16 @@
   "version": "0.0.0-PLACEHOLDER",
   "private": true,
   "engines": {
-    "node": "8.10.0"
+    "node": ">=14.15.0"
+  },
+  "oas": {
+    "name": "wui",
+    "type": "app",
+    "component": "OASWUI",
+    "e2e": {
+      "enabled": true,
+      "modern": false
+    }
   },
   "license": "UNLICENSED",
   "main": "dist/index.js",
@@ -12,7 +21,7 @@
     "build:dev": "npm run webpack -- --config config/webpack.dev.ts --color",
     "build:prod": "npm run webpack -- --config config/webpack.prod.ts --bail",
     "build": "npm run clean && npm run build:prod",
-    "dev": "npm run clean:cache && npm run webpack-dev-server -- --config config/webpack.dev.ts --mode development --env development --color --hot",
+    "dev": "npm run clean:cache && npm run webpack-dev-server -- --config config/webpack.dev.ts --mode development --env development --color",
     "start": "npm run dev",
     "lint": "eslint \"{src,test}/**/*.ts\" --fix",
     "lint:staged": "ts-node ../../build-tools/lint-staged-files",
@@ -37,12 +46,8 @@
     "@types/angular": "1.5.23",
     "@types/angular-mocks": "1.5.11",
     "@types/angular-ui-router": "1.1.40",
-    "@types/jquery": "2.x.x",
     "chai": "4.2.0",
-    "chai-subset": "1.6.0",
-    "monaco-editor": "0.19.0",
-    "monaco-editor-webpack-plugin": "1.8.1",
-    "ng-annotate-loader": "0.6.1"
+    "chai-subset": "1.6.0"
   },
   "dependencies": {
     "angular": "1.5.x",
@@ -50,7 +55,6 @@
     "angular-messages": "1.5.x",
     "angular-mocks": "1.5.x",
     "angular-sanitize": "1.5.x",
-    "angular-translate": "2.18.1",
     "angular-ui-ace": "0.2.x",
     "angular-ui-bootstrap": "1.3.x",
     "angular-ui-router": "0.3.x",
@@ -60,7 +64,6 @@
   },
   "internalDependencies": {
     "@oas/web-lib-core": "0.0.0",
-    "@oas/web-lib-common": "0.0.0",
-    "@oas/web-lib-angular-js": "0.0.0"
+    "@oas/web-lib-common": "0.0.0"
   }
 }

@@ -1,7 +1,6 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "target": "es2015",
     "strictNullChecks": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
@@ -14,7 +13,6 @@
     "./test/e2e/**/*.ts"
   ],
   "files": [
-    "./protractor.conf.ts",
     "./typings/global.d.ts",
     "../../typings/global.d.ts"
   ],

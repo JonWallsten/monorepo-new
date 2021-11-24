@@ -12,7 +12,7 @@ import { red } from 'chalk';
 import { RunGraph } from './parallelshell';
 import { listPkgs } from './workspace';
 
-yargs
+const argv = yargs
     .wrap(yargs.terminalWidth() - 1)
     .updateStrings({
         'Options:': 'Other Options:'
@@ -35,20 +35,24 @@ yargs
     .group(['parallel', 'stages', 'serial'], 'Mode (choose one):')
     .options({
         parallel: {
-            describe: 'Fully parallel mode (default)'
+            describe: 'Fully parallel mode (default)',
+            type: 'boolean'
         },
         stages: {
-            describe: 'Run in stages: start with packages that have no deps'
+            describe: 'Run in stages: start with packages that have no deps',
+            type: 'boolean'
         },
         serial: {
-            describe: 'Same as "stages" but with no parallelism at the stage level'
+            describe: 'Same as "stages" but with no parallelism at the stage level',
+            type: 'boolean'
         }
     })
     .group('recursive', 'Individual Package Options:')
     .options({
         recursive: {
             alias: 'r',
-            describe: 'Execute the same script on all of its dependencies, too'
+            describe: 'Execute the same script on all of its dependencies, too',
+            type: 'boolean'
         }
     })
     .group(
@@ -68,13 +72,16 @@ yargs
     )
     .options({
         'fast-exit': {
-            describe: 'If at least one script exits with code > 0, abort'
+            describe: 'If at least one script exits with code > 0, abort',
+            type: 'boolean'
         },
         'collect-logs': {
-            describe: 'Collect per-package output and print it at the end of each script'
+            describe: 'Collect per-package output and print it at the end of each script',
+            type: 'boolean'
         },
         'no-prefix': {
-            describe: "Don't prefix output"
+            describe: "Don't prefix output",
+            type: 'boolean'
         },
         bin: {
             default: 'npm',
@@ -82,35 +89,41 @@ yargs
             type: 'string'
         },
         'done-criteria': {
-            describe: 'Consider a process "done" when an output line matches the specified RegExp'
+            describe: 'Consider a process "done" when an output line matches the specified RegExp',
+            type: 'string'
         },
         include: {
-            type: 'array',
+            type: 'string',
+            array: true,
             describe: 'Only run the command for these packages'
         },
         exclude: {
-            type: 'array',
+            type: 'string',
+            array: true,
             describe: 'Skip running the command for that package'
         },
         'exclude-missing': {
-            describe:
-        'Skip packages which lack the specified command in the scripts section of their package.json'
+            describe: 'Skip packages which lack the specified command in the scripts section of their package.json',
+            type: 'boolean'
         },
         report: {
-            describe: 'Show an execution report once the command has finished in each package'
+            describe: 'Show an execution report once the command has finished in each package',
+            type: 'boolean'
         },
         'no-run': {
-            describe: "Don't add run to the command"
+            describe: "Don't add run to the command",
+            type: 'boolean'
         },
         prod: {
-            describe: "Specify that we're running in prod env"
+            describe: "Specify that we're running in prod env",
+            type: 'boolean'
         },
         dev: {
-            describe: "Specify that we're running in dev env"
+            describe: "Specify that we're running in dev env",
+            type: 'boolean'
         }
-    });
+    }).parseSync();
 
-const argv = yargs.argv;
 const bin = argv.bin as string || 'npm';
 
 let mode: string;

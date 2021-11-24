@@ -1,3 +1,13 @@
+import axios from 'axios';
+console.log('Test');
+export function api (): string {
+    return axios.VERSION;
+}
+
+export function api2 (): string {
+    return axios.VERSION;
+}
+
 /*
  * @description
  * Determines if a reference is undefined.
@@ -320,38 +330,38 @@ export async function asyncForEach<T> (collection: Array<T> | Map<string|number,
     // We have to handle map a little bit differently
     if (collection instanceof Map) {
         if (!collection.size) {
-            return; 
+            return;
         }
         const mapKeys = Array.from(collection.keys());
         const mapValues = Array.from(collection.values());
         for (let index = 0; index < collection.size; index++) {
             const result = await callback(mapValues[index], mapKeys[index], collection);
             if (result === true) {
-                break; 
+                break;
             }
         }
     } else if (Array.isArray(collection)) {
         if (!collection.length) {
-            return; 
+            return;
         }
 
         for (let index = 0; index < collection.length; index++) {
             const result = await callback(collection[index], index, collection);
             if (result === true) {
-                break; 
+                break;
             }
         }
     } else if (typeof collection === 'object') {
         const keys = Object.keys(collection);
         if (!keys.length) {
-            return; 
+            return;
         }
 
         for (let index = 0; index < keys.length; index++) {
             const key = keys[index];
             const result = await callback(collection[key], key, collection);
             if (result === true) {
-                break; 
+                break;
             }
         }
     }

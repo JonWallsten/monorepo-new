@@ -15,7 +15,7 @@ type SymLink = {
     pattern?: string;
 };
 
-const argv = yargs.argv;
+const argv = yargs.parseSync();
 const isWindows = process.platform === 'win32';
 
 // Create symlinks for each package

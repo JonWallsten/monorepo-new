@@ -1,44 +1,19 @@
 module.exports = {
-    roots: ['<rootDir>/src'],
-    transform: {
-        '^.+\\.(ts|js|html)$': 'ts-jest'
-    },
+    preset: 'jest-preset-angular',
     transformIgnorePatterns: [
-        'node_modules/(?!@ngrx|angular2-ui-switch|ng-dynamic)'
+        'node_modules/(?!.*\\.mjs$)',
+        'web-lib-angular/(?!.*\\.mjs$)'
     ],
-    testRegex: '.*\\.unit-spec\\.ts$',
-    moduleFileExtensions: ['ts', 'js', 'json', 'html'],
-    cacheDirectory: '<rootDir>/.tmp/jest-cache',
-    collectCoverage: false,
-    coverageReporters: [
-        'json',
-        'lcov',
-        'text',
-        'text-summary'
-    ],
-    coverageDirectory: '<rootDir>/.tmp/coverage',
-    coverageThreshold: {
-        global: {
-            branches: 0,
-            functions: 0,
-            lines: 0,
-            statements: 0
-        }
+    moduleNameMapper: {
+        '@oas/web-lib-core': '<rootDir>/../web-lib-core/dist',
+        '@oas/web-lib-common': '<rootDir>/../web-lib-common/dist',
+        '@oas/web-lib-angular': '<rootDir>/../web-lib-angular/dist',
     },
+    testRegex: '.*\\.unit-spec\\.ts$',
     globals: {
         'ts-jest': {
-            stringifyContentPathRegex: '\\.html$',
-            astTransformers:[
-                require.resolve('./jest/InlineHtmlStripStylesTransformer')
-            ]
+            tsconfig: '<rootDir>/tsconfig.test.json'
         }
     },
-    setupFilesAfterEnv: [
-        '<rootDir>/config/jest.setup.ts'
-    ]
-    // Do we need this?
-    // snapshotSerializers: [
-    //     'jest-preset-angular/AngularSnapshotSerializer.js',
-    //     'jest-preset-angular/HTMLCommentSerializer.js'
-    // ]
-};
+    setupFilesAfterEnv: ['<rootDir>/config/jest.setup.ts']
+  };

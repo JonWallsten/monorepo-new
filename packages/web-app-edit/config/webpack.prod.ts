@@ -10,11 +10,11 @@ import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import * as TerserPlugin from 'terser-webpack-plugin';
 import { DefinePlugin } from 'webpack';
 
-export default () => {
+export default async () => {
     const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
     const useSourcemaps: boolean = process.env.USE_SOURCEMAPS !== undefined;
 
-    return webpackMerge(commonConfig({ env: ENV }), {
+    return webpackMerge(await commonConfig({ env: ENV }), {
         mode: ENV,
         module: {
             rules: [
@@ -70,7 +70,7 @@ export default () => {
             minimizer: [
                 new TerserPlugin({
                     terserOptions: {
-                        ecma: 5,
+                        ecma: 2020,
                         keep_classnames: true,
                         keep_fnames: true,
                         output: {

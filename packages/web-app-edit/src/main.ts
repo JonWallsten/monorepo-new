@@ -1,8 +1,5 @@
-import '../../../polyfills/es6-es7';
-import '../../../polyfills/legacy';
 import 'zone.js/dist/zone';
 import 'normalize.css/normalize';
-import '@angular/compiler';
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
@@ -15,7 +12,7 @@ if (environment.production) {
     enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule)
+platformBrowserDynamic().bootstrapModule(AppModule, { ngZoneEventCoalescing: true })
     .then(module => {
         if (!environment.production) {
             const applicationRef = module.injector.get(ApplicationRef);

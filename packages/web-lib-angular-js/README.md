@@ -1,1 +1,0 @@
-# @oas/web-lib-angular-js

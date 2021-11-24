@@ -2,7 +2,10 @@
   "name": "@oas/web-lib-common",
   "version": "0.0.0-PLACEHOLDER",
   "engines": {
-    "node": "^12.14.0"
+    "node": ">=14.15.0"
+  },
+  "oas": {
+    "type": "lib"
   },
   "license": "UNLICENSED",
   "main": "dist/index.js",
@@ -16,18 +19,16 @@
     "dev": "npm run clean:cache && npm run build:dev:watch",
     "lint": "eslint \"src/**/*.ts\" --fix",
     "lint:staged": "ts-node ../../build-tools/lint-staged-files",
-    "test": "exit 0",
     "compile": "npm run clean:cache && tsc",
     "clean": "npm run clean:dist && npm run clean:cache",
     "clean:dist": "rimraf -- dist",
-    "clean:cache": "rimraf -- .tmp",
+    "clean:cache": "rimraf -- .cache",
     "webpack": "node -r ts-node/register --max_old_space_size=8192 ../../node_modules/webpack/bin/webpack.js",
     "webpack:debug": "node -r ts-node/register --inspect-brk --max_old_space_size=8192 ../../node_modules/webpack/bin/webpack.js"
   },
-  "devDependencies": {
-    "lodash-ts-imports-loader": "1.2.0"
-  },
+  "devDependencies": {},
   "peerDependencies": {
+    "angular": "1.5.x",
     "@oas/web-lib-core": "x.x.x"
   },
   "internalDependencies": {

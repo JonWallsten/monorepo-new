@@ -3,7 +3,16 @@
   "version": "0.0.0-PLACEHOLDER",
   "private": true,
   "engines": {
-    "node": "^12.14.0"
+    "node": ">=14.15.0"
+  },
+  "oas": {
+    "name": "edit",
+    "type": "app",
+    "component": "OASEdit",
+    "e2e": {
+      "enabled": true,
+      "modern": true
+    }
   },
   "license": "UNLICENSED",
   "main": "dist/index.js",
@@ -12,7 +21,7 @@
     "build:dev": "npm run webpack -- --config config/webpack.dev.ts --color",
     "build:prod": "npm run webpack -- --config config/webpack.prod.ts --bail",
     "build": "npm run clean && npm run build:prod",
-    "dev": "npm run clean:cache && npm run webpack-dev-server -- --config config/webpack.dev.ts --mode development --env development --color --hot",
+    "dev": "npm run clean:cache && npm run webpack-dev-server -- --config config/webpack.dev.ts --mode development --env development --color",
     "start": "npm run dev",
     "webpack": "node --max_old_space_size=8192 ../../node_modules/webpack/bin/webpack",
     "webpack:debug": "node --max_old_space_size=8192 --inspect-brk ../../node_modules/webpack/bin/webpack",
@@ -30,8 +39,8 @@
     "clean:cache": "rimraf .cache",
     "clean:testresults": "rimraf .test_results",
     "test": "npm run test:unit",
-    "test:unit": "node -r ts-node/register ../../node_modules/jest/bin/jest",
-    "test:unit:watch": "node -r ts-node/register ../../node_modules/jest/bin/jest --watch",
+    "test:unit": "jest",
+    "test:unit:watch": "jest --watch",
     "test:unit:debug": "node -r ts-node/register --inspect-brk ../../node_modules/jest/bin/jest --runInBand --coverage=false",
     "test:e2e": "npm run clean:testresults && cross-env frontendServer=http://localhost:3060 IS_DEV=true envId=10 npm run protractor",
     "test:e2e:headless": "cross-env HEADLESS=true npm run test:e2e",

@@ -3,7 +3,6 @@ import { host, port } from './globals';
 import * as helpers from './helpers';
 import commonConfig from './webpack.base';
 
-const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 import { EvalSourceMapDevToolPlugin } from 'webpack';
 import { oasProgressPlugin } from '../../../build-tools/plugins/progress';
 import { WatchControllerPlugin } from '../../../build-tools/plugins/watch-controller';
@@ -22,30 +21,34 @@ export default () => {
             publicPath: '/' // note: do not use './', webpack-dev-server requires '/'
         },
         devtool: false, // handled by EvalSourceMapDevToolPlugin
-
         devServer: {
             host,
             port,
-            contentBase: helpers.rootPath('dist'),
-            noInfo: true,
             hot: true,
-            disableHostCheck: true,
-            writeToDisk: true,
-            overlay: {
-                warnings: true,
-                errors: true
+            allowedHosts: 'all',
+            static: {
+                directory: helpers.rootPath('dist'),
+                watch: {
+                    aggregateTimeout: 300,
+                    ignored: /\/node_modules\/[\\\/]packages[\\\/]web-(?:lib|app)-.*[\\\/]dist[\\\/]|\/\.cache\//
+                },
             },
-            watchOptions: {
-                aggregateTimeout: 300,
-                ignored: /\/node_modules\/|[\\\/]packages[\\\/]web-(?:lib|app)-.*[\\\/]dist[\\\/]|\/\.cache\//
+            client: {
+                overlay: {
+                    warnings: false,
+                    errors: true
+                }
+            },
+            devMiddleware: {
+                writeToDisk: true
             },
             // Fix for getting appentries from prime
             headers: {
                 'Access-Control-Allow-Origin': 'http://localhost:4000',
                 'Access-Control-Expose-Headers': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
                 'Access-Control-Allow-Credentials': 'true'
-            }
-        },
+            },
+        } as any, // Fix until types are updated for 4.x.x.
 
         module: {
 
@@ -96,8 +99,6 @@ export default () => {
             oasProgressPlugin('web-app-wui'),
 
             new WatchControllerPlugin(),
-
-            new MonacoWebpackPlugin(),
 
             new EvalSourceMapDevToolPlugin({
                 moduleFilenameTemplate: 'web-app-wui://[resource-path]',

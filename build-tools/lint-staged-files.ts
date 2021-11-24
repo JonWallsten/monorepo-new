@@ -28,8 +28,13 @@ try {
 }
 
 if (files.length) {
+    let filesCmdString = files.join(' ');
+    // If we have a lot of files we don't test specific files but all the files
+    if (filesCmdString.length > 4096) {
+        filesCmdString = '';
+    }
 
-    exec('eslint --fix ' + files.join(' '), (error: any, stdout: string, stderr: string) => {
+    exec('eslint --fix ' + filesCmdString, (error: any, stdout: string, stderr: string) => {
         // If error is found we print it and exit with error
         if (error) {
             console.error(stderr);

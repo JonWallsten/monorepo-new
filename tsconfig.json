@@ -2,8 +2,8 @@
   "compilerOptions": {
     "rootDir": ".",
     "baseUrl": ".",
-    "target": "es5",
-    "module": "commonjs",
+    "target": "ES2020",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
@@ -13,9 +13,10 @@
     "noUnusedParameters": true,
     "noEmitHelpers": true,
     "noEmitOnError": false,
-    "importHelpers": true,
+    "importHelpers": false,
     "noImplicitAny": false,
     "skipLibCheck": true,
+    "alwaysStrict": true,
     "strictNullChecks": false,
     "strictPropertyInitialization": false,
     "pretty": true,
@@ -32,14 +33,9 @@
         "es2018.promise",
         "es2019.string"
     ],
-    "typeRoots": [
-        "./typings/",
-        "./node_modules/@types"
-    ],
     "paths": {
       "@oas/web-lib-core": ["./packages/web-lib-core/dist"],
       "@oas/web-lib-common": ["./packages/web-lib-common/dist"],
-      "@oas/web-lib-angular-js": ["./packages/web-lib-angular-js/dist"],
       "@oas/web-lib-angular": ["./packages/web-lib-angular/dist"],
       "@oas/internal-lib-e2e": ["./packages/internal-lib-e2e/dist"]
     }
