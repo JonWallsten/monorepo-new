@@ -13,7 +13,6 @@ WUI - web-app-wui - TS/JS/Angular 1.5 - iframe app: http://localhost:3010/#/exam
 <b>Libs</b><br/>
 Core - web-lib-core - compiled - TS/JS<br/>
 Common - web-lib-common - compiled - TS<br/>
-AngularJs - web-lib-angular-js - compiled - TS/JS/Angular 1.5<br/>
 Angular - web-lib-angular - non-compiled - TS/Angular 9<br/>
 Internal E2E Lib - Don't mind this<br/>
 <br/>
