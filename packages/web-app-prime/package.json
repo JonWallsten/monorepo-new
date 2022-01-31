@@ -3,7 +3,7 @@
   "version": "0.0.0-PLACEHOLDER",
   "private": true,
   "engines": {
-    "node": "^12.14.0"
+    "node": ">=16.13.2"
   },
   "license": "UNLICENSED",
   "main": "dist/index.js",
@@ -12,12 +12,12 @@
     "build:dev": "npm run webpack -- --config config/webpack.dev.ts --color",
     "build:prod": "npm run webpack -- --config config/webpack.prod.ts --bail",
     "build": "npm run clean && npm run build:prod",
-    "dev": "npm run clean:cache && npm run webpack-dev-server -- --config config/webpack.dev.ts --mode development --env development --color --hot",
+    "dev": "npm run clean:cache && npm run webpack-dev-server -- --config config/webpack.dev.ts --mode development --env development --color",
     "start": "npm run dev",
-    "webpack": "node --max_old_space_size=8192 ../../node_modules/webpack/bin/webpack",
-    "webpack:debug": "node --max_old_space_size=8192 --inspect-brk ../../node_modules/webpack/bin/webpack",
-    "webpack-dev-server": "node --max_old_space_size=8192 ../../node_modules/webpack/bin/webpack serve",
-    "webpack-dev-server:debug": "node --max_old_space_size=8192 --inspect-brk ../../node_modules/webpack/bin/webpack serve",
+    "webpack": "node --max-old-space-size=8192 ../../node_modules/webpack/bin/webpack",
+    "webpack:debug": "node --max-old-space-size=8192 --inspect-brk ../../node_modules/webpack/bin/webpack",
+    "webpack-dev-server": "node --max-old-space-size=8192 ../../node_modules/webpack/bin/webpack serve",
+    "webpack-dev-server:debug": "node --max-old-space-size=8192 --inspect-brk ../../node_modules/webpack/bin/webpack serve",
     "lint": "eslint \"{src,test}/**/*.ts\" --fix",
     "lint:staged": "ts-node ../../build-tools/lint-staged-files",
     "typecheck": "tsc --noEmit --project ./tsconfig.build.json",

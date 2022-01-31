@@ -2,7 +2,7 @@
   "name": "@oas/web-lib-core",
   "version": "0.0.0-PLACEHOLDER",
   "engines": {
-    "node": "^12.14.0"
+    "node": ">=16.13.2"
   },
   "license": "UNLICENSED",
   "main": "dist/index.js",
@@ -17,29 +17,30 @@
     "dev": "npm run clean:cache && npm run build:dev:watch",
     "lint": "eslint \"{src,tests}/**/*.ts\" --fix",
     "lint:staged": "ts-node ../../build-tools/lint-staged-files",
-    "test": "npm run test:tape && npm run test:jest",
-    "test:tape": "cross-env OAS_LOG_NO_OUTPUT=true TS_NODE_FILES=true ts-node node_modules/tape/bin/tape 'src/**/*.spec.ts' | tap-spec",
-    "test:jest": "jest",
-    "test:jest:watch": "jest --watch",
-    "test:jest:update": "npm run test:jest -- -u",
-    "test:integration": "cross-env OAS_DEBUG=false OAS_USE_BASIC_AUTH=true jest --config tests/integration/jest.config.js",
-    "test:integration:name": "npm run test:integration -- --testNamePattern",
-    "test:integration:ci": "cross-env npm run test:integration -- --ci",
-    "test:integration:debug": "cross-env OAS_DEBUG=true OAS_USE_BASIC_AUTH=true node --inspect-brk ../../node_modules/jest/bin/jest --runInBand --config tests/integration/jest.config.js",
-    "test:debug": "npm run compile && npm run tape:debug -- '.tmp/**/*.spec.js' | tap-spec",
-    "tape:debug": "cross-env OAS_LOG_NO_OUTPUT=true TS_NODE_FILES=true node -r ts-node/register --inspect --inspect-brk ./node_modules/tape/bin/tape 'src/**/*.spec.ts'",
+    "test": "npm run test:unit-legacy && npm run test:unit",
+    "test:unit-legacy": "cross-env OAS_LOG_NO_OUTPUT=true TS_NODE_FILES=true TS_NODE_PROJECT=tsconfig.jest.json ts-node node_modules/tape/bin/tape 'src/**/*.spec.ts' | tap-spec",
+    "test:unit-legacy:debug": "cross-env OAS_LOG_NO_OUTPUT=true TS_NODE_FILES=true TS_NODE_PROJECT=tsconfig.jest.json node -r ts-node/register --inspect-brk ./node_modules/tape/bin/tape 'src/**/*.spec.ts'",
+    "test:unit": "jest",
+    "test:unit:watch": "jest --watch",
+    "test:unit:update": "npm run test:unit -- --coverage=false --updateSnapshot --verbose",
+    "test:unit:name": "npm run test:unit -- --coverage=false --updateSnapshot --verbose --testNamePattern",
+    "test:unit:debug": "node -r ts-node/register --inspect-brk ../../node_modules/jest/bin/jest --runInBand --verbose --coverage=false",
+    "test:integration": "cross-env OAS_DEBUG=false jest --config tests/integration/jest.config.js",
+    "test:integration:name": "npm run test:integration -- --updateSnapshot --colors --verbose --testNamePattern",
+    "test:integration:update": "npm run test:integration -- --updateSnapshot --colors --verbose",
+    "test:integration:contint": "cross-env OAS_TEST_INTEGRATION_ENV_ID=1 npm run test:integration -- --updateSnapshot --colors --verbose",
+    "test:integration:ci": "npm run test:integration -- --ci",
+    "test:integration:debug": "cross-env OAS_DEBUG=true node --inspect-brk ../../node_modules/jest/bin/jest --runInBand --colors --config tests/integration/jest.config.js --testNamePattern",
     "clean": "npm run clean:dist && npm run clean:cache",
     "clean:dist": "rimraf -- dist",
-    "clean:cache": "rimraf -- .tmp",
-    "webpack": "node --max_old_space_size=8192 ../../node_modules/webpack/bin/webpack.js",
-    "webpack:debug": "node -r ts-node/register --inspect-brk --max_old_space_size=4096 node_modules/webpack/bin/webpack.js"
+    "clean:cache": "rimraf -- .cache",
+    "webpack": "node --max-old-space-size=8192 ../../node_modules/webpack/bin/webpack.js",
+    "webpack:debug": "node -r ts-node/register --inspect-brk --max-old-space-size=8192 ../../node_modules/webpack/bin/webpack.js"
   },
   "devDependencies": {
-    "lodash-ts-imports-loader": "1.2.0",
-    "ng-annotate-loader": "0.6.1",
+    "@types/tape": "4.13.2",
     "tap-min": "2.0.0",
     "tap-spec": "5.0.0",
-    "tape": "4.10.1",
-    "@types/tape": "4.2.33"
+    "tape": "5.5.0"
   }
 }

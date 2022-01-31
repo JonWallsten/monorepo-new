@@ -241,7 +241,6 @@ export class MonkeyPatch {
      */
     private static hasBeenPatched (content: string[], patchIdentifier: string) {
         return content.find(line => line.indexOf(patchIdentifier) !== -1);
-
     }
 
     /**

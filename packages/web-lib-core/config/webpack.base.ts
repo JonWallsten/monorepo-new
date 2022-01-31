@@ -63,7 +63,6 @@ export default (options: IWebpackOptions) => {
                 projectRootPath('node_modules')
             ],
             fallback: {
-                'https': require.resolve('https-browserify'),
                 'http': false,
                 'process': require.resolve('process/browser')
             }

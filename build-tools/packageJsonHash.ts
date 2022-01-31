@@ -29,7 +29,6 @@ export function hasUpdatedPackages (packageJsonFile: string, hashFile: string): 
 }
 
 export function createDependenciesHash (packageJsonFile: string) {
-
     const packageJSON = JSON.parse(readFileSync(packageJsonFile, 'utf8'));
     const packages: HashObject = {
         dependencies: packageJSON.dependencies || {},
@@ -40,11 +39,9 @@ export function createDependenciesHash (packageJsonFile: string) {
 
     // Create a hash for all dependencies and their version
     return nodeObjectHash({ sort: false }).hash(packages);
-
 }
 
 export function writeDependenciesHash (packageJsonFile: string, hashFile: string) {
-
     const hash = createDependenciesHash(packageJsonFile);
 
     writeFileSync(hashFile, hash, 'utf8');
