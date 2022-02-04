@@ -36,7 +36,9 @@ export default () => {
             minimizer: [
                 new TerserPlugin({
                     terserOptions: {
-                        ecma: 5,
+                        ecma: 2020 as TerserPlugin.TerserECMA,
+                        mangle: false, // Do not mangle (avoid needing ng-annotate in legacy AngularJs)
+                        compress: true,
                         keep_classnames: true,
                         keep_fnames: true,
                         output: {

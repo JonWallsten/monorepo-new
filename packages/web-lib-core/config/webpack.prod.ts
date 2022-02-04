@@ -1,11 +1,11 @@
-import webpackMerge from 'webpack-merge';
-import * as helpers from './helpers';
-import commonConfig from './webpack.base';
-
 /**
  * Webpack Plugins
  */
 import * as TerserPlugin from 'terser-webpack-plugin';
+import webpackMerge from 'webpack-merge';
+import * as helpers from './helpers';
+import commonConfig from './webpack.base';
+
 
 export default () => {
     const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
@@ -32,7 +32,9 @@ export default () => {
             minimizer: [
                 new TerserPlugin({
                     terserOptions: {
-                        ecma: 5,
+                        ecma: 2020 as TerserPlugin.TerserECMA,
+                        mangle: false,
+                        compress: true,
                         keep_classnames: true,
                         keep_fnames: true,
                         output: {
@@ -40,9 +42,6 @@ export default () => {
                         },
                         sourceMap: useSourcemaps && {
                             url: 'inline'
-                        },
-                        mangle: {
-                            reserved: [ 'process' ] // Preserve process.env in dist (needed for config based on runtime env in node scripts)
                         }
                     }
                 })
