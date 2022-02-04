@@ -1,5 +1,3 @@
-import '../../../polyfills/es6-es7';
-import '../../../polyfills/legacy';
 import 'zone.js/dist/zone';
 import 'normalize.css/normalize';
 

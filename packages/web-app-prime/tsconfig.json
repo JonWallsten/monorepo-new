@@ -14,7 +14,6 @@
     "./test/e2e/**/*.ts"
   ],
   "files": [
-    "./protractor.conf.ts",
     "./typings/global.d.ts",
     "../../typings/global.d.ts"
   ],

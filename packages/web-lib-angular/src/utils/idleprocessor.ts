@@ -21,16 +21,6 @@ type RequestIdleCallbackDeadline = {
     timeRemaining: (() => number);
 };
 
-declare global {
-    interface Window { // eslint-disable-line:interface-name
-        requestIdleCallback: ((
-            callback: ((deadline: RequestIdleCallbackDeadline) => void),
-            opts?: RequestIdleCallbackOptions
-        ) => RequestIdleCallbackHandle);
-        cancelIdleCallback: ((handle: RequestIdleCallbackHandle) => void);
-    }
-}
-
 // End of requestIdleCallback interface definition
 
 export class IdleProcessorClass {

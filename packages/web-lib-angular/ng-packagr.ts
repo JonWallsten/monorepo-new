@@ -2,7 +2,7 @@ import { WatchControllerPlugin } from '../../build-tools/plugins/watch-controlle
 import * as ngPackage from 'ng-packagr';
 import * as yargs from 'yargs';
 
-const argv = yargs.argv;
+const argv = yargs.parseSync();
 
 // If watch is activated we handle stuff a bit differently
 if (argv.watch) {
@@ -12,7 +12,7 @@ if (argv.watch) {
         .ngPackagr()
         .forProject('ng-package.json')
         .withTsConfig('tsconfig.build.json')
-        .watch([/\.webpack\.build/])
+        .watch()
         .subscribe(() => {
             if (initialBuild) {
                 initialBuild = false;

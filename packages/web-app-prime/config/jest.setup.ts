@@ -9,8 +9,6 @@
  */
 Error.stackTraceLimit = Infinity;
 
-// import 'core-js/features';
-import 'core-js/features/reflect';
 
 import 'zone.js/dist/zone';
 import 'zone.js/dist/long-stack-trace-zone';

@@ -10,7 +10,7 @@ const prune = process.env.IS_DEV ? 'npm run prune && ' : '';
 let installCommand: string = '';
 // Check if root package has updated packages
 if (hasUpdatedPackages(helpers.projectRootPath(defaultPackageJsonFileName), helpers.projectRootPath(defaultPackageHashFileName))) {
-    installCommand = prune + 'npm install && npm run symlink && npm run write-dependencies-hash && npm run ngcc';
+    installCommand = prune + 'npm install && npm run symlink && npm run write-dependencies-hash';
 }
 
 const pkgJsonPackages = JSON.parse(readFileSync(`./${defaultPackageJsonFileName}`, 'utf8')).packages;

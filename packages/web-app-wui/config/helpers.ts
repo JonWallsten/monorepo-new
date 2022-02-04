@@ -12,7 +12,6 @@ export const include = [
     rootPath('node_modules/ui-select'),
     projectRootPath('packages/web-lib-core/dist/'), // Since these are symlinks we need to resolve the real path
     projectRootPath('packages/web-lib-common/dist/'),
-    projectRootPath('packages/web-lib-angular-js/dist/'),
     projectRootPath('node_modules/@fortawesome/fontawesome-free')
 ];
 
@@ -33,6 +32,5 @@ export const includeFonts = [
 
 export const includeSourceMaps = [
     projectRootPath('packages/web-lib-core/dist'),
-    projectRootPath('packages/web-lib-common/dist'),
-    projectRootPath('packages/web-lib-angular-js/dist')
+    projectRootPath('packages/web-lib-common/dist')
 ];

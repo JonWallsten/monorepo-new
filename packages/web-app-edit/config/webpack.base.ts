@@ -6,11 +6,10 @@ import * as helpers from './helpers';
 import { AngularWebpackPlugin } from '@ngtools/webpack';
 // @ts-ignore
 import * as CopyWebpackPlugin from 'copy-webpack-plugin';
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import { DefinePlugin, NormalModuleReplacementPlugin } from 'webpack';
 import { projectRootPath } from '../../../build-tools/helpers';
-
+import { dynamicImport } from 'tsimportlib';
 export interface IWebpackOptions {
     env?: string;
 }
@@ -20,9 +19,10 @@ export interface IWebpackOptions {
  *
  * See: http://webpack.github.io/docs/configuration.html#cli
  */
-export default (options: IWebpackOptions) => {
+export default async (options: IWebpackOptions) => {
     const isProd = options.env === 'production';
     const envPrefix = isProd ? '.prod' : '';
+    const linkerPlugin = await dynamicImport('@angular/compiler-cli/linker/babel', module);
 
     const config: any = { // Configuration
         entry: {
@@ -31,7 +31,13 @@ export default (options: IWebpackOptions) => {
         output: {
             path: helpers.rootPath('dist'),
             filename: isProd ? '[name].[chunkhash].js' : '[name].js',
-            publicPath: './'
+            publicPath: './',
+            clean: true
+        },
+        experiments: {
+            // futureDefaults: true, // Generates lots of warnings, only use for debugging
+            backCompat: false,
+            cacheUnaffected: true
         },
         /**
          * Options affecting the resolving of modules.
@@ -44,7 +50,7 @@ export default (options: IWebpackOptions) => {
              *
              * See: http://webpack.github.io/docs/configuration.html#resolve-extensions
              */
-            extensions: ['.ts', '.js', '.json', '.css', '.scss'],
+            extensions: ['.ts', '.js', '.mjs', '.json', '.css', '.scss'],
 
             /**
              * An array of directory names to be resolved to the current directory
@@ -57,7 +63,8 @@ export default (options: IWebpackOptions) => {
             alias: {
                 '@oas/web-lib-angular': projectRootPath('packages/web-lib-angular/dist')
             },
-            mainFields: ['es2015', 'browser', 'module', 'main']
+            // https://github.com/angular/angular-cli/blob/be32c9aa34761f7ee5f6c7eafd8872e76350061d/packages/angular_devkit/build_angular/src/webpack/configs/common.ts#L322-L325
+            mainFields: ['es2020', 'es2015', 'browser', 'module', 'main']
         },
         /**
          * Options affecting the normal modules.
@@ -73,15 +80,40 @@ export default (options: IWebpackOptions) => {
                     parser: { system: true }
                 },
                 {
+                    test: /\.mjs$/,
+                    loader: 'babel-loader',
+                    options: {
+                        compact: false,
+                        plugins: [linkerPlugin.default],
+                    },
+                    resolve: {
+                        fullySpecified: false
+                    }
+                },
+                {
                     test: /\.css$/,
-                    use: ['to-string-loader', 'css-loader?esModule=false', 'postcss-loader'],
+                    use: [
+                        'to-string-loader',
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                esModule: false
+                            }
+                        },
+                        'postcss-loader'
+                    ],
                     exclude: helpers.includeStyles
                 },
                 {
                     test: /\.scss$/,
                     use: [
                         'to-string-loader',
-                        'css-loader?esModule=false',
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                esModule: false
+                            }
+                        },
                         'postcss-loader',
                         'sass-loader'
                     ],
@@ -107,27 +139,26 @@ export default (options: IWebpackOptions) => {
                 /**
                  * File loader for supporting images, for example, in CSS files.
                  */
-                {
+                 {
                     test: /\.(jpg|png|gif)$/,
-                    loader: 'file-loader',
-                    options: {
-                        name: '[name].[hash].[ext]',
-                        outputPath: 'assets/images/',
-                        publicPath: '', // Removes the default "./"
-                        esModule: false
-                    }
+                    type: "asset/resource",
+                    generator: {
+                        filename: 'images/[name].[hash].[ext]'
+                    },
+                    include: helpers.include
                 },
+
+                /**
+                 * File loader for supporting fonts, for example, in CSS files.
+                 */
                 {
-                    test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-                    use: [{
-                        loader: 'file-loader',
-                        options: {
-                            name: '[name].[ext]',
-                            outputPath: 'assets/fonts/', // Removes the default "./"
-                            esModule: false
-                        }
-                    }]
-                }
+                    test: /\.(eot|woff2?|svg|ttf)([\?]?.*)$/,
+                    type: "asset/resource",
+                    generator: {
+                        filename: 'fonts/[name].[hash].[ext]'
+                    },
+                    include: helpers.include
+                },
             ]
 
         },
@@ -220,9 +251,7 @@ export default (options: IWebpackOptions) => {
 
             new AngularWebpackPlugin({
                 tsconfig: helpers.rootPath('tsconfig.build.json')
-            }),
-
-            new CleanWebpackPlugin()
+            })
         ]
     };
 

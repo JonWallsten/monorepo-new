@@ -3,10 +3,7 @@
   "version": "0.0.0-PLACEHOLDER",
   "private": true,
   "engines": {
-    "node": "^12.14.0"
-  },
-  "oas": {
-    "type": "lib"
+    "node": "^16.13.2"
   },
   "license": "UNLICENSED",
   "scripts": {
@@ -25,9 +22,6 @@
     "clean:cache": "rimraf -- .cache",
     "webpack:debug": "node -r ts-node/register --inspect-brk --max_old_space_size=8192 node_modules/webpack/bin/webpack.js",
     "version": "node_modules/.bin/ng-packagr --version"
-  },
-  "peerDependencies": {
-    "@oas/web-lib-core": "x.x.x"
   },
   "internalDependencies": {
     "@oas/web-lib-core": "0.0.0"

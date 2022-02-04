@@ -336,7 +336,6 @@ export class RunGraph {
         }
         const myDeps = Promise.all(this.allDeps(p).map((d: string) => this.lookupOrRun(cmd, d)));
 
-
         return myDeps.then(() => {
             this.resultMap.set(pkg, ResultSpecialValues.Pending);
 

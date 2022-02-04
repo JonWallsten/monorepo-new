@@ -39,7 +39,6 @@
     "paths": {
       "@oas/web-lib-core": ["./packages/web-lib-core/dist"],
       "@oas/web-lib-common": ["./packages/web-lib-common/dist"],
-      "@oas/web-lib-angular-js": ["./packages/web-lib-angular-js/dist"],
       "@oas/web-lib-angular": ["./packages/web-lib-angular/dist"],
       "@oas/internal-lib-e2e": ["./packages/internal-lib-e2e/dist"]
     }
