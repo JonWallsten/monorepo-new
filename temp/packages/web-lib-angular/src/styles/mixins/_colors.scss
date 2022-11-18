@@ -1,0 +1,111 @@
+// New Scania colors
+$grey-958: #0d0d0f;
+$grey-900: #1d1d1f;
+$grey-868: #242426;
+$grey-846: #2b2b2d;
+$grey-800: #373739;
+$grey-700: #565658;
+$grey-600: #868688;
+$grey-500: #b0b0b2;
+$grey-400: #cacdd0;
+$grey-300: #dee1e3;
+$grey-200: #e7e9ea;
+$grey-150: #e9ebec;
+$grey-100: #edeff0;
+$grey-75: #f1f3f4;
+$grey-50: #f9fafa;
+
+$blue-900: #001533;
+$blue-800: #041e42;
+$blue-700: #0f3263;
+$blue-600: #16417f;
+$blue-500: #2058a8;
+$blue-400: #2b70d3;
+$blue-300: #4a89f3;
+$blue-200: #87afe8;
+$blue-100: #bacde8;
+$blue-50: #e4e9f1;
+
+$red-900: #450307;
+$red-800: #6a080f;
+$red-700: #950a16;
+$red-600: #d6001c;
+$red-500: #de2b36;
+$red-400: #f35359;
+$red-300: #f58e90;
+$red-200: #f8b6b7;
+$red-100: #fadbdc;
+$red-50: #fdf4f5;
+
+// generic colors
+$primary: $blue-600;
+$primary-hover: $blue-500;
+$primary-focus: $blue-500;
+$primary-active: $blue-700;
+$info: $blue-400;
+$success: #1DAB8B;
+$warning: #F1C21B;
+$error: #FF2340;
+$error-dark: #bf1d32;
+$white: #fff;
+
+$background-color: $grey-200;
+$background-color-light: $grey-50;
+
+/*--- Edit colors actually used for the moment ---*/
+$oas-grey-small: #777777;
+$text: #333333;
+$text-semi-dark: #666;
+$text-complementary: #888;
+$text-placeholder: #AAAAAA;
+$oas-debug: #afeb19f0;
+$oas-debug-border: #8ab916f0;
+$icon-semi-dark: #666;
+$icon-disabled: #aaa;
+$active-row-color: rgba(0, 0, 0, .08);
+$hover-row-color: rgba(0, 0, 0, .04);
+// Note: Since Scania uses screens with blue tint we remove som blue/green
+$edit-light-gray: $grey-75;
+
+// Scrollbar
+$oas-scrollbar-track: $grey-75;
+$oas-scrollbar-thumb: $primary;
+$oas-scrollbar-thumb-hover: lighten($primary, 10%);
+$oas-scrollbar-corner: $grey-75;
+/*--- Edit colors actually used END ---*/
+
+/*--- Old table colors ---*/
+$color-grey-30: #ccc;
+$color-grey-40: #8c8193;
+$color-blue-10: #eef7fb;
+$color-blue-20: #c1e8ff;
+$color-blue-60: #428bca;
+
+$color-background-focus: $color-blue-20;
+$color-outline-focus: $color-blue-60;
+$color-hover: $color-blue-10;
+$color-background-light-grey: $grey-200;
+$oas-border: $grey-300;
+$gray-light: $grey-75;
+
+$oas-table-border-color: $grey-200;
+$oas-table-offset-color: $grey-75;
+$oas-table-offset-color-secondary: $grey-100;
+$oas-table-color-selected-row-odd: #c2dae7; // The hard coding should be changed or updated
+$oas-table-color-selected-row-even: #d3ecfb; // The hard coding should be changed or updated
+
+// table styling
+$oas-table-cell-active: $color-background-focus;
+$oas-table-cell-disabled: $color-grey-30;
+$oas-table-cell-focus: $color-background-focus;
+$oas-table-focused-outline: $color-outline-focus;
+$oas-table-cell-outline: $color-outline-focus;
+$oas-table-cell-inactive-focus: #bbc6cd;
+$oas-table-cell-inactive-focus-outline: #9da3a6;
+$oas-table-row-hover: rgba($primary, .15);
+$oas-table-row-focus: rgba($primary, .15);
+$text-secondary: rgba(#000, .54);
+
+/*--- Old table colors END ---*/
+
+

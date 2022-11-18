@@ -1,0 +1,173 @@
+@use '@oas/web-lib-angular/src/styles/mixins/colors';
+@use '@oas/web-lib-angular/src/styles/mixins/constants';
+@use '@oas/web-lib-angular/src/styles/mixins/layers';
+
+// Form components
+.mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
+    color: colors.$error;
+}
+.mat-input-element {
+    caret-color: colors.$primary;
+}
+.mat-error {
+    color: colors.$error;
+}
+.mat-form-field-invalid .mat-input-element,
+.mat-warn .mat-input-element {
+    caret-color: colors.$error;
+}
+
+.mat-form-field-label-wrapper .mat-form-field-label {
+    font-size: 14px;
+}
+
+.mat-form-field.mat-form-field-invalid .mat-form-field-label {
+    color: colors.$error;
+}
+
+mat-form-field.mat-form-field {
+    width: 100%;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-subscript-wrapper {
+    margin-top: .2em;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-infix {
+    border-top: 0;
+    padding: 0.2em 0;
+    width: auto;
+}
+
+.mat-form-field-wrapper .mat-input-element {
+    color: colors.$text;
+}
+
+.mat-form-field-label-wrapper .mat-form-field-label {
+    color: colors.$oas-grey-small;
+}
+
+
+// Expansion panels
+section  mat-expansion-panel-header {
+    height:48px;
+}
+
+section .mat-expansion-panel-body {
+    padding: 0 constants.padding(2) constants.padding(2);
+}
+
+.mat-dialog-container {
+    border-radius: 0 !important;
+}
+
+section .mat-expansion-panel {
+    overflow: visible;
+    transition: none;
+    min-width: 100%;
+    display: inline-block;
+    border-radius: 0;
+}
+
+// Add scroll to chip lists when they have a lot of chips
+.mat-chip-list-wrapper {
+    max-height: 400px;
+    overflow: auto;
+}
+
+// Some fields are relly
+.cdk-overlay-connected-position-bounding-box .cdk-overlay-pane .mat-autocomplete-panel {
+    min-width: 200px;
+}
+
+// Needs double disabled to override material default style since they accidentally used double
+.mat-stroked-button[disabled][disabled] {
+    border-color: rgba(0, 0, 0, 0.12);
+}
+// Ripple effect is not shown when programmatically focusing checkboxes, only keyboard-focus works. So we add it manually here.
+.mat-checkbox.cdk-program-focused .mat-checkbox-persistent-ripple {
+    opacity: .12;
+}
+
+.mat-ripple-element.mat-radio-persistent-ripple {
+    left: 0;
+}
+
+.mat-dialog{ transition: none !important;  }
+
+.edit-autocomplete-result .mat-option {
+    line-height: 1.2;
+
+    &:hover {
+        background-color: colors.$hover-row-color;
+    }
+
+    &.mat-active {
+        background-color: colors.$active-row-color;
+    }
+
+    &.exact-match {
+        border-bottom: 2px solid colors.$grey-400
+    }
+
+    .error-message:not(.disabled) {
+        color: colors.$error;
+    }
+
+    .warning-message:not(.disabled) {
+        color: colors.$warning;
+    }
+
+    .info-message:not(.disabled) {
+        color: colors.$info;
+    }
+
+    .mat-option-value {
+        font-size: constants.$auto-complete-value-size;
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: left;
+        white-space: nowrap;
+        direction: rtl;
+    }
+
+    .mat-option-complement {
+        white-space: nowrap;
+        vertical-align: top;
+        font-size: constants.$auto-complete-complement-size;
+    }
+
+    &.custom {
+        &.primary-color {
+            color: colors.$white;
+            background-color: colors.$primary;
+
+        }
+
+        .mat-option-value {
+            direction: ltr;
+        }
+    }
+}
+
+.mat-select-panel {
+    overscroll-behavior: none;
+}
+
+.cdk-overlay-container.app-container {
+    z-index: 3000;
+}
+.cdk-overlay-container.action-menu-overlay-container {
+    z-index: 2500;
+}
+.cdk-overlay-container.editor-container-overlay-container {
+    z-index: 2000;
+}
+.cdk-overlay-container.editor-floating-toolbar-container {
+    z-index: layers.$floatingToolbars;
+}
+
+.cdk-overlay-container.editor-overlay-container {
+    z-index: 1000;
+}

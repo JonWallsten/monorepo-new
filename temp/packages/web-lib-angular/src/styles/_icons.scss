@@ -1,0 +1,22 @@
+fa-icon {
+    background-repeat: no-repeat;
+    display: inline-block;
+    font-size: 13px;
+    line-height: 1;
+
+    &.icon-right {
+        position: absolute;
+        right: 0;
+        left: unset;
+    }
+
+    &.icon-left {
+        position: absolute;
+        left: 0;
+        right: unset;
+    }
+}
+
+.field-icon {
+    display: inline-block;
+}

@@ -1,0 +1,190 @@
+@use './mixins/constants';
+@use './mixins/colors';
+
+/**
+* Scania fonts
+* Mostly copied from https://static.oas.scania.com/resources/oas-web/fonts/scania-sans.css
+* Added font-display: fallback; to avoid render blocking
+* TODO: improve with local if the font is distributed to Scania computers
+**/
+
+@font-face {
+  font-family: 'Scania Sans';
+  font-display: fallback;
+  font-weight: normal;
+  src: url("https://static.oas.scania.com/resources/oas-web/fonts/ScaniaSansCY-Regular.woff2") format("woff2"), url("https://static.oas.scania.com/resources/oas-web/fonts/ScaniaSansCY-Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: 'Scania Sans';
+  font-display: fallback;
+  font-weight: bold;
+  src: url("https://static.oas.scania.com/resources/oas-web/fonts/ScaniaSansCY-Bold.woff2") format("woff2"), url("https://static.oas.scania.com/resources/oas-web/fonts/ScaniaSansCY-Bold.woff") format("woff");
+}
+
+@font-face {
+  font-family: 'Scania Sans';
+  font-display: fallback;
+  font-style: italic;
+  src: url("https://static.oas.scania.com/resources/oas-web/fonts/ScaniaSansCY-Italic.woff2") format("woff2"), url("https://static.oas.scania.com/resources/oas-web/fonts/ScaniaSansCY-Italic.woff") format("woff");
+}
+
+
+@font-face {
+  font-family: 'Scania Sans Semi Condensed';
+  font-display: fallback;
+  font-weight: normal;
+  src: url("https://static.oas.scania.com/resources/oas-web/fonts/ScaniaSansCYSemiCondensed-Regular.woff2") format("woff2"), url("https://static.oas.scania.com/resources/oas-web/fonts/ScaniaSansCYSemiCondensed-Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: 'Scania Sans Semi Condensed';
+  font-display: fallback;
+  font-weight: bold;
+  src: url("https://static.oas.scania.com/resources/oas-web/fonts/ScaniaSansCYSemiCondensed-Bold.woff2") format("woff2"), url("https://static.oas.scania.com/resources/oas-web/fonts/ScaniaSansCYSemiCondensed-Bold.woff") format("woff");
+}
+
+@font-face {
+  font-family: 'Scania Sans Semi Condensed';
+  font-display: fallback;
+  font-style: italic;
+  src: url("https://static.oas.scania.com/resources/oas-web/fonts/ScaniaSansCYSemiCondensed-Italic.woff2") format("woff2"), url("https://static.oas.scania.com/resources/oas-web/fonts/ScaniaSansCYSemiCondensed-Italic.woff") format("woff");
+}
+
+@font-face {
+  font-family: 'Scania Sans Condensed';
+  font-display: fallback;
+  font-weight: normal;
+  src: url("https://static.oas.scania.com/resources/oas-web/fonts/ScaniaSansCYCondensed-Regular.woff2") format("woff2"), url("https://static.oas.scania.com/resources/oas-web/fonts/ScaniaSansCYCondensed-Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: 'Scania Sans Condensed';
+  font-display: fallback;
+  font-weight: bold;
+  src: url("https://static.oas.scania.com/resources/oas-web/fonts/ScaniaSansCYCondensed-Bold.woff2") format("woff2"), url("https://static.oas.scania.com/resources/oas-web/fonts/ScaniaSansCYCondensed-Bold.woff") format("woff");
+}
+
+@font-face {
+  font-family: 'Scania Sans Condensed';
+  font-display: fallback;
+  font-style: italic;
+  src: url("https://static.oas.scania.com/resources/oas-web/fonts/ScaniaSansCYCondensed-Italic.woff2") format("woff2"), url("https://static.oas.scania.com/resources/oas-web/fonts/ScaniaSansCYCondensed-Italic.woff") format("woff");
+}
+
+@font-face {
+  font-family: 'Scania Sans Condensed Monospaced Digits';
+  font-display: fallback;
+  font-weight: normal;
+  src: url("https://static.oas.scania.com/resources/oas-web/fonts/ScaniaSansCYCondensed-Regular-Monospaced-Digits.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: 'Scania Sans Condensed Monospaced Digits';
+  font-display: fallback;
+  font-weight: bold;
+  src: url("https://static.oas.scania.com/resources/oas-web/fonts/ScaniaSansCYCondensed-Bold-Monospaced-Digits.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: 'Scania Headline';
+  font-display: fallback;
+  font-style: bold;
+  src: url("https://static.oas.scania.com/resources/oas-web/fonts/ScaniaSansCYHeadline-Bold.woff2") format("woff2");
+}
+
+
+body {
+    font-family: constants.$oas-font;
+    font-size: constants.$oas-base-font-size;
+    line-height: 1.2;
+    color: colors.$text;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: constants.$oas-font;
+    font-weight: 700;
+    line-height: 1.1;
+    color: inherit;
+}
+
+h1 {
+    font-size: 28px;
+    font-family: "Scania Sans Semi Condensed";
+} //36px
+h2 {
+    font-size: 30px;
+    font-family: "Scania Sans Semi Condensed";
+} //30px
+h3 {
+    font-size: 24px;
+} //24px
+h4 {
+    font-size: 18px;
+} // and so on...
+h5 {
+    font-size: 14px;
+}
+h6 {
+    font-size: 12px;
+}
+
+a {
+    &:hover,
+    &:focus {
+        text-decoration: underline;
+    }
+}
+.mat-card-title {
+    font-size: 14px;
+    font-weight: bold;
+}
+.mat-button,
+.mat-fab,
+.mat-flat-button,
+.mat-icon-button,
+.mat-mini-fab,
+.mat-raised-button,
+.mat-stroked-button {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Material Icons'),
+      local('MaterialIcons-Regular'),
+      url("https://static.oas.scania.com/resources/oas-web/fonts/MaterialIcons-Regular.woff2") format('woff2'),
+      url("https://static.oas.scania.com/resources/oas-web/fonts/MaterialIcons-Regular.woff") format('woff');
+}
+
+@font-face {
+  font-family: 'Material Icons Outlined';
+  font-style: normal;
+  font-weight: 400;
+  src: url("https://static.oas.scania.com/resources/oas-web/fonts/MaterialIcons-Outlined.woff2") format('woff2'),
+      url("https://static.oas.scania.com/resources/oas-web/fonts/MaterialIcons-Outlined.woff") format('woff');
+}
+
+.material-icons,
+  .material-icons-outlined {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+.material-icons-outlined {
+  font-family: 'Material Icons Outlined';
+}

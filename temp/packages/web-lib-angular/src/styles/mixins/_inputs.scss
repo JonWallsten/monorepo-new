@@ -1,0 +1,253 @@
+@use './common';
+@use './colors';
+@use './constants';
+
+@mixin input-messages-base {
+    font-size: constants.$input-message-font-size;
+    line-height: 1.2;
+
+    :host-context(.font-size-small) & {
+        font-size: 10px;
+        line-height: 10px;
+    }
+}
+
+@mixin input-wrapper {
+    position: relative;
+    margin-bottom: 1px;
+    outline: 0;
+
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        height: 1px;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, .2);
+    }
+
+    // Color the line red when field is in an error state
+    .has-error &::after {
+        background-color: colors.$error-dark;
+    }
+
+    &.disabled::after {
+        background-size: 4px 100%;
+        background-repeat: repeat-x;
+        background-position: 0;
+        background-color: transparent !important;
+        background-image: linear-gradient(to right, rgba(180, 156, 156, 0.15) 0%, rgba(0, 0, 0, .15) 33%, transparent 0%);
+
+        // Use a bluish color for activated disabled/readonly fields
+        .component-activated & {
+            background-image: linear-gradient(to right, rgb(65, 139, 202) 0%, rgb(65, 139, 202) 33%, transparent 0%);
+        }
+    }
+
+    &::before {
+        content: "";
+        background-color: colors.$blue-400;
+        position: absolute;
+        left: 0;
+        z-index: 1;
+        bottom: -1px;
+        height: 2px;
+        width: 100%;
+        transform-origin: 50%;
+        transform: scaleX(.5);
+        opacity: 0;
+        transition: background-color .3s cubic-bezier(.55,0,.55,.2);
+    }
+
+    // Color the line red when field is in an error state
+    .has-error &::before {
+        background-color: colors.$error;
+    }
+
+    // Color the line red when field is in an error state
+    .static &::before, .static &::after {
+        visibility: hidden;
+    }
+
+    &.field-active:not(.disabled)::before {
+        opacity: 1;
+        transform: scaleX(1);
+        transition: transform .3s cubic-bezier(.25,.8,.25,1),opacity .1s cubic-bezier(.25,.8,.25,1),background-color .3s cubic-bezier(.25,.8,.25,1);
+    }
+
+    :host-context(.font-size-small) & {
+        font-size: 10px;
+        line-height: 10px;
+    }
+
+    &.use-flex {
+        display: flex;
+
+        .field-icon,
+        .left-aligned-field-icons,
+        .right-aligned-field-icons {
+            flex: 0 0 auto;
+            // Since we use flex instead of position absolute we need to reset the property
+            position: unset;
+            z-index: unset;
+            margin-top: -2px;
+        }
+
+        .edit-input {
+            flex: 1 1 auto;
+        }
+    }
+
+    .left-aligned-field-icons,
+    .right-aligned-field-icons {
+        top: -3px;
+
+        &.action-menu-possible {
+            margin-right: 15px;
+        }
+    }
+
+    .unauthorized {
+        // Since unauthorized means we can't display data it's safe to use position absolute since it won't cover any text
+        position: absolute;
+        top: 2px;
+        left: 0;
+        z-index: 1;
+    }
+}
+
+@mixin input {
+    background: transparent;
+    border: 0;
+    outline: 0;
+    width: 100%;
+    padding: 1px 0 0;
+    line-height: 1.4;
+    vertical-align: top;
+    display: inline-block;
+    color: colors.$text;
+    resize: none;
+    box-sizing: border-box;
+
+    &::placeholder {
+        color: colors.$text-placeholder;
+        font-size: 95%;
+    }
+
+    &.textarea {
+        line-height: 1.2
+    }
+
+    .actions-menu-available & {
+        padding-right: 10px;
+    }
+}
+
+@mixin input-messages {
+    @include input-messages-base;
+    // If component has an input character counter
+    .input-character-counter & {
+        width: 85%;
+    }
+    // If we don't have any messages we add a non-breaking space to not collapse the layout
+    &:empty::before {
+        content: '\00a0'
+    }
+
+    // If error is empty we add a non-breaking space to not collapse the layout
+    .error:empty::before {
+        content: '\00a0';
+    }
+
+    // Hide hint when we show an error
+    .error:not(:empty) + .hint {
+        display: none;
+    }
+    .wrapper:not(.component-activated) & .error {
+        @include common.ellipsis;
+    }
+
+    .wrapper.table-cell & {
+        position: relative;
+
+        // Avoid long error messages causing issu with auto width table cells
+        & .edit-error, & .oas-error,
+            & .edit-hint, & .oas-hint {
+            width: 100%;
+            position: absolute;
+            top: 0;
+
+            // ALways use ellipsis for table cells
+            @include common.ellipsis;
+        }
+    }
+
+    // Only show one error message unless field is activated
+    .wrapper:not(.component-activated) & .error+.error {
+        display: none;
+    }
+}
+
+@mixin hint {
+    @include common.ellipsis;
+    color: colors.$text-complementary;
+    display: block;
+    // We need a max-width since long complements might break the layout even though we have overflow-hidden
+    max-width: 25vw;
+}
+
+@mixin error {
+    display: block;
+    color: colors.$error-dark;
+
+    // If we allow multiple errors (server errors) we use newline as delimiter and need to use pre-line for the linebreak to work
+    &.multi-error {
+        white-space: pre-line;
+    }
+    // Hide following hints when showing error
+    &+span {
+        display: none;
+    }
+}
+
+@mixin busy-spinner--field {
+    margin-left: auto;
+
+    .table-cell & {
+        position: absolute;
+        right: 8px;
+    }
+}
+
+@mixin busy-spinner--button {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+    right: -5px;
+
+    ::ng-deep circle {
+        stroke: #FFF;
+    }
+}
+
+@mixin action-menu {
+    position: absolute;
+    right: 2px;
+    z-index: 1;
+
+    :host-context(.base-table) & {
+        right: -1px;
+        top: 0;
+    }
+
+    :host-context(.base-table.compact-mode) & {
+        right: -2px;
+    }
+}
+
+@mixin field-error-icon {
+    color: colors.$error;
+    margin-left: 4px;
+}

@@ -1,0 +1,31 @@
+$component-height: 80px;
+$message-viewer-height: 40px;
+$base-margin: 6px;
+$slim-margin: 4px;
+$super-slim-margin: 2px;
+// Cards
+$card-padding: 16px 20px 12px;
+
+// Fonts
+$oas-font-normal: "Scania Sans Condensed";
+$oas-font-normal-monospace: "Scania Sans Condensed Monospaced Digits";
+$oas-font: $oas-font-normal-monospace, $oas-font-normal, "Helvetica Neue", Helvetica, Arial, sans-serif;
+$oas-base-font-size: 14px;
+
+$input-message-font-size: 13px;
+$input-title-font-size: 13px;
+
+$auto-complete-value-size: 14px;
+$auto-complete-complement-size: 13px;
+
+$fa-icon-base-size: 16px;
+
+$custom-scrollbar-width: 10px;
+$custom-scrollbar-width-hover: 10px;
+
+@function margin($exponent: 1) {
+    @return $base-margin * $exponent;
+}
+@function padding($exponent: 1) {
+    @return $base-margin * $exponent;
+}

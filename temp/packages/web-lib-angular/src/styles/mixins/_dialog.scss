@@ -1,0 +1,66 @@
+@use './colors';
+@use './constants';
+
+
+@mixin custom-dialog-title {
+    margin: 0;
+    padding: 10px 24px;
+    background: colors.$primary;
+    color: #fff;
+    flex: 0 0 52px;
+
+    mat-icon {
+        vertical-align: middle;
+        margin-right: constants.margin(1);
+    }
+}
+
+@mixin custom-dialog-content() {
+    margin: 0;
+    flex: 1 1 auto;
+    overscroll-behavior: none;
+    position: relative;
+    max-height: none;
+    overflow: hidden;
+}
+
+@mixin custom-dialog-actions() {
+    flex: 0 0 42px;
+    justify-content: flex-end;
+    padding: constants.padding(1) constants.padding(3) constants.padding(1) constants.padding(1);
+    margin: 0;
+
+    button:not(:first-child) {
+        margin-left: 8px;
+    }
+
+    .align-left {
+        margin-right: 0;
+    }
+
+    .align-left-last {
+        margin-right: auto;
+    }
+}
+
+@mixin custom-dialog {
+    [mat-dialog-title] {
+       @include custom-dialog-title;
+    }
+
+    [mat-dialog-content] {
+        @include custom-dialog-content;
+    }
+
+    [mat-dialog-actions] {
+        @include custom-dialog-actions;
+    }
+}
+
+@mixin dialog-container {
+    height: 70vh;
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    margin: -24px;
+}

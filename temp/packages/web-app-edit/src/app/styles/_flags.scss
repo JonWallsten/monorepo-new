@@ -1,0 +1,18 @@
+@use '@oas/web-lib-angular/src/styles/mixins/colors';
+
+@mixin base-flags() {
+    &.flag--error, &.flag--alert {
+        background: colors.$error;
+        color: #fff;
+    }
+
+    &.flag--warning, &.flag--warn {
+        background: colors.$warning;
+        color: #fff;
+    }
+
+    &.flag--info {
+        background: colors.$info;
+        color: #fff;
+    }
+}

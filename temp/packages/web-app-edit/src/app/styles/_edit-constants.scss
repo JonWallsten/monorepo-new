@@ -1,0 +1,11 @@
+@use '@oas/web-lib-angular/src/styles/mixins/colors';
+
+$footer-background: colors.$grey-150;
+$footer-height: 40px;
+
+$message-viewer-settings-font-size: 12px;
+$message-viewer-settings-border-size: 1px;
+$message-viewer-settings-wrapper-height: 32px;
+$message-viewer-settings-inner-height: 24px;
+$message-viewer-settings-background: colors.$grey-75;
+$message-viewer-settings-border-color: colors.$grey-400;

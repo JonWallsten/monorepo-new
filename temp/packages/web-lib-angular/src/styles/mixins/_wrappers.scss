@@ -1,0 +1,230 @@
+@use '@angular/material' as mat;
+@use './constants';
+@use './colors';
+@use './common';
+@use '@angular/material/theming';
+
+@mixin component-wrapper {
+    padding: 6px 10px 2px;
+    position: relative;
+    border: 1px solid transparent;
+    border-radius: 0;
+    outline: none;
+    box-sizing: border-box;
+    border: 2px solid transparent;
+
+    &.table-cell {
+        padding: 2px 2px 2px;
+
+        :host-context(.font-size-small) & {
+            padding: 2px constants.$super-slim-margin 1px;
+        }
+    }
+
+    &.table-cell.compact-mode {
+        :host-context(.font-size-small) & {
+            padding: 1px constants.$super-slim-margin 1px;
+        }
+    }
+
+    &:not(.table-cell).disabled {
+        opacity: 0.7;
+    }
+
+    h3 {
+        color: #606060;
+        font-size: constants.$input-title-font-size;
+        position: relative;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+
+
+        .title {
+            @include common.ellipsis;
+        }
+
+        .prefix-icon {
+            color: colors.$oas-grey-small;
+        }
+
+        .title-required {
+            font-size: constants.$input-title-font-size;
+            line-height: 1.1;
+            padding-left: 2px;
+        }
+
+        .field-icon {
+            margin-left: 4px;
+        }
+    }
+
+    &.actions-menu-available h3 {
+        padding-right: constants.margin(2);
+    }
+
+    &.wrapper-active {
+        border-color: colors.$blue-500;
+    }
+
+    &.wrapper-expanded:not(.wrapper-standalone).allow-overflow {
+        z-index: 4;
+        width: 100%;
+        position: absolute;
+        // We need a background color for this expandend wrapper since it might cover other elements and would otherwise be transparent
+        // Note: When field is highlighted we already have a background color
+        &.wrapper-expanded:not(.highlighted) {
+            background-color: colors.$white;
+        }
+    }
+
+    &.wrapper-standalone {
+        background: #fff;
+        position: relative;
+        border: none;
+    }
+
+    &.component-wrapper--expanded {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 10;
+        overflow: auto;
+
+    }
+
+    .left-aligned-field-icons {
+        margin-right: 4px;
+        position: absolute;
+        top: 0;
+        z-index: 1;
+
+        .field-icon:not(:last-child) {
+            margin-right: 4px;
+        }
+        // Hide if no icons are shown
+        &:empty {
+            display: none;
+        }
+    }
+
+    .right-aligned-field-icons {
+        margin-left: 4px;
+        position: absolute;
+        top: 0;
+        right: 15px;
+        z-index: 1;
+        align-items: center;
+        display: flex;
+
+        .field-icon:not(:first-child) {
+            margin-left: 4px;
+        }
+        // Hide if no icons are shown
+        &:empty {
+            display: none;
+        }
+    }
+
+    .has-relation {
+        padding: 2px;
+    }
+
+    .has-negative-condition {
+        width: 18px;
+        height: 18px;
+    }
+
+    .broken-reference {
+        color: colors.$text-complementary;
+    }
+
+    .unauthorized {
+        color: colors.$oas-grey-small;
+    }
+
+    ::ng-deep .has-condition.tableCell {
+        margin-top: -2px !important;
+        padding: 2px;
+    }
+
+    ::ng-deep .has-condition:not(.tableCell) {
+        height: 20px;
+        width: 20px;
+        margin-top: -6px;
+        position: relative;
+        top: 4px;
+    }
+}
+
+@mixin section-header {
+    // Materials selectors are more specific so we need to add mat-expansion-panel-header class
+    &.mat-expansion-panel-header {
+        background: colors.$edit-light-gray;
+        border-top: 1px solid colors.$grey-300;
+        border-bottom: 1px solid colors.$grey-300;
+        will-change: height;
+    }
+
+    &.mat-expansion-panel-header:hover {
+        background: colors.$grey-100;
+    }
+
+    &.mat-expansion-panel-header.expanded {
+        margin-bottom: constants.margin(2);
+    }
+
+    &.mat-expansion-panel-header.header-selected {
+        background: colors.$edit-light-gray;
+    }
+}
+
+@mixin expanded-wrapper {
+    position: relative;
+    display: block;
+
+    &.full-width {
+        width: 100%;
+    }
+
+    &.expanded-wrapper--active {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 7;
+        background: #FFF;
+
+        &.expanded-wrapper--container {
+            position: absolute;
+        }
+
+        &:not(.expanded-wrapper--container) .scroll-wrapper {
+            overflow-x: auto;
+        }
+
+        &:not(.expanded-wrapper--container) .wrapper--overflow {
+            overflow-y: scroll;
+        }
+
+        .scroll-wrapper--infinite-scroll {
+            overflow: auto !important;
+            max-height: initial !important;
+        }
+    }
+}
+
+@mixin actions-wrapper {
+    justify-content: flex-end;
+
+    button {
+        margin-left: 8px;
+
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+}

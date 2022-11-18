@@ -1,0 +1,163 @@
+@use 'sass:math';
+@use './constants';
+
+@mixin grid {
+    display: grid;
+}
+
+@mixin grid--1col {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+@mixin grid--2col {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+@mixin grid--4col {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+}
+
+@mixin grid-column--2span {
+    grid-column: span 2;
+}
+
+@mixin grid-column--4span {
+    grid-column: span 4;
+}
+
+@mixin grid--gap2v {
+    gap: 2px 2px;
+}
+
+@mixin grid--gap10v {
+    gap: 10px 4px;
+}
+
+@mixin flex-item--wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: relative;
+    // margin: 0 - $base-margin;
+}
+
+@mixin flex-item--padding {
+    padding: 0 constants.margin(2);
+}
+
+@mixin flex-item--start {
+    justify-content: flex-start;
+}
+
+@mixin flex-item--space {
+    justify-content: space-between;
+}
+
+@mixin flex-item--end {
+    justify-content: flex-end;
+}
+
+@mixin flex-item--wrap {
+    flex-wrap: wrap;
+}
+
+@mixin flex-item--strict {
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+@mixin flex-item--flow {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+@mixin flex-item--4of4 {
+    flex: 0 1 100%;
+}
+
+@mixin flex-item--2of4 {
+    flex: 0 1 50%;
+}
+
+@mixin flex-item--1of4 {
+    flex: 0 1 25%;
+}
+
+.grid {
+    @include grid;
+
+    &--1col {
+        @include grid--1col;
+    }
+
+    &--2col {
+        @include grid--2col;
+    }
+
+    &--4col {
+        @include grid--4col;
+    }
+
+    &-column--2span {
+        @include grid-column--2span;
+    }
+
+    &-column--4span {
+        @include grid-column--4span;
+    }
+
+    &--gap2v {
+        @include grid--gap2v
+    }
+
+    &--gap10v {
+        @include grid--gap10v
+    }
+}
+
+.flex-item {
+    &--wrapper {
+        @include flex-item--wrapper;
+    }
+
+    &--padding {
+        @include flex-item--padding;
+    }
+
+    &--start {
+        @include flex-item--start;
+    }
+
+    &--space {
+        @include flex-item--space;
+    }
+
+    &--end {
+        @include flex-item--end;
+    }
+
+    &--wrap {
+        @include flex-item--wrap;
+    }
+
+    &--strict {
+        @include flex-item--strict;
+    }
+
+    &--flow {
+        @include flex-item--flow;
+    }
+
+    &--4of4 {
+        @include flex-item--4of4;
+    }
+
+    &--2of4 {
+        @include flex-item--2of4;
+    }
+
+    &--1of4 {
+        @include flex-item--1of4;
+    }
+}

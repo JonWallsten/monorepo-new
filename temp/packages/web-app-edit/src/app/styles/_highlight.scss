@@ -1,0 +1,33 @@
+@use '@oas/web-lib-angular/src/styles/mixins/colors';
+
+.wrapper.dimmed:not(.wrapper-active) {
+    opacity: .75;
+}
+
+// Default highlight
+.wrapper.highlighted {
+
+    // Mandatory mode
+    &.highlighted--mandatory {
+        background: #E4EEDC;
+    }
+
+     // Active row condition row
+     &.highlighted--active-condition-editor {
+        background: #D3F0D3;
+    }
+
+    // Jump to field highlight
+    &.highlighted--filter {
+        background: #FDF2D0;
+    }
+
+    // Multi select highlight
+    &.highlighted--multi-select {
+        background: #DFEBF6;
+    }
+
+    &.highlighted--error {
+        background: #ffdddd;
+    }
+}

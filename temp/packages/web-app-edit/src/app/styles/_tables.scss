@@ -1,0 +1,172 @@
+@use 'sass:color';
+@use '@oas/web-lib-angular/src/styles/mixins/constants';
+@use '@oas/web-lib-angular/src/styles/mixins/colors';
+
+@mixin base-table {
+    border: 2px solid colors.$oas-table-border-color;
+
+    ::ng-deep .single-table-section & {
+        border: 0;
+    }
+
+    .table-header-cell {
+        border-bottom: 1px solid colors.$grey-300;
+        background: colors.$grey-75;
+        position: sticky;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        height: 42px;
+
+        // Make sure the "active" cell has higher index, or the "more info" component will end up below the neighbouring cell
+        &:hover {
+            z-index: 3;
+            background: colors.$grey-200;
+        }
+
+        &.table-header-cell--tool-cell {
+            justify-content: center;
+            box-sizing: border-box;
+        }
+    }
+
+    .scroll-wrapper--infinite-scroll .table-header-cell {
+        position: initial;
+    }
+
+    .toggle-expanded-mode-button {
+        border: 1px solid #ddd;
+        padding: 0;
+        min-width: 34px;
+        line-height: 32px;
+    }
+
+    .grid-row {
+        /* autoprefixer: ignore next */
+        display: contents;
+    }
+
+    &.compact-mode .grid-row:not(.grid-header-row) {
+        border-bottom: 0;
+    }
+
+    .grid-row:not(:last-child) .grid-cell {
+        border-bottom: 1px solid colors.$grey-100;
+    }
+
+    .grid-row:not(:last-child) .grid-cell.table-header-cell {
+        border-bottom-color: colors.$grey-300;
+    }
+
+    .striped-row-odd > .grid-cell {
+        background: colors.$grey-50;
+    }
+
+    .striped-row-even > .grid-cell {
+        background: colors.$white;
+    }
+
+    .striped-row-odd.selected-row > .tool-cell {
+        background: colors.$oas-table-color-selected-row-odd;
+    }
+
+    .striped-row-even.selected-row > .tool-cell {
+        background: colors.$oas-table-color-selected-row-even;
+    }
+}
+
+@mixin table-header-cell--sticky {
+    top: 0;
+    position: sticky;
+}
+
+@mixin no-table-rows {
+    grid-row: 2;
+    grid-column: 2;
+    padding: 12px 18px;
+}
+
+@mixin scroll-wrapper {
+    ::ng-deep .mat-dialog-container & {
+        overscroll-behavior: none;
+    }
+}
+
+@mixin scroll-wrapper--infinite-scroll {
+    position: relative;
+    will-change: scroll-position;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        width: 0;
+    }
+}
+
+@mixin tools-row {
+    background: colors.$grey-75;
+    padding: constants.padding(1);
+    bottom: 0;
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid colors.$grey-300;
+    box-sizing: border-box;
+
+    pagination:empty {
+        display: none;
+    }
+
+    button:not(:last-child) {
+        margin-right: constants.margin(2);
+    }
+
+    .expanded-wrapper--active & {
+        border-bottom: 1px solid colors.$grey-300;
+        position: initial;
+    }
+
+    // Sticky is not needed when we use infinite scroll
+    .scroll-wrapper--infinite-scroll + & {
+        position: initial;
+        border-bottom: 0;
+    }
+
+    .tools-buttons {
+        text-align: left;
+    }
+
+    .selected-rows-label {
+        text-align: right;
+    }
+}
+
+@mixin tool-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .font-size-small &.tool-cell--menu .row-menu-button {
+        height: 24px;
+        width: 24px;
+        line-height: 24px;
+    }
+}
+
+@mixin empty-cell {
+    display: block;
+    width: 100%;
+    padding: 4px 4px 2px;
+    border-radius: 3px;
+    outline: none;
+    box-sizing: border-box;
+
+    &:empty::before {
+        content: '\00a0'
+    }
+
+    &:focus, &:active, &.active-element {
+        background: #e6ecf0;
+        border: 1px solid #cddde6;
+    }
+}

@@ -1,0 +1,12 @@
+// Z-index layers
+$components: 0;
+$componentSpinner: 200;
+// Angular modals/menus/etc for editor 1000
+$floatingToolbars: 1100;
+$editorSpinner: 1200;
+$editorFatalDialog: 1300;
+$editorContainerFooter: 1500;
+// Angular modals/menus/etc for editorContainer 2000
+// Angular modals/menus/etc for app 3000
+$applicationSpinner: 3500;
+$toastMessages: 5000;

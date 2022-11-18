@@ -1,0 +1,20 @@
+[hidden]:not([hidden="false"]) {
+    display: none !important;
+}
+
+.dialog--hidden {
+    display: none;
+}
+
+.oas-print-hidden {
+    @media print {
+        display: none !important;
+    }
+}
+
+.oas-print-only {
+    display: none !important;
+    @media print {
+        display: block !important;
+    }
+}

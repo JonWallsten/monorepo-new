@@ -1,0 +1,109 @@
+@use '@angular/material' as mat;
+@use 'mixins/constants';
+@use 'mixins/colors';
+@include mat.core();
+
+$dark-primary-text: rgba(black, 0.87);
+$light-primary-text: white;
+
+$oas-primary: (
+    50: colors.$blue-50,
+    100: colors.$blue-100,
+    200: colors.$blue-200,
+    300: colors.$blue-300,
+    //submit -- Accent
+    400: colors.$blue-400,
+    //info
+    500: colors.$blue-500,
+    //primary -- Primary
+    600: colors.$blue-600,
+    //hover
+    700: colors.$blue-700,
+    //warning
+    800: colors.$blue-800,
+    //Error -- Warn
+    900: colors.$blue-900,
+    A100: #ff8a80,
+    A200: #ff5252,
+    A400: #ff1744,
+    A700: #9e2b22,
+    //error
+        contrast:
+        (
+            50: $dark-primary-text,
+            100: $dark-primary-text,
+            200: $dark-primary-text,
+            300: $light-primary-text,
+            400: $light-primary-text,
+            401: $light-primary-text,
+            402: $light-primary-text,
+            403: $light-primary-text,
+            500: $light-primary-text,
+            600: $light-primary-text,
+            700: $light-primary-text,
+            800: $light-primary-text,
+            900: $light-primary-text,
+            A100: $dark-primary-text,
+            A200: $light-primary-text,
+            A400: $light-primary-text,
+            A700: $light-primary-text
+        )
+);
+
+$oas-warn: (
+    50: colors.$red-50,
+    100: colors.$red-100,
+    200: colors.$red-200,
+    300: colors.$red-300,
+    400: colors.$red-400,
+    500: colors.$red-500,
+    600: colors.$red-600,
+    700: colors.$red-700,
+    800: colors.$red-800,
+    900: colors.$red-900,
+    A100: #ff8a80,
+    A200: #ff5252,
+    A400: #ff1744,
+    A700: #9e2b22,
+        contrast:
+        (
+            50: $dark-primary-text,
+            100: $dark-primary-text,
+            200: $dark-primary-text,
+            300: $light-primary-text,
+            400: $light-primary-text,
+            401: $light-primary-text,
+            402: $light-primary-text,
+            403: $light-primary-text,
+            500: $light-primary-text,
+            600: $light-primary-text,
+            700: $light-primary-text,
+            800: $light-primary-text,
+            900: $light-primary-text,
+            A100: $dark-primary-text,
+            A200: $light-primary-text,
+            A400: $light-primary-text,
+            A700: $light-primary-text
+        )
+);
+
+$custom-theme-primary: mat.define-palette($oas-primary, 600, 700, 500);
+$custom-theme-accent: mat.define-palette($oas-primary, 400, 500, 300);
+$custom-theme-warn: mat.define-palette($oas-warn, 500, 600, 400);
+
+// Create theme
+$custom-typography: mat.define-typography-config(
+  $font-family: constants.$oas-font
+);
+
+$custom-theme: mat.define-light-theme((
+    color: (
+        primary: $custom-theme-primary,
+        accent: $custom-theme-accent,
+        warn: $custom-theme-warn
+    ),
+    density: 0,
+    typography: $custom-typography
+));
+
+@include mat.all-component-themes($custom-theme);

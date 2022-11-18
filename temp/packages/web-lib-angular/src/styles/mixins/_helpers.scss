@@ -1,0 +1,5 @@
+@use 'sass:math';
+
+@function font-size($base-size, $percent: 100) {
+    @return math.round($base-size * math.div($percent, 100));
+}

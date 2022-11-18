@@ -1,0 +1,56 @@
+@use 'mixins/colors';
+
+.mat-button-base.mat-primary {
+    background: colors.$blue-600;
+    border: 1px solid transparent;
+
+    &:hover {
+        background: colors.$blue-500;
+    }
+
+    &:focus {
+        background: colors.$blue-400;
+        border: 1px solid colors.$blue-600;
+    }
+
+    &:active {
+        background: colors.$blue-700;
+    }
+
+    &:disabled {
+        background: colors.$grey-50;
+        color: colors.$grey-400;
+    }
+
+    .mat-button-focus-overlay {
+        display: none;
+    }
+}
+
+.mat-menu-panel .mat-menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .shortcut {
+        font-size: 12px;
+        color: colors.$text-complementary;
+        margin-left: 1em;
+        // Thi is needed for text-transform: capitalize; to work
+        display: inline-block;
+    }
+
+    // When button is diabled we also change color for the shortcut
+    &[disabled] .shortcut {
+        color: rgba(0, 0, 0, 0.38);
+    }
+}
+
+
+.has-icon .mat-button-wrapper {
+    height: 36px;
+    display: flex;
+    white-space: pre;
+    align-items: center;
+    line-height: normal;
+}
