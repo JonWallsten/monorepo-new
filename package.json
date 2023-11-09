@@ -83,7 +83,7 @@
     "bump-version": "0.5.0",
     "chalk": "^4.1.2",
     "chrome-remote-interface": "0.31.1",
-    "chromedriver": "95.0.0",
+    "chromedriver": "119.0.1",
     "copy-webpack-plugin": "10.2.3",
     "cross-env": "7.0.3",
     "css-loader": "6.5.1",
